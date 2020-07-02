@@ -43,6 +43,7 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 
 * User can view a more curated suggestions list based off of their entire watched list and its internal ratings.
 * User can get an automatic comparison of watched/ watch next lists with other users. e.g 'You and User2 have both watched The Office'
+* The app will ask user 'Have you watched [this suggested movie] based on [this movie on your watched list]?'
 * User can suggest movie/TV show to another specific user.
 * User can mark what streaming platform they watched the movie/TV show on (if applicable).
 * Users can talk about a specific movie/TV show in a spoilers section.
