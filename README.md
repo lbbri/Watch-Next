@@ -91,6 +91,7 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 
 ## Wireframes
 07 July 2020
+
 <img src="https://github.com/lbbri/Watch-Next/blob/master/wirefram_1.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
