@@ -108,7 +108,65 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+Model: User
+
+
+| Property      | Type          | Description  |
+| ------------- |:-------------:| -----|
+| email     | String | User’s email they used to sign up and log in |
+| password      | String      |   User’s password they used to sign up and login |
+| profilePicture      | File      |   User's profile picture |
+| watchedMovies	| Array of Pointers to Movie | List of movies a user has signified as watched
+| watchNextMovies |	Array of Pointers to Movie	| List of movies the user has signified as watchNext
+| suggestedMovies	| Array of Pointers to Movie 	| List of movies that the app has deemed suggestible to the user
+| watchedShows	| Array of Pointers to Show	| List of shows a user has signified as watched
+| watchNextShows |	Array of Pointers to Show | List of shows the user has signified as watchNext
+| suggestedShows |	Array of Pointers to Show	| List of shows that the app has deemed suggestible to the user
+
+
+
+Model: Movie
+
+
+| Property      | Type          | Description  |
+| ------------- |:-------------:| -----|
+| title     | String | Movie's title |
+| cRating |	String |	Movie’s censorship rating
+| yearReleased |	DateTime	| The year the movie was release
+| description |	String	| A synopsis of the movie and it’s plot
+| watched	| BOOL	| Specifies if a USER has signified that the movie was watched.
+| userRating |	Pointer | to Rating	User input for movie.
+| watchCount |	Number	| Specifies how many USERs have watched this movie.
+
+
+
+Model: TV Show
+
+
+| Property      | Type          | Description  |
+| ------------- |:-------------:| -----|
+| title     | String | Show's title |
+| cRating |	String |	Show’s censorship rating
+| seasons |	Number	| The number of seasons a show has
+| description |	String	| A synopsis of the show and it’s plot
+| watched	| BOOL	| Specifies if a USER has signified that the show was watched.
+| userRating |	Pointer | to Rating	User input for show.
+| watchCount |	Number	| Specifies how many USERs have watched this show.
+
+
+
+Model: Rating
+
+
+| Property      | Type          | Description  |
+| ------------- |:-------------:| -----|
+| stars     | Number | User rating of show on a scale of (1-5) |
+| wouldWatchAgain |	BOOL |	Specifies if a USER has selected that they would or would not watch this show again.
+
+
+
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
