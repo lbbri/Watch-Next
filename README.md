@@ -101,13 +101,10 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 <img src="IMG-9460.jpg" width=600> <img src="IMG-9461.jpg" width=600> <img src="IMG-9462.jpg" width=600> <img src="IMG-9463.jpg" width=600> 
 
 
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
-
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
+
 Model: User
 
 
@@ -117,9 +114,9 @@ Model: User
 | password      | String      |   User’s password they used to sign up and login |
 | profilePicture      | File      |   User's profile picture |
 | watchedMovies	| Array of Pointers to Movie | List of movies a user has signified as watched
-| watchNextMovies |	Array of Pointers to Movie	| List of movies the user has signified as watchNext
+| watchNextMovies |	Array of Pointers to Movie| List of movies the user has signified as watchNext
 | suggestedMovies	| Array of Pointers to Movie 	| List of movies that the app has deemed suggestible to the user
-| watchedShows	| Array of Pointers to Show	| List of shows a user has signified as watched
+| watchedShows	| Array of Pointers to Show 	| List of shows a user has signified as watched
 | watchNextShows |	Array of Pointers to Show | List of shows the user has signified as watchNext
 | suggestedShows |	Array of Pointers to Show	| List of shows that the app has deemed suggestible to the user
 
@@ -162,12 +159,221 @@ Model: Rating
 | ------------- |:-------------:| -----|
 | stars     | Number | User rating of show on a scale of (1-5) |
 | wouldWatchAgain |	BOOL |	Specifies if a USER has selected that they would or would not watch this show again.
+| author     | Relation <User> | Rating's creator|
+| movie     | Relation <Movie> | movie that was rated |
+| show     | Relation <TV Show> | tv show that was rated |
 
 
 
+## Network Requests and Code Snippets
+
+### Login Screen
+
+   - (Read/GET) Query user where username and password match the user input.
+   
+```
+NSString *username = self.usernameField.text;
+NSString *password = self.passwordField.text;
+
+[PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+
+            if (error != nil){
+            
+                alert.message = error.localizedDescription;
+                
+                [self presentViewController:alert animated:YES completion:^{
+                
+                    }];  
+                    
+            }
+            
+            else{
+            
+                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                
+            }
+        }];
+
+```
+### Sign Up Screen
+   
+   - (Create/POST) Creating a new user.
+
+```
+NSString *username = self.usernameField.text;
+
+NSString *password = self.passwordField.text;
 
 
-### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
+[newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+
+           if (error != nil){
+           
+               alert.message = error.localizedDescription;
+               
+               [self presentViewController:alert animated:YES completion:^{
+               
+               }];
+               
+           }
+           
+           else{
+           
+               [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+               
+           }
+           
+        }];
+```
+
+### User Screen
+
+   - (Read/GET) Query user properties for current user. (Watch Next and Watched)
+   
+```
+    PFQuery *userQuery = [User query];
+    
+    [postQuery orderByDescending:@"createdAt"];
+    
+    [postQuery includeKey:@“watchNextMovies”];
+    
+    [postQuery includeKey:@“watchedMovies”];
+    
+    [postQuery includeKey:@“watchNextShows”];
+    
+    [postQuery includeKey:@“watchedShows”];
+    
+
+    [postQuery findObjectsInBackgroundWithBlock:^(NSArray User* _Nullable user, NSError * _Nullable error) {
+    
+        if(user)
+        
+        {
+        }
+
+
+    }];
+```
+
+### Movie/ TV Show Screen
+
+   - (Read/GET) Search if the the movie/TV show is already marked as watched and rated.
+    
+```   
+PFQuery *query [PFQuery queryWithClassName: @“Ratings”];
+
+[query whereKey: @“author” equalTo: [PFUser currentUser]];
+
+[query whereKey: @“movie” equalTo: selectedMovie];
+
+
+[query findObjectsInBackgroundWithBlock:^(NSArray *ratings, NSError *error) {
+
+    if(ratings){
+    
+	       for(PFObject *o in objects) 
+         {
+         
+             PFObject *starRating = [o objectForKey: @“stars”];
+             
+             BOOL *watchAgain = [o objectForKey: @“watchAgain”];
+             
+          }
+          
+    }
+    
+    else
+    {   // the user has not marked this movie as watched }
+
+   
+}];
+```
+
+   - (Read/GET) Search if the the movie/TV show is already marked as Watch Next.
+    
+```
+PFRelation *relation2 = [watcher relationFOrKey:@“watchNextMovies”]
+
+PFQuery *query2 = [relation query2];
+
+[query2 whereKey: @“movie” equalTo: selectedMovie];
+
+
+
+[query2 findObjectsInBackgroundWithBlock:^(NSArray User* _Nullable user, NSError * _Nullable error) {
+
+        if(user)
+        
+        {
+        }
+        
+
+    }];
+```
+
+
+Creating a Rating
+
+   - (Update/PUT) Add to the user Watched List. (Repeat for TV Shows)
+
+```
+PFUser *user = [PFUser currentUser];
+
+PFRelation *relation = [user relationForKey:@“watchedMovies”];
+
+[relation addObject: selectedMovie];
+
+[user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+
+}];
+
+```
+
+  - (Create/POST) Create a Ratings object for the Watched Movie.  (Repeat for TV Shows)
+    
+```
+ (void) addToWatched ( PFObject * _Nullable)movie  withCompletion: (PFBooleanResultBlock _Nullable)completion{
+    
+    Rating *newRating = [Rating new];
+    
+    newRating.stars = 
+    
+    newRating.author = [PFUser currentUser];
+    
+    newRating.movie = 
+    
+    newShow.show = 
+    
+    newPost.watchAgain = 
+    
+    
+    [newRating saveInBackgroundWithBlock:completion];
+
+    PFRelation *relation = [user relationForKey:@“watchedMovies”];
+    
+    [relation addObject: movie];
+
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    
+     }];
+   
+
+}
+```
+
+### Settings Screen
+
+   - Logging current user out. 
+   
+```
+[PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+
+        //current user is now nil
+        
+    }];
+    
+```   
+   - (Update/PUT) Change current user's profile picture.
+ 
+
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
