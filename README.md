@@ -33,15 +33,17 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 * User can search for movie/TV show Title and get correct results.
 * User can mark a movie/TV show as watched.
 * User can mark a movie/TV show as watch next.
-* User can rate thier watched movies/TV shows on a scale of 1 to 10.
+* User can rate their watched movies/TV shows on a scale of 1 to 5 stars.
 * User can mark watched movie/TV show as 'would/wouldn't watch again.'
 * User can see suggested movies/TV shows based off of a specific watched movie/TV show.
 * User can view their Watched/ Watch Next Lists.
-* User can view another user's watched list. 
+* User can view a more curated suggestions list based off of their entire watched list and its internal ratings. (complex algorithm implementation)
+
 
 **Optional Nice-to-have Stories**
 
 * User can view a more curated suggestions list based off of their entire watched list and its internal ratings.
+* User can view another user's watched list. 
 * User can get an automatic comparison of watched/ watch next lists with other users. e.g 'You and User2 have both watched The Office'
 * The app will ask user 'Have you watched [this suggested movie] based on [this movie on your watched list]?'
 * User can suggest movie/TV show to another specific user.
@@ -60,12 +62,12 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
    * User can search for movie/TV show Title and get correct results.
 * Movie/TV Screen
    * User can mark a movie/TV show as watched.
-    * User can mark a movie/TV show as watch next.
-    * User can rate thier watched movies/TV shows on a scale of 1 to 10.
-    * User can mark watched movie/TV show as 'would/wouldn't watch again.'
-    * User can see suggested movies/TV shows based off of a specific watched movie/TV show.
+   * User can mark a movie/TV show as watch next.
+   * User can rate thier watched movies/TV shows on a scale of 1 to 5 stars.
+   * User can mark watched movie/TV show as 'would/wouldn't watch again.'
+   * User can see suggested movies/TV shows based off of a specific watched movie/TV show.
 * User Proile Screen
-   * User can view their Watched/ Watch Next Lists.
+   * User can view their Watched/ Watch Next/ Suggested Lists.
 
   
 
@@ -81,13 +83,14 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 
 * Home
    * Movies/TV
-   * Log Out
 * Search
    * Movies/TV
    * [optional user story: see Other User Profiles]
 * User Profile
     * Watched  > Movies/TV
     * Watch Next  > Movies/TV
+    * Settings
+
 
 ## Wireframes
 07 July 2020
