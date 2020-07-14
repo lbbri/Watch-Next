@@ -208,6 +208,7 @@
                                         <size key="customSize" width="172" height="220"/>
                                         <connections>
                                             <outlet property="testingLabel" destination="bFr-uw-fNB" id="r8k-N0-Vra"/>
+                                            <segue destination="EXW-6u-6nW" kind="presentation" id="rrg-0j-MUH"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -302,6 +303,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DfK-Sh-KtW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2950.7246376811595" y="-188.16964285714286"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Cvw-h3-sMS">
+            <objects>
+                <viewController id="EXW-6u-6nW" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uk9-Zn-j5w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Finding Nemo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEi-aI-BRZ">
+                                <rect key="frame" x="124" y="431" width="166" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Qjq-h9-RnB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Geo-J5-RrN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1996" y="1205"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
