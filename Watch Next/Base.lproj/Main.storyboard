@@ -11,7 +11,7 @@
         <!--Log In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LogInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LogInViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +187,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="BSg-s6-yKV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="n7M-vM-7Xp"/>
+                    <navigationItem key="navigationItem" id="n7M-vM-7Xp">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="g1R-K9-J82">
+                            <connections>
+                                <segue destination="QVc-yU-7AF" kind="show" id="BLc-xg-4qO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RAa-xd-SdZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -352,10 +358,40 @@
             </objects>
             <point key="canvasLocation" x="1996" y="1205"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="nHA-gK-M3a">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="QVc-yU-7AF" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="n4u-sg-ofe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOP-e5-m3b">
+                                <rect key="frame" x="52" y="693" width="311" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapLogout:" destination="QVc-yU-7AF" eventType="touchUpInside" id="bo0-mk-HAq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2Ce-9K-8hx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Bc3-51-vYv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="khU-7a-IX8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3695.652173913044" y="491.51785714285711"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="OG6-C7-Gsc"/>
-        <segue reference="Bgt-6p-HeZ"/>
+        <segue reference="sar-WW-e4X"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
