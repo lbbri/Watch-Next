@@ -113,45 +113,16 @@ Model: User
 
 | Property      | Type          | Description  |
 | ------------- |:-------------:| -----|
+| object ID | String | unique user id created by Parse |
 | email     | String | User’s email they used to sign up and log in |
+| username     | String | User’s chosen username |
 | password      | String      |   User’s password they used to sign up and login |
 | profilePicture      | File      |   User's profile picture |
-| watchedMovies	| Array of Pointers to Movie | List of movies a user has signified as watched
-| watchNextMovies |	Array of Pointers to Movie| List of movies the user has signified as watchNext
-| suggestedMovies	| Array of Pointers to Movie 	| List of movies that the app has deemed suggestible to the user
-| watchedShows	| Array of Pointers to Show 	| List of shows a user has signified as watched
-| watchNextShows |	Array of Pointers to Show | List of shows the user has signified as watchNext
-| suggestedShows |	Array of Pointers to Show	| List of shows that the app has deemed suggestible to the user
+| watched	| Relation <Ratings> | List of movies/tv shows a user has marked as watched
+| watchNextMovies | Relation <Ratings>  | List of movies/tv shows the user has marked as watchNext
+| ?suggestedShows? |	?? | List of shows that the app has deemed suggestible to the user
 
 
-
-Model: Movie
-
-
-| Property      | Type          | Description  |
-| ------------- |:-------------:| -----|
-| title     | String | Movie's title |
-| cRating |	String |	Movie’s censorship rating
-| yearReleased |	DateTime	| The year the movie was release
-| description |	String	| A synopsis of the movie and it’s plot
-| watched	| BOOL	| Specifies if a USER has signified that the movie was watched.
-| userRating |	Pointer | to Rating	User input for movie.
-| watchCount |	Number	| Specifies how many USERs have watched this movie.
-
-
-
-Model: TV Show
-
-
-| Property      | Type          | Description  |
-| ------------- |:-------------:| -----|
-| title     | String | Show's title |
-| cRating |	String |	Show’s censorship rating
-| seasons |	Number	| The number of seasons a show has
-| description |	String	| A synopsis of the show and it’s plot
-| watched	| BOOL	| Specifies if a USER has signified that the show was watched.
-| userRating |	Pointer | to Rating	User input for show.
-| watchCount |	Number	| Specifies how many USERs have watched this show.
 
 
 
@@ -160,11 +131,14 @@ Model: Rating
 
 | Property      | Type          | Description  |
 | ------------- |:-------------:| -----|
+| object ID | String | unique rating id created by Parse |
+| creator     | Pointer <User> | User that created the rating |
+| API ID     | String | The id that can be used for API calls to retrieve info about the media |
+| type     | String | Movie or TV Show |
+| watched     | BOOL | Signifies if the user creator has watched(true) the movie or added it to watch Next()|
 | stars     | Number | User rating of show on a scale of (1-5) |
 | wouldWatchAgain |	BOOL |	Specifies if a USER has selected that they would or would not watch this show again.
-| author     | Relation <User> | Rating's creator|
-| movie     | Relation <Movie> | movie that was rated |
-| show     | Relation <TV Show> | tv show that was rated |
+
 
 
 
