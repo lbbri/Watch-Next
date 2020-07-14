@@ -20,6 +20,8 @@
 		7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA6824BE0E8D00C8ECF8 /* SignUpViewController.m */; };
 		7FB2DA6C24BE103000C8ECF8 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */; };
 		7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA6E24BE11A000C8ECF8 /* MediaCollectionViewCell.m */; };
+		7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */; };
+		7FB2DA7624BE1EF200C8ECF8 /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,10 @@
 		7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		7FB2DA6D24BE11A000C8ECF8 /* MediaCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaCollectionViewCell.h; sourceTree = "<group>"; };
 		7FB2DA6E24BE11A000C8ECF8 /* MediaCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaCollectionViewCell.m; sourceTree = "<group>"; };
+		7FB2DA7124BE192800C8ECF8 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		7FB2DA7424BE1EF200C8ECF8 /* SearchResultsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewCell.h; sourceTree = "<group>"; };
+		7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +166,8 @@
 				7FB2DA6824BE0E8D00C8ECF8 /* SignUpViewController.m */,
 				7FB2DA6A24BE103000C8ECF8 /* HomeViewController.h */,
 				7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */,
+				7FB2DA7124BE192800C8ECF8 /* SearchViewController.h */,
+				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -169,6 +177,8 @@
 			children = (
 				7FB2DA6D24BE11A000C8ECF8 /* MediaCollectionViewCell.h */,
 				7FB2DA6E24BE11A000C8ECF8 /* MediaCollectionViewCell.m */,
+				7FB2DA7424BE1EF200C8ECF8 /* SearchResultsTableViewCell.h */,
+				7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,9 +317,11 @@
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
+				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
 				7FB2DA6324BE0BDC00C8ECF8 /* LogInViewController.m in Sources */,
 				7FB2DA3E24BE066500C8ECF8 /* main.m in Sources */,
 				7FB2DA6C24BE103000C8ECF8 /* HomeViewController.m in Sources */,
+				7FB2DA7624BE1EF200C8ECF8 /* SearchResultsTableViewCell.m in Sources */,
 				7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
