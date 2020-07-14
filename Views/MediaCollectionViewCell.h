@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MediaCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *testingLabel;
+@property (strong, nonatomic) IBOutlet UILabel *testingLabel2;
+
 
 
 @end

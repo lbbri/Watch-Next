@@ -7,14 +7,19 @@
 //
 
 #import "UserViewController.h"
-#import "UserPageViewController.h"
-#import "DataViewController.h"
+//#import "UserPageViewController.h"
+//#import "DataViewController.h"
+#import "MediaCollectionViewCell.h"
 
-@interface UserViewController ()
+@interface UserViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 //<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
-@property (strong, nonatomic) NSArray *data;
-@property NSInteger *currentVCIndex;
+//@property (strong, nonatomic) NSArray *data;
+//@property NSInteger *currentVCIndex;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *pageControl;
+
 
 
 @end
@@ -24,6 +29,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    
+    
+    //can also set in storyboard
+    layout.minimumInteritemSpacing = 3;
+    layout.minimumLineSpacing = 3;
+    
+    CGFloat postersPerLine = 3;
+    
+    //correctly calculates layout based on how many movies are on each row
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    
+    [self.collectionView reloadData];
+    
+    
 //    self.currentVCIndex = 0;
 //
 //    [self configurePageViewController];
@@ -31,6 +57,52 @@
     
     // Do any additional setup after loading the view.
 }
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserMediaCell" forIndexPath:indexPath];
+    
+    if(self.pageControl.selectedSegmentIndex == 0)
+    {
+        cell.testingLabel2.text = @"1";
+    }
+    else if(self.pageControl.selectedSegmentIndex == 1)
+    {
+        cell.testingLabel2.text = @"2";
+    }
+    else
+    {
+        cell.testingLabel2.text = @"3";
+    }
+
+    
+    
+    return cell;
+}
+
+//necessary function to implement UICollectionViewDataSource similar to TableView
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if(self.pageControl.selectedSegmentIndex == 0)
+    {
+        return 10;
+    }
+    else if(self.pageControl.selectedSegmentIndex == 1)
+    {
+        return 30;
+    }
+    else
+    {
+        return 40;
+    }
+    return 0;
+}
+
+- (IBAction)viewChanged:(id)sender {
+   
+    [self.collectionView reloadData];
+
+}
+
 
 
 //- (void) configurePageViewController {
