@@ -119,7 +119,7 @@ Model: User
 | password      | String      |   User’s password they used to sign up and login |
 | profilePicture      | File      |   User's profile picture |
 | watched	| Relation <Ratings> | List of movies/tv shows a user has marked as watched
-| watchNextMovies | Relation <Ratings>  | List of movies/tv shows the user has marked as watchNext
+| watchNeext | Relation <Ratings>  | List of movies/tv shows the user has marked as watchNext
 | ?suggestedShows? |	?? | List of shows that the app has deemed suggestible to the user
 
 
