@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) createWatched: (NSString *)title withType: ( NSString * _Nullable)type withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
 
++ (void) changeRating: (NSNumber *) stars forInteraction: (NSString *)objectID withCompletion:(PFBooleanResultBlock _Nullable)completion;
+
 
 @end
 

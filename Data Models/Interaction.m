@@ -71,6 +71,20 @@
     
 }
 
++ (void) changeRating: (NSNumber *) stars forInteraction: (NSString *)objectID withCompletion:(PFBooleanResultBlock _Nullable)completion {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+
+    // Retrieve the object by id
+    [query getObjectInBackgroundWithId:objectID block:^(PFObject *currentInteraction, NSError *error) {
+        
+        currentInteraction[@"stars"] = stars;
+        [currentInteraction saveInBackground];
+    }];
+    
+}
+
+
 
 
 @end

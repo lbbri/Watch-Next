@@ -13,6 +13,10 @@
 @interface MediaViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UISlider *ratingSlider;
+
+
+@property(nonatomic) BOOL wwa;
 
 
 
@@ -22,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.wwa = NO;
     // Do any additional setup after loading the view.
 }
 
@@ -63,6 +69,31 @@
         {
             NSLog(@"failure");
         }
+    }];
+    
+}
+
+- (IBAction)watchAgainTap:(id)sender {
+    
+    [sender setSelected:self.wwa];
+    
+    if(self.wwa == NO)
+    {
+        self.wwa = YES;
+    }
+    else
+    {
+        self.wwa = NO;
+    }
+    
+}
+
+- (IBAction)changeRatingSlider:(id)sender {
+    
+    NSNumber *stars = @(self.ratingSlider.value);
+    
+    [Interaction changeRating:stars forInteraction:@"NlwvsGKqsS" withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        
     }];
     
 }
