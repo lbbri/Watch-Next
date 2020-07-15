@@ -7,8 +7,12 @@
 //
 
 #import "LogInViewController.h"
+#import <Parse/Parse.h>
 
 @interface LogInViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextField *usernameField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
 
@@ -22,8 +26,55 @@
 
 - (IBAction)logInTap:(id)sender {
     
-    [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+    NSString *username = self.usernameField.text;
+    NSString *password = self.passwordField.text;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"Message" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //Doing nothing will dismiss the view.
+    }];
+    [alert addAction:tryAgainAction];
+    
+    
+    if([self.usernameField.text isEqual:@""])
+    {
+        alert.message = @"User Name cannot be empty";
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+
+    }
+    else if ([self.passwordField.text isEqual:@""])
+    {
+        alert.message = @"Password cannot be empty";
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+        
+    }
+    else
+    {
+        [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+            if (error != nil)
+            {
+                //NSLog(@"User log in failed %@", error.localizedDescription);
+                alert.message = error.localizedDescription;
+                [self presentViewController:alert animated:YES completion:^{
+                       //what happens after altert controller has finsihed presinting
+                    }];
+                
+            }
+            else
+            {
+                //NSLog(@"User logged in successfully");
+                [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+            }
+        }];
+        
+    }
+
 }
+
+
 
 /*
 #pragma mark - Navigation

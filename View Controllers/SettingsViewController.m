@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "SceneDelegate.h"
 #import "LogInViewController.h"
+#import <Parse/Parse.h>
 
 @interface SettingsViewController ()
 
@@ -29,9 +30,9 @@
     
     myDelegate.window.rootViewController = loginViewController;
     
-//    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-//        //current user is now nil
-//    }];
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        //current user is now nil
+    }];
     
 }
 

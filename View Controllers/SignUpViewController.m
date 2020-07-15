@@ -7,8 +7,13 @@
 //
 
 #import "SignUpViewController.h"
+#import <Parse/Parse.h>
+
 
 @interface SignUpViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextField *usernameField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
 
@@ -21,7 +26,53 @@
 
 - (IBAction)signUpTap:(id)sender {
     
-    [self performSegueWithIdentifier:@"signupSegue" sender:nil];
+    PFUser *newUser = [PFUser user];
+    
+    newUser.username = self.usernameField.text;
+    newUser.password = self.passwordField.text;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"Message" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //handle try agin here. Doing nothing will dismiss the view.
+    }];
+    [alert addAction:tryAgainAction];
+    
+    
+    if([self.usernameField.text isEqual:@""])
+    {
+        alert.message = @"User Name cannot be empty";
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+
+    }
+    else if ([self.passwordField.text isEqual:@""])
+    {
+        alert.message = @"Password cannot be empty";
+        [self presentViewController:alert animated:YES completion:^{
+        }];
+        
+    }
+    else
+    {
+        [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+           if (error != nil)
+           {
+               NSLog([NSString stringWithFormat:@"username: %@ and password: %@",newUser.username, newUser.password]);
+               alert.message = error.localizedDescription;
+               [self presentViewController:alert animated:YES completion:^{
+               }];
+           }
+           else
+           {
+               NSLog(@"success");
+               [self performSegueWithIdentifier:@"signupSegue" sender:nil];
+           }
+        }];
+        
+    }
+    
+    
 
 }
 

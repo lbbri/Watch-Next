@@ -68,6 +68,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="passwordField" destination="URh-U3-Z5d" id="y0E-UH-DaR"/>
+                        <outlet property="usernameField" destination="aLj-DE-k6l" id="aui-fL-cSx"/>
                         <segue destination="eak-YB-MhZ" kind="show" identifier="loginSegue" id="sar-WW-e4X"/>
                     </connections>
                 </viewController>
@@ -130,6 +132,8 @@
                         <viewLayoutGuide key="safeArea" id="ZiT-pH-nlf"/>
                     </view>
                     <connections>
+                        <outlet property="passwordField" destination="4to-eJ-37k" id="UsG-PM-Bpc"/>
+                        <outlet property="usernameField" destination="Sp0-Pp-M4w" id="6nH-pb-LXT"/>
                         <segue destination="eak-YB-MhZ" kind="show" identifier="signupSegue" id="Bgt-6p-HeZ"/>
                     </connections>
                 </viewController>
@@ -549,7 +553,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Bcy-Xf-vTn"/>
-        <segue reference="Bgt-6p-HeZ"/>
+        <segue reference="sar-WW-e4X"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="house.fill" catalog="system" width="128" height="106"/>
