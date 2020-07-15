@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,9 @@
 		7FB2DA7C24BE274B00C8ECF8 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7B24BE274B00C8ECF8 /* DataViewController.m */; };
 		7FB2DA8024BE287F00C8ECF8 /* UserPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7F24BE287F00C8ECF8 /* UserPageViewController.m */; };
 		7FB2DA8324BE28EC00C8ECF8 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */; };
+		7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */; };
+		7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8924BF64C200C8ECF8 /* Interaction.m */; };
+		7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,12 @@
 		7FB2DA7F24BE287F00C8ECF8 /* UserPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPageViewController.m; sourceTree = "<group>"; };
 		7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		7FB2DA8524BF60D200C8ECF8 /* WatchNextUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchNextUser.h; sourceTree = "<group>"; };
+		7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatchNextUser.m; sourceTree = "<group>"; };
+		7FB2DA8824BF64C200C8ECF8 /* Interaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interaction.h; sourceTree = "<group>"; };
+		7FB2DA8924BF64C200C8ECF8 /* Interaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
+		7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaViewController.h; sourceTree = "<group>"; };
+		7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
 		F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -119,6 +128,7 @@
 		7FB2DA1F24BE066300C8ECF8 = {
 			isa = PBXGroup;
 			children = (
+				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
 				7FB2DA6024BE0BB200C8ECF8 /* View Controllers */,
 				7FB2DA7024BE11A800C8ECF8 /* Views */,
 				7FB2DA2A24BE066300C8ECF8 /* Watch Next */,
@@ -143,15 +153,15 @@
 		7FB2DA2A24BE066300C8ECF8 /* Watch Next */ = {
 			isa = PBXGroup;
 			children = (
+				7FB2DA3424BE066300C8ECF8 /* Main.storyboard */,
+				7FB2DA3924BE066500C8ECF8 /* LaunchScreen.storyboard */,
 				7FB2DA2B24BE066300C8ECF8 /* AppDelegate.h */,
 				7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */,
 				7FB2DA2E24BE066300C8ECF8 /* SceneDelegate.h */,
 				7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */,
 				7FB2DA3124BE066300C8ECF8 /* ViewController.h */,
 				7FB2DA3224BE066300C8ECF8 /* ViewController.m */,
-				7FB2DA3424BE066300C8ECF8 /* Main.storyboard */,
 				7FB2DA3724BE066500C8ECF8 /* Assets.xcassets */,
-				7FB2DA3924BE066500C8ECF8 /* LaunchScreen.storyboard */,
 				7FB2DA3C24BE066500C8ECF8 /* Info.plist */,
 				7FB2DA3D24BE066500C8ECF8 /* main.m */,
 			);
@@ -185,6 +195,8 @@
 				7FB2DA6824BE0E8D00C8ECF8 /* SignUpViewController.m */,
 				7FB2DA6A24BE103000C8ECF8 /* HomeViewController.h */,
 				7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */,
+				7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */,
+				7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */,
 				7FB2DA7124BE192800C8ECF8 /* SearchViewController.h */,
 				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 				7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */,
@@ -218,13 +230,23 @@
 			path = "Carousel Controllers";
 			sourceTree = "<group>";
 		};
+		7FB2DA8424BF5D2500C8ECF8 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FB2DA8524BF60D200C8ECF8 /* WatchNextUser.h */,
+				7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */,
+				7FB2DA8824BF64C200C8ECF8 /* Interaction.h */,
+				7FB2DA8924BF64C200C8ECF8 /* Interaction.m */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
 		9861F91C70D12E891A820563 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */,
 				535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -412,13 +434,16 @@
 			files = (
 				7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */,
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
+				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
 				7FB2DA7C24BE274B00C8ECF8 /* DataViewController.m in Sources */,
 				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
 				7FB2DA6324BE0BDC00C8ECF8 /* LogInViewController.m in Sources */,
 				7FB2DA8324BE28EC00C8ECF8 /* UserViewController.m in Sources */,
+				7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */,
 				7FB2DA8024BE287F00C8ECF8 /* UserPageViewController.m in Sources */,
+				7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */,
 				7FB2DA3E24BE066500C8ECF8 /* main.m in Sources */,
 				7FB2DA6C24BE103000C8ECF8 /* HomeViewController.m in Sources */,
 				7FB2DA7924BE21D500C8ECF8 /* SettingsViewController.m in Sources */,

@@ -352,7 +352,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="n9h-W4-ayz">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="eak-YB-MhZ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" modalPresentationStyle="fullScreen" id="eak-YB-MhZ" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="jPS-29-OyK"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EY3-4G-mvF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -443,10 +443,10 @@
             </objects>
             <point key="canvasLocation" x="1996" y="1919"/>
         </scene>
-        <!--View Controller-->
+        <!--Media View Controller-->
         <scene sceneID="Cvw-h3-sMS">
             <objects>
-                <viewController id="EXW-6u-6nW" sceneMemberID="viewController">
+                <viewController id="EXW-6u-6nW" customClass="MediaViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uk9-Zn-j5w">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -474,6 +474,9 @@
                                 <state key="normal" title="Watch Next">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="watchNextTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="k3g-Vg-h92"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Apd-HJ-9D1">
                                 <rect key="frame" x="96" y="476" width="249" height="30"/>
@@ -487,6 +490,9 @@
                                 <state key="normal" title="Watched">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="watchedTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="9Uh-Rk-ame"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6r-4c-o8x">
                                 <rect key="frame" x="98" y="556" width="245" height="44"/>
@@ -515,6 +521,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Qjq-h9-RnB"/>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="gEi-aI-BRZ" id="1bH-OQ-Aq0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Geo-J5-RrN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

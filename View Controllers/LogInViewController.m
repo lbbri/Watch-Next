@@ -8,6 +8,7 @@
 
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "WatchNextUser.h"
 
 @interface LogInViewController ()
 
@@ -53,6 +54,7 @@
     }
     else
     {
+       //[WatchNextUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
             if (error != nil)
             {

@@ -8,6 +8,7 @@
 
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
+#import "../Data Models/WatchNextUser.h"
 
 
 @interface SignUpViewController ()
@@ -26,6 +27,7 @@
 
 - (IBAction)signUpTap:(id)sender {
     
+    //WatchNextUser *newUser = [WatchNextUser user];
     PFUser *newUser = [PFUser user];
     
     newUser.username = self.usernameField.text;

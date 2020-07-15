@@ -10,6 +10,7 @@
 #import "SceneDelegate.h"
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
+#import "WatchNextUser.h"
 
 @interface SettingsViewController ()
 
@@ -30,6 +31,7 @@
     
     myDelegate.window.rootViewController = loginViewController;
     
+    //[WatchNextUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         //current user is now nil
     }];
