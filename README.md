@@ -126,7 +126,7 @@ Model: User
 
 
 
-Model: Rating
+Model: Interaction
 
 
 | Property      | Type          | Description  |
