@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 #import "SearchResultsTableViewCell.h"
+#import "MediaViewController.h"
 
 #import <Foundation/Foundation.h>
 
@@ -18,6 +19,8 @@
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *searchResults;
+
+//@property (nonatomic) NSString *tmdbURL;
 
 @end
 
@@ -68,8 +71,16 @@
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultsCell"];
     
     NSDictionary *media = self.searchResults[indexPath.row];
+    NSDictionary *mediaExID = media[@"external_ids"];
+   // NSLog(@"%@", mediaExID);
     
+    NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
     cell.titleLabel.text = media[@"name"];
+    //NSLog(@"%@", tmdbDictionary[@"id"]);
+    
+    NSString *tmdbURL = tmdbDictionary[@"url"];
+    [self getTMBDDictionary:tmdbURL];
+
     
     return cell;
 }
@@ -77,17 +88,13 @@
 - (void)searchAPI {
     
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
-    
-    NSLog(@"%@", requestString);
-    
+        
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
     
     NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
                                @"x-rapidapi-key": @"65fd490d94msh0c0e7a08fe2fe52p1bb9cdjsnc6d7c863587a" };
 
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=bojack&country=us"]
-//                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                                       timeoutInterval:10.0];
+
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
         cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -108,7 +115,7 @@
                                                         
                                                         NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                                                         self.searchResults = dataDictionary[@"results"];
-                                                        NSLog(@"%@", dataDictionary);
+                                                       // NSLog(@"%@", dataDictionary);
                                                     }
                                                 }];
     [dataTask resume];
@@ -117,15 +124,50 @@
     
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    UICollectionViewCell *tappedCell = sender;
+    NSIndexPath *indexPath= [self.tableView indexPathForCell:tappedCell];
+    NSDictionary *media = self.searchResults[indexPath.row];
+    
+    MediaViewController *mediaViewController = [segue destinationViewController];
+    mediaViewController.media = media;
 }
-*/
+
+- (void) getTMBDDictionary: (NSString *)link {
+    
+    link = [link stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
+    NSString *requestString = [NSString stringWithFormat:@"%@?api_key=2c075d6299d70eaf6f4a13fc180cb803", link];
+    
+   // NSLog(requestString);
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    //NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/tv/49297?api_key=2c075d6299d70eaf6f4a13fc180cb803"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+       
+       
+       NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+             //if there was an error when with getting the JSON
+              if (error != nil) {
+                  NSLog(@"%@", [error localizedDescription]);
+              } else {
+                  
+                  //load JSON data into dataDictionary
+                  NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                  NSLog(@"%@", dataDictionary[@"name"]);
+              }
+           
+       }];
+       [task resume];
+    
+    
+}
+
 
 
 
