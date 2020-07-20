@@ -7,11 +7,14 @@
 //
 
 #import "HomeViewController.h"
+#import "MediaViewController.h"
 #import "MediaCollectionViewCell.h"
+
 
 @interface HomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NSMutableArray *mediaArray;
 
 
 @end
@@ -20,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self fetchHome];
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -45,25 +50,64 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MediaCell" forIndexPath:indexPath];
-
-    cell.testingLabel.text = [NSString stringWithFormat:@"hi%@", indexPath];
+    
+    NSDictionary *media = self.mediaArray[indexPath.row];
+    
+    if(media[@"title"]) {
+        
+        cell.titleLabel.text = media[@"title"];
+    } else {
+        cell.titleLabel.text = media[@"name"];
+    }
     
     return cell;
 }
 
-//necessary function to implement UICollectionViewDataSource similar to TableView
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 40;
+    
+    return self.mediaArray.count;
 }
 
-/*
+
+- (void) fetchHome {
+    
+    //connect to API via URL
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=2c075d6299d70eaf6f4a13fc180cb803"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+          //if there was an error when with getting the JSON
+           if (error != nil) {
+               NSLog(@"%@", [error localizedDescription]);
+           } else {
+               
+               //load JSON data into dataDictionary
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               self.mediaArray = dataDictionary[@"results"];
+               
+               [self.collectionView reloadData];
+           }
+        
+    }];
+    [task resume];
+    
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    UICollectionViewCell *tappedCell = sender;
+    NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
+    NSDictionary *media = self.mediaArray[indexPath.row];
+    
+    MediaViewController *mediaViewController = [segue destinationViewController];
+    mediaViewController.media = media;
+    
 }
-*/
+
 
 @end

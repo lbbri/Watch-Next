@@ -17,73 +17,123 @@
 @dynamic apiID;
 @dynamic mediaType;
 
-@dynamic watched;
+@dynamic interactionType;
 @dynamic stars;
 @dynamic wouldWatchAgain;
+
 
 + (nonnull NSString *)parseClassName {
     return @"Interaction";
 }
 
 
-+ (void) createInteraction: (NSString *)title withType: ( NSString * _Nullable)type isWatched: (BOOL)watched withRating: (NSNumber * _Nullable)rating wouldWatchAgain: (BOOL)watchAgain withCompletion: (PFBooleanResultBlock _Nullable)completion {
-    
-    Interaction *newInteraction = [Interaction new];
-    //Interaction *newInteraction = [Interaction objectWithClassName:@"Interaction"];
-    //newInteraction.creator = [WatchNextUser currentUser];
-    newInteraction.creator = [PFUser currentUser];
 
-    newInteraction.apiID = title;
-    newInteraction.mediaType = type;
-    newInteraction.watched = watched;
-    newInteraction.stars = rating;
-    newInteraction.wouldWatchAgain = watchAgain;
-    
-    [newInteraction saveInBackgroundWithBlock:completion];
-    
-}
 
-+ (void) createWatchNext: (NSString *)title withType: ( NSString * _Nullable)type withCompletion: (PFBooleanResultBlock _Nullable)completion {
++ (void) createWatchNext: (NSString *)title  withCompletion: (PFBooleanResultBlock _Nullable)completion {
     
     Interaction *watchNextInteraction = [Interaction new];
     
-    watchNextInteraction.creator = [PFUser currentUser];
+    watchNextInteraction.creator = [WatchNextUser currentUser];
     watchNextInteraction.apiID = title;
-    watchNextInteraction.mediaType = type;
-    
-    watchNextInteraction.watched = NO;
+    watchNextInteraction.interactionType = watchNext;
     
     [watchNextInteraction saveInBackgroundWithBlock:completion];
     
 }
 
-+ (void) createWatched: (NSString *)title withType: ( NSString * _Nullable)type withCompletion: (PFBooleanResultBlock _Nullable)completion {
+
++ (void) createWatched: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion {
     
     Interaction *watchedInteraction = [Interaction new];
-    //newInteraction.creator = [WatchNextUser currentUser];
-    watchedInteraction.creator = [PFUser currentUser];
-
+    
+    watchedInteraction.creator = [WatchNextUser currentUser];
     watchedInteraction.apiID = title;
-    watchedInteraction.mediaType = type;
-    watchedInteraction.watched = YES;
+    watchedInteraction.interactionType = watched;
     
     [watchedInteraction saveInBackgroundWithBlock:completion];
     
 }
 
-+ (void) changeRating: (NSNumber *) stars forInteraction: (NSString *)objectID withCompletion:(PFBooleanResultBlock _Nullable)completion {
+
+
++ (void) removeWatchNext: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion {
+    
+    __block Interaction *interactionToDelete;
     
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
-
-    // Retrieve the object by id
-    [query getObjectInBackgroundWithId:objectID block:^(PFObject *currentInteraction, NSError *error) {
+    
+    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
+    [query whereKey:@"apiID" equalTo:title];
+    [query whereKey:@"interactionType" equalTo:@(1)];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
+        if(interactions) {
+            
+            interactionToDelete = interactions[0];
+            
+            [interactionToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error) {
+                    
+                    NSLog(@"%@", error.description);
+                }
+            }];
+        }
         
-        currentInteraction[@"stars"] = stars;
-        [currentInteraction saveInBackground];
     }];
     
 }
 
+//combine these into one i guess because there will only be one instance
+
++ (void) removeWatched: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion {
+    
+    __block Interaction *interactionToDelete;
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+    
+    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
+    [query whereKey:@"apiID" equalTo:title];
+    [query whereKey:@"interactionType" equalTo:@(0)];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
+        interactionToDelete = interactions[0];
+        
+        [interactionToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error) {
+                
+                NSLog(@"%@", error.description);
+            }
+
+        }];
+    
+        [interactionToDelete saveInBackground];
+    }];
+    
+}
+     
++ (void) changeRating: (NSNumber *) stars forInteraction: (NSString *)objectID withCompletion:(PFBooleanResultBlock _Nullable)completion {
+         
+        PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+
+        [query getObjectInBackgroundWithId:objectID block:^(PFObject *currentInteraction, NSError *error) {
+             
+             currentInteraction[@"stars"] = stars;
+             [currentInteraction saveInBackground];
+         }];
+         
+     }
+
++ (void) changeInteractionFor: (NSString *)objectID toType: (InteractionType)type withCommpletion: (PFBooleanResultBlock _Nullable) completion {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+
+    [query getObjectInBackgroundWithId:objectID block:^(PFObject *currentInteraction, NSError *error) {
+        
+        currentInteraction[@"interactionType"] = [NSNumber numberWithInt:(type)];
+        [currentInteraction saveInBackground];
+    }];
+    
+}
 
 
 

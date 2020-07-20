@@ -21,20 +21,18 @@
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (IBAction)signUpTap:(id)sender {
     
-    //WatchNextUser *newUser = [WatchNextUser user];
-    PFUser *newUser = [PFUser user];
+    WatchNextUser *newUser = [WatchNextUser user];
     
     newUser.username = self.usernameField.text;
     newUser.password = self.passwordField.text;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:@"Message" preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Message" preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //handle try agin here. Doing nothing will dismiss the view.
     }];
@@ -58,24 +56,19 @@
     else
     {
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-           if (error != nil)
-           {
-               NSLog([NSString stringWithFormat:@"username: %@ and password: %@",newUser.username, newUser.password]);
+           if (error != nil) {
+               
                alert.message = error.localizedDescription;
                [self presentViewController:alert animated:YES completion:^{
                }];
-           }
-           else
-           {
-               NSLog(@"success");
+           } else {
+               
                [self performSegueWithIdentifier:@"signupSegue" sender:nil];
            }
         }];
         
     }
     
-    
-
 }
 
 /*

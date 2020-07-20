@@ -8,6 +8,7 @@
 
 #import "SceneDelegate.h"
 #import <Parse/Parse.h>
+#import "WatchNextUser.h"
 
 @interface SceneDelegate ()
 
@@ -18,12 +19,11 @@
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     
-    PFUser *user = [PFUser currentUser];
+    WatchNextUser *user = [WatchNextUser currentUser];
     
-    if(user != nil)
-    {
+    if(user != nil) {
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
         UITabBarController * tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
         self.window.rootViewController = tabBarController;
     }

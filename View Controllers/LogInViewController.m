@@ -38,36 +38,29 @@
     [alert addAction:tryAgainAction];
     
     
-    if([self.usernameField.text isEqual:@""])
-    {
+    if([self.usernameField.text isEqual:@""]) {
         alert.message = @"User Name cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
 
-    }
-    else if ([self.passwordField.text isEqual:@""])
-    {
+    } else if ([self.passwordField.text isEqual:@""]) {
+        
         alert.message = @"Password cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
         
     }
-    else
-    {
-       //[WatchNextUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-        [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
-            if (error != nil)
-            {
-                //NSLog(@"User log in failed %@", error.localizedDescription);
+    else {
+        
+       [WatchNextUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
+            if (error != nil) {
+                
                 alert.message = error.localizedDescription;
                 [self presentViewController:alert animated:YES completion:^{
-                       //what happens after altert controller has finsihed presinting
                     }];
                 
-            }
-            else
-            {
-                //NSLog(@"User logged in successfully");
+            } else {
+                
                 [self performSegueWithIdentifier:@"loginSegue" sender:nil];
             }
         }];

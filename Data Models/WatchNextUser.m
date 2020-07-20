@@ -8,6 +8,7 @@
 
 #import "WatchNextUser.h"
 #import <Parse/Parse.h>
+#import "Interaction.h"
 
 @implementation WatchNextUser
 
@@ -18,10 +19,24 @@
 @dynamic keepSignedIn;
 
 
+
+
 + (void) changeProfilePicture: ( UIImage * _Nullable)image withCompletion: (PFBooleanResultBlock _Nullable)completion {
     //user can change profile picture
 }
 
-//+ (void)logInWithUsernameInBackground:(nonnull NSString *)username password:(nonnull NSString *)password block:(nullable ^(PFUser *user, NSError *error))block;
+- (NSArray*) getWatchedList {
+    
+    WatchNextUser *user = [WatchNextUser currentUser];
+    return user.watched;
+}
+
+
+- (NSArray*) getWatchNextList {
+    
+    WatchNextUser *user = [WatchNextUser currentUser];
+    return user.watchNext;
+}
+
 
 @end

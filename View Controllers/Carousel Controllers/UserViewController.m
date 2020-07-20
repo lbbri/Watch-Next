@@ -10,15 +10,20 @@
 //#import "UserPageViewController.h"
 //#import "DataViewController.h"
 #import "MediaCollectionViewCell.h"
+#import <Parse/Parse.h>
+#import "WatchNextUser.h"
 
 @interface UserViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 //<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
 //@property (strong, nonatomic) NSArray *data;
-//@property NSInteger *currentVCIndex;
+//@property NSInteger *currentVCIndex;/Users/brm14/Desktop/Watch Next/View Controllers/Carousel Controllers/UserViewController.m
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *pageControl;
+
+@property (strong, nonatomic) NSArray *watched;
+@property (strong, nonatomic) NSArray *watchNext;
 
 
 
@@ -32,6 +37,11 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
+    
+    WatchNextUser *user = [WatchNextUser currentUser];
+    self.watched = user.watched;
+    self.watchNext = user.watchNext;
+        
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
     
@@ -59,19 +69,20 @@
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
     MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserMediaCell" forIndexPath:indexPath];
     
     if(self.pageControl.selectedSegmentIndex == 0)
     {
-        cell.testingLabel2.text = @"1";
+        cell.titleLabel.text = self.watchNext[indexPath.row];
     }
     else if(self.pageControl.selectedSegmentIndex == 1)
     {
-        cell.testingLabel2.text = @"2";
+        cell.titleLabel.text = self.watched[indexPath.row];
     }
     else
     {
-        cell.testingLabel2.text = @"3";
+        cell.titleLabel.text = @"Suggested";
     }
 
     
@@ -84,15 +95,15 @@
     
     if(self.pageControl.selectedSegmentIndex == 0)
     {
-        return 10;
+        return self.watchNext.count;
     }
     else if(self.pageControl.selectedSegmentIndex == 1)
     {
-        return 30;
+        return self.watched.count;
     }
     else
     {
-        return 40;
+        return 10;
     }
     return 0;
 }

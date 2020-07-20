@@ -9,9 +9,15 @@
 #import "SearchViewController.h"
 #import "SearchResultsTableViewCell.h"
 
+#import <Foundation/Foundation.h>
+
+
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray *searchResults;
 
 @end
 
@@ -24,22 +30,24 @@
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     
-    self.searchBar = [[UISearchBar alloc] init];
-    [self.searchBar sizeToFit];
+    //self.searchBar = [[UISearchBar alloc] init];
+    //[self.searchBar sizeToFit];
     
-    // the UIViewController comes with a navigationItem property
-    // this will automatically be initialized for you if when the
-    // view controller is added to a navigation controller's stack
-    // you just need to set the titleView to be the search bar
-    self.navigationItem.titleView = self.searchBar;
+    //self.navigationItem.titleView = self.searchBar;
 
-    // Do any additional setup after loading the view.
 }
 
 
-
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    //TODO: connect to UTElly and searcj
+    
+    [self searchAPI];
+    
+}
 //NOT WORKING
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    NSLog(@"hi");
     self.searchBar.showsCancelButton = YES;
 }
 //NOT WORKING
@@ -51,18 +59,59 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+   // return 20;
+    return self.searchResults.count;
 }
 //necessary for UITableViewSource implementation: asks data source for a cell to insert
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //use the Movie cell I set up on the storyboard
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultsCell"];
-    //load movie at indexPath from movies array into movie dictionary, so that we can access it's id's
+    
+    NSDictionary *media = self.searchResults[indexPath.row];
+    
+    cell.titleLabel.text = media[@"name"];
     
     return cell;
 }
 
+- (void)searchAPI {
+    
+    NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
+    
+    NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
+                               @"x-rapidapi-key": @"65fd490d94msh0c0e7a08fe2fe52p1bb9cdjsnc6d7c863587a" };
+
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=bojack&country=us"]
+//                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+//                                                       timeoutInterval:10.0];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
+        cachePolicy:NSURLRequestUseProtocolCachePolicy
+    timeoutInterval:10.0];
+    
+    
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"%@", error);
+                                                    } else {
+                                                        //NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        //NSLog(@"%@", httpResponse);
+                                                        
+                                                        NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                        self.searchResults = dataDictionary[@"results"];
+                                                        NSLog(@"%@", dataDictionary);
+                                                    }
+                                                }];
+    [dataTask resume];
+    [self.tableView reloadData];
+
+    
+}
 
 /*
 #pragma mark - Navigation
@@ -73,5 +122,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+
 
 @end
