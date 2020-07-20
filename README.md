@@ -42,14 +42,13 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 
 **Optional Nice-to-have Stories**
 
-* User can view a more curated suggestions list based off of their entire watched list and its internal ratings.
 * User can view another user's watched list. 
 * User can get an automatic comparison of watched/ watch next lists with other users. e.g 'You and User2 have both watched The Office'
 * The app will ask user 'Have you watched [this suggested movie] based on [this movie on your watched list]?'
 * User can suggest movie/TV show to another specific user.
 * User can mark what streaming platform they watched the movie/TV show on (if applicable).
 * Users can talk about a specific movie/TV show in a spoilers section.
-* User can set thier 'favorite movie'. 
+* User can set their 'favorite movie'. 
 
 ### 2. Screen Archetypes
 
@@ -134,10 +133,10 @@ Model: Interaction
 | object ID | String | unique rating id created by Parse |
 | creator     | Pointer <User> | User that created the rating |
 | API ID     | String | The id that can be used for API calls to retrieve info about the media |
-| type     | String | Movie or TV Show |
-| watched     | BOOL | Signifies if the user creator has watched(true) the movie or added it to watch Next()|
+| type     | ENUM | Movie or TV Show |
+| interactionType     | ENUM | Signifies if the user is adding to watched list or watch next list|
 | stars     | Number | User rating of show on a scale of (1-5) |
-| wouldWatchAgain |	BOOL |	Specifies if a USER has selected that they would or would not watch this show again.
+| wouldWatchAgain | ENUM  |	Specifies if a USER has selected that they would or would not watch this show again.
 
 
 
