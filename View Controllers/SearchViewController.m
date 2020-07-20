@@ -78,6 +78,10 @@
     
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
     
+    NSLog(@"%@", requestString);
+    
+    requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
+    
     NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
                                @"x-rapidapi-key": @"65fd490d94msh0c0e7a08fe2fe52p1bb9cdjsnc6d7c863587a" };
 
