@@ -31,14 +31,33 @@
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     
+    [self.searchBar becomeFirstResponder];
+    
+    
+    //[self.tableView reloadData];
+    
 }
 
 #pragma mark - Search Bar Controls
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.searchResults = (NSMutableArray *)@[];
-    [self searchAPI];
-    [self.tableView reloadData];
+    [self searchAPI:^(BOOL completion){
+        
+        if(completion)
+        {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
+    
+    [searchBar resignFirstResponder];
+    //[someObject someMethodThatTakesABlock:^returnType (parameters) {...}];
+
+   // [self.tableView reloadData];
 }
+
+
 //NOT WORKING
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
@@ -65,17 +84,27 @@
     
     NSDictionary *cellSearchDictionary = self.searchResults[indexPath.row];
     NSURL *tmdbURL = [self tmdbURLWithDictionary:cellSearchDictionary];
-    [self tmdbDictionaryFromURL:tmdbURL forCell:cell];
+    [self tmdbDictionaryFromURL:tmdbURL forCell:cell completion:^(BOOL completion){
+        
+        if(completion)
+        {
+            if(cell.mediaDictionary[@"title"])
+            {
+                cell.titleLabel.text = cell.mediaDictionary[@"title"];
+            }else {
+                cell.titleLabel.text = cell.mediaDictionary[@"name"];
+            }
+            cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
+            cell.posterView.image = nil;
+            [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+            
+        }
+        
+    }];
     
-    if(cell.mediaDictionary[@"title"])
-    {
-        cell.titleLabel.text = cell.mediaDictionary[@"title"];
-    }else {
-        cell.titleLabel.text = cell.mediaDictionary[@"name"];
-    }
-    cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
-    cell.posterView.image = nil;
-    [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+  
+    
+    
     
     return cell;
 }
@@ -98,7 +127,7 @@
 }
 
 
-- (void) tmdbDictionaryFromURL: (NSURL *) url forCell: (SearchResultsTableViewCell *) cell{
+- (void) tmdbDictionaryFromURL: (NSURL *) url forCell: (SearchResultsTableViewCell *) cell completion:(void (^)(BOOL completion))completionBlock{
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -106,10 +135,12 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
                NSLog(@"%@", [error localizedDescription]);
+               completionBlock(false);
            } else {
-               
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                cell.mediaDictionary = dataDictionary;
+               completionBlock(true);
+
                //[self.tableView reloadData];
            }
     }];
@@ -120,8 +151,8 @@
 }
 
 #pragma mark - API Interactions
-
-- (void)searchAPI {
+//- (void)fetchMovies:(void (^)(NSString *name, int age))block {
+- (void)searchAPI: (void (^)(BOOL completion))completionBlock {
     
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
         
@@ -138,13 +169,16 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             NSLog(@"%@", error);
+            completionBlock(false);
         } else {
+            
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.searchResults = dataDictionary[@"results"];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
+            completionBlock(true);
+           // dispatch_async(dispatch_get_main_queue(), ^{
+               // [self.tableView reloadData];
+            //});
         }
     }];
     [dataTask resume];
