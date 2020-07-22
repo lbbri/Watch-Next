@@ -20,7 +20,7 @@
 //@property NSInteger *currentVCIndex;/Users/brm14/Desktop/Watch Next/View Controllers/Carousel Controllers/UserViewController.m
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *pageControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *pageControl;
 
 @property (strong, nonatomic) NSArray *watched;
 @property (strong, nonatomic) NSArray *watchNext;
@@ -81,23 +81,36 @@
     
     if(self.pageControl.selectedSegmentIndex == 0)
     {
-        cell.titleLabel.text = self.watchNext[indexPath.row];
-        [self mediaDictionaryWithID:self.watchNext[indexPath.row] forCell:cell];
+        //cell.titleLabel.text = self.watchNext[indexPath.row];
+        [self mediaDictionaryWithID:self.watchNext[indexPath.row] forCell:cell completion:^(BOOL completion) {
+            
+            if(completion)
+            {
+                cell.posterView.image = nil;
+                [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+            }
+            
+        }];
         
-        cell.posterView.image = nil;
-        [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+        
     }
     else if(self.pageControl.selectedSegmentIndex == 1)
     {
-        cell.titleLabel.text = self.watched[indexPath.row];
-        [self mediaDictionaryWithID:self.watched[indexPath.row] forCell:cell];
-        
-        cell.posterView.image = nil;
-        [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+        //cell.titleLabel.text = self.watched[indexPath.row];
+        [self mediaDictionaryWithID:self.watched[indexPath.row] forCell:cell completion:^(BOOL completion){
+            
+            if(completion)
+            {
+                cell.posterView.image = nil;
+                [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+            }
+            
+        }];
         
     }
     else
     {
+        //cell.mediaDictionary = @{};
         cell.titleLabel.text = @"Suggested";
     }
 
@@ -106,14 +119,7 @@
     return cell;
 }
 
-- (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {
-    
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    NSString *posterURLString = dictionary[@"poster_path"];
-    NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
-    
-    return [NSURL URLWithString:fullPosterURLString];
-}
+
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
@@ -138,8 +144,7 @@
 
 }
 
-
-- (void) mediaDictionaryWithID: (NSString *)apiID forCell: (MediaCollectionViewCell *)cell {
+- (void) mediaDictionaryWithID: (NSString *)apiID forCell: (MediaCollectionViewCell *)cell completion:(void (^)(BOOL completion))completionBlock {
     
     NSString *URLString =[NSString stringWithFormat:@"https://api.themoviedb.org/3/%@?api_key=", apiID];
     
@@ -150,16 +155,27 @@
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            if (error != nil) {
+               completionBlock(false);
                NSLog(@"%@", [error localizedDescription]);
            } else {
                
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                cell.mediaDictionary = dataDictionary;
+               completionBlock(true);
            }
     }];
 
     [task resume];
     
+}
+
+- (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {
+    
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = dictionary[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    
+    return [NSURL URLWithString:fullPosterURLString];
 }
 
 

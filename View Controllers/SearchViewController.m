@@ -14,7 +14,7 @@
 
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) NSMutableArray *searchResults;
@@ -39,6 +39,7 @@
 }
 
 #pragma mark - Search Bar Controls
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     self.searchResults = (NSMutableArray *)@[];
     [self searchAPI:^(BOOL completion){
@@ -52,9 +53,6 @@
     }];
     
     [searchBar resignFirstResponder];
-    //[someObject someMethodThatTakesABlock:^returnType (parameters) {...}];
-
-   // [self.tableView reloadData];
 }
 
 

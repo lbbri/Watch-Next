@@ -318,13 +318,20 @@
 
 
 
-/*
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    MediaCollectionViewCell *tappedCell = sender;
+    NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
+    NSDictionary *media = self.relatedMediaArray[indexPath.row];
+       
+    MediaViewController *mediaViewController = [segue destinationViewController];
+    mediaViewController.mediaDictionary = media;
   
 }
-*/
+
 
 - (void) setPosterImage {
     
