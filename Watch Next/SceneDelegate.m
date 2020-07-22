@@ -22,7 +22,7 @@
     WatchNextUser *user = [WatchNextUser currentUser];
     
     if(user != nil) {
-        
+
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UITabBarController * tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
         self.window.rootViewController = tabBarController;

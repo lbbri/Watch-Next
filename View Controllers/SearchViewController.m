@@ -15,7 +15,7 @@
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSDictionary *mediaDictionary;
@@ -32,40 +32,27 @@
     self.searchBar.delegate = self;
     
     [self.searchBar becomeFirstResponder];
-    
-    
-    //[self.tableView reloadData];
-    
 }
 
 #pragma mark - Search Bar Controls
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.searchResults = (NSMutableArray *)@[];
-    [self searchAPI:^(BOOL completion){
-        
-        if(completion)
-        {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        }
-    }];
-    
+
+    [self searchAPI];
     [searchBar resignFirstResponder];
 }
 
 
-//NOT WORKING
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
 }
-//NOT WORKING
+
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-
+    
 }
 
 
@@ -100,14 +87,11 @@
         
     }];
     
-  
-    
-    
-    
     return cell;
 }
 
-#pragma mark API Conversion
+
+#pragma mark -- API Conversion
 
 - (NSURL *)tmdbURLWithDictionary: (NSDictionary *) dictionary {
     
@@ -139,7 +123,6 @@
                cell.mediaDictionary = dataDictionary;
                completionBlock(true);
 
-               //[self.tableView reloadData];
            }
     }];
 
@@ -149,9 +132,8 @@
 }
 
 #pragma mark - API Interactions
-//- (void)fetchMovies:(void (^)(NSString *name, int age))block {
-- (void)searchAPI: (void (^)(BOOL completion))completionBlock {
     
+- (void) searchAPI {
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
         
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
@@ -167,18 +149,17 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             NSLog(@"%@", error);
-            completionBlock(false);
         } else {
             
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.searchResults = dataDictionary[@"results"];
             
-            completionBlock(true);
-           // dispatch_async(dispatch_get_main_queue(), ^{
-               // [self.tableView reloadData];
-            //});
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
     }];
+
     [dataTask resume];
 }
 

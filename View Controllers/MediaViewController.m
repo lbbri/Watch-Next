@@ -253,7 +253,7 @@
 }
 
 - (IBAction)watchedTap:(id)sender {
-        
+    
     if([self checkIfWatched]) {
         
         [self removeFromWatched];
@@ -262,7 +262,7 @@
         [self.ratingSlider setHidden:YES];
         //[self.watchAgainButton setHidden:YES];
         self.watchAgainButton.enabled = NO;
-    
+        
     } else {
         
         if([self checkIfWatchNext]) {
@@ -274,7 +274,7 @@
             [self addToWatched];
         }
     }
-
+    
 }
 
 - (IBAction)watchAgainTap:(id)sender {
@@ -293,7 +293,7 @@
 - (IBAction)changeRatingSlider:(id)sender {
     
     NSNumber *stars = @(self.ratingSlider.value);
-        
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
     
     [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
@@ -305,11 +305,11 @@
         }];
     }];
     
-
+    
 }
 
 - (BOOL) checkIfWatched {
-   return [self.user.watched containsObject:self.mediaAPIID];
+    return [self.user.watched containsObject:self.mediaAPIID];
 }
 
 - (BOOL) checkIfWatchNext {
@@ -340,7 +340,6 @@
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     
-    //set to nil so that it does not have an old cell's image due to lagging
     self.posterView.image = nil;
     [self.posterView setImageWithURL:posterURL];
     
@@ -354,15 +353,15 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-           } else {
-               
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.relatedMediaArray = dataDictionary[@"results"];
-    
-               [self.collectionView reloadData];
-           }
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            self.relatedMediaArray = dataDictionary[@"results"];
+            
+            [self.collectionView reloadData];
+        }
     }];
     [task resume];
     
@@ -374,9 +373,9 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-     MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RelatedCell" forIndexPath:indexPath];
+    MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RelatedCell" forIndexPath:indexPath];
     NSDictionary *cellMedia = self.relatedMediaArray[indexPath.row];
-        
+    
     cell.posterView.image = nil;
     [cell.posterView setImageWithURL:[self posterURLFromDictionary:cellMedia]];
     

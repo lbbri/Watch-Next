@@ -13,8 +13,8 @@
 
 @interface SignUpViewController ()
 
-@property (strong, nonatomic) IBOutlet UITextField *usernameField;
-@property (strong, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
 
@@ -44,7 +44,7 @@
         alert.message = @"User Name cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
-
+        
     }
     else if ([self.passwordField.text isEqual:@""])
     {
@@ -56,29 +56,21 @@
     else
     {
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-           if (error != nil) {
-               
-               alert.message = error.localizedDescription;
-               [self presentViewController:alert animated:YES completion:^{
-               }];
-           } else {
-               
-               [self performSegueWithIdentifier:@"signupSegue" sender:nil];
-           }
+            if (error != nil) {
+                
+                alert.message = error.localizedDescription;
+                [self presentViewController:alert animated:YES completion:^{
+                }];
+            } else {
+                
+                [self performSegueWithIdentifier:@"signupSegue" sender:nil];
+            }
         }];
         
     }
     
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
