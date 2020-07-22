@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MediaCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *posterView;
 
+@property (nonatomic) NSDictionary *mediaDictionary;
 
 @end
 

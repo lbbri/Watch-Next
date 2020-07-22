@@ -9,18 +9,16 @@
 #import "SearchViewController.h"
 #import "SearchResultsTableViewCell.h"
 #import "MediaViewController.h"
-
 #import <Foundation/Foundation.h>
-
+#import "UIImageView+AFNetworking.h"
 
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) NSMutableArray *searchResults;
 
-//@property (nonatomic) NSString *tmdbURL;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSDictionary *mediaDictionary;
 
 @end
 
@@ -33,24 +31,16 @@
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     
-    //self.searchBar = [[UISearchBar alloc] init];
-    //[self.searchBar sizeToFit];
-    
-    //self.navigationItem.titleView = self.searchBar;
-
 }
 
-
+#pragma mark - Search Bar Controls
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-    //TODO: connect to UTElly and searcj
-    
+    self.searchResults = (NSMutableArray *)@[];
     [self searchAPI];
-    
+    [self.tableView reloadData];
 }
 //NOT WORKING
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    NSLog(@"hi");
     self.searchBar.showsCancelButton = YES;
 }
 //NOT WORKING
@@ -61,29 +51,75 @@
 
 }
 
+
+#pragma mark - Table View
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   // return 20;
     return self.searchResults.count;
 }
-//necessary for UITableViewSource implementation: asks data source for a cell to insert
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultsCell"];
     
-    NSDictionary *media = self.searchResults[indexPath.row];
-    NSDictionary *mediaExID = media[@"external_ids"];
-   // NSLog(@"%@", mediaExID);
+    NSDictionary *cellSearchDictionary = self.searchResults[indexPath.row];
+    NSURL *tmdbURL = [self tmdbURLWithDictionary:cellSearchDictionary];
+    [self tmdbDictionaryFromURL:tmdbURL forCell:cell];
     
-    NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
-    cell.titleLabel.text = media[@"name"];
-    //NSLog(@"%@", tmdbDictionary[@"id"]);
-    
-    NSString *tmdbURL = tmdbDictionary[@"url"];
-    [self getTMBDDictionary:tmdbURL];
-
+    if(cell.mediaDictionary[@"title"])
+    {
+        cell.titleLabel.text = cell.mediaDictionary[@"title"];
+    }else {
+        cell.titleLabel.text = cell.mediaDictionary[@"name"];
+    }
+    cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
+    cell.posterView.image = nil;
+    [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
     
     return cell;
 }
+
+#pragma mark API Conversion
+
+- (NSURL *)tmdbURLWithDictionary: (NSDictionary *) dictionary {
+    
+    NSDictionary *mediaExID = dictionary[@"external_ids"];
+    NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
+    NSString *tmdbURL = tmdbDictionary[@"url"];
+    tmdbURL = [tmdbURL stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
+    
+    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=", tmdbURL];
+    
+    NSURL *finalURL = [NSURL URLWithString:finalURLString];
+    
+    return finalURL;
+    
+}
+
+
+- (void) tmdbDictionaryFromURL: (NSURL *) url forCell: (SearchResultsTableViewCell *) cell{
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           if (error != nil) {
+               NSLog(@"%@", [error localizedDescription]);
+           } else {
+               
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               cell.mediaDictionary = dataDictionary;
+               //[self.tableView reloadData];
+           }
+    }];
+
+    [task resume];
+    
+    
+}
+
+#pragma mark - API Interactions
 
 - (void)searchAPI {
     
@@ -92,85 +128,47 @@
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
     
     NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-                               @"x-rapidapi-key": @"65fd490d94msh0c0e7a08fe2fe52p1bb9cdjsnc6d7c863587a" };
-
-
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]
-        cachePolicy:NSURLRequestUseProtocolCachePolicy
-    timeoutInterval:10.0];
-    
-    
+                               @"x-rapidapi-key": @"" };
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString] cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                    timeoutInterval:20.0];
     [request setHTTPMethod:@"GET"];
     [request setAllHTTPHeaderFields:headers];
-
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                    if (error) {
-                                                        NSLog(@"%@", error);
-                                                    } else {
-                                                        //NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        //NSLog(@"%@", httpResponse);
-                                                        
-                                                        NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                        self.searchResults = dataDictionary[@"results"];
-                                                       // NSLog(@"%@", dataDictionary);
-                                                    }
-                                                }];
-    [dataTask resume];
-    [self.tableView reloadData];
-
     
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            self.searchResults = dataDictionary[@"results"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
+    [dataTask resume];
+}
+
+- (NSURL *)posterURLFromDictionary: (NSDictionary *)dictionary {
+    
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = dictionary[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    
+    return [NSURL URLWithString:fullPosterURLString];
 }
 
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UICollectionViewCell *tappedCell = sender;
-    NSIndexPath *indexPath= [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *media = self.searchResults[indexPath.row];
-    
+    SearchResultsTableViewCell *tappedCell = sender;
     MediaViewController *mediaViewController = [segue destinationViewController];
-    mediaViewController.media = media;
-}
-
-- (void) getTMBDDictionary: (NSString *)link {
-    
-    link = [link stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
-    NSString *requestString = [NSString stringWithFormat:@"%@?api_key=2c075d6299d70eaf6f4a13fc180cb803", link];
-    
-   // NSLog(requestString);
-    
-    NSURL *url = [NSURL URLWithString:requestString];
-    //NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/tv/49297?api_key=2c075d6299d70eaf6f4a13fc180cb803"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-       
-       
-       NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-             //if there was an error when with getting the JSON
-              if (error != nil) {
-                  NSLog(@"%@", [error localizedDescription]);
-              } else {
-                  
-                  //load JSON data into dataDictionary
-                  NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                  NSLog(@"%@", dataDictionary[@"name"]);
-              }
-           
-       }];
-       [task resume];
-    
+    mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
     
 }
-
-
-
-
 
 
 @end

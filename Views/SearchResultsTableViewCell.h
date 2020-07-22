@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
+@property (strong, nonatomic) IBOutlet UIImageView *posterView;
+@property (strong, nonatomic) IBOutlet UILabel *synopsisLabel;
+
+@property (nonatomic) NSDictionary *mediaDictionary;
 @end
 
 NS_ASSUME_NONNULL_END

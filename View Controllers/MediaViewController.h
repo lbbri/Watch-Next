@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MediaViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *media;
+@property (nonatomic, strong) NSDictionary *mediaDictionary;
 
 
 @end
