@@ -68,6 +68,11 @@
 
 }
 
+- (IBAction)screenTap:(id)sender {
+    
+    [self.view endEditing:YES];
+    
+}
 
 
 

@@ -24,8 +24,6 @@
 		7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */; };
 		7FB2DA7624BE1EF200C8ECF8 /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */; };
 		7FB2DA7924BE21D500C8ECF8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */; };
-		7FB2DA7C24BE274B00C8ECF8 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7B24BE274B00C8ECF8 /* DataViewController.m */; };
-		7FB2DA8024BE287F00C8ECF8 /* UserPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA7F24BE287F00C8ECF8 /* UserPageViewController.m */; };
 		7FB2DA8324BE28EC00C8ECF8 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */; };
 		7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */; };
 		7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8924BF64C200C8ECF8 /* Interaction.m */; };
@@ -84,10 +82,6 @@
 		7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
 		7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		7FB2DA7A24BE274B00C8ECF8 /* DataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
-		7FB2DA7B24BE274B00C8ECF8 /* DataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
-		7FB2DA7E24BE287F00C8ECF8 /* UserPageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserPageViewController.h; sourceTree = "<group>"; };
-		7FB2DA7F24BE287F00C8ECF8 /* UserPageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserPageViewController.m; sourceTree = "<group>"; };
 		7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		7FB2DA8524BF60D200C8ECF8 /* WatchNextUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchNextUser.h; sourceTree = "<group>"; };
@@ -230,10 +224,6 @@
 			children = (
 				7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */,
 				7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */,
-				7FB2DA7A24BE274B00C8ECF8 /* DataViewController.h */,
-				7FB2DA7B24BE274B00C8ECF8 /* DataViewController.m */,
-				7FB2DA7E24BE287F00C8ECF8 /* UserPageViewController.h */,
-				7FB2DA7F24BE287F00C8ECF8 /* UserPageViewController.m */,
 			);
 			path = "Carousel Controllers";
 			sourceTree = "<group>";
@@ -445,12 +435,10 @@
 				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
-				7FB2DA7C24BE274B00C8ECF8 /* DataViewController.m in Sources */,
 				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
 				7FB2DA6324BE0BDC00C8ECF8 /* LogInViewController.m in Sources */,
 				7FB2DA8324BE28EC00C8ECF8 /* UserViewController.m in Sources */,
 				7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */,
-				7FB2DA8024BE287F00C8ECF8 /* UserPageViewController.m in Sources */,
 				7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */,
 				7FB2DA3E24BE066500C8ECF8 /* main.m in Sources */,
 				7FB2DA6C24BE103000C8ECF8 /* HomeViewController.m in Sources */,

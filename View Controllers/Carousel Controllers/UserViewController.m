@@ -16,9 +16,6 @@
 
 @interface UserViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-//@property (strong, nonatomic) NSArray *data;
-//@property NSInteger *currentVCIndex;/Users/brm14/Desktop/Watch Next/View Controllers/Carousel Controllers/UserViewController.m
-
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *pageControl;
 
@@ -185,10 +182,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    MediaCollectionViewCell *tappedCell = sender;
-    MediaViewController *mediaViewController = [segue destinationViewController];
-    mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
-    
+    if([sender isKindOfClass:[MediaCollectionViewCell class]])
+    {
+        MediaCollectionViewCell *tappedCell = sender;
+        MediaViewController *mediaViewController = [segue destinationViewController];
+        mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
+    }
 }
 
 

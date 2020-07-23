@@ -40,8 +40,8 @@
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
     //can also set in storyboard
-    layout.minimumInteritemSpacing = 3;
-    layout.minimumLineSpacing = 3;
+    layout.minimumInteritemSpacing = 1;
+    layout.minimumLineSpacing = 1;
     
     CGFloat postersPerLine = 3;
     
