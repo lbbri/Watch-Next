@@ -10,7 +10,8 @@
 
 ## Overview
 ### Description
-Watch Next allows users to keep track of what movies and TV Shows they have watched on different streaming platforms while also returning personalized suggestions. 
+
+Watch Next is a mobile app that allows users to keep track of movies and TV shows that they have watched and would like to watch. Watch Next then curates a suggestions list for the user to provide them with options they may have not come accross on their own.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
@@ -30,6 +31,7 @@ Watch Next allows users to keep track of what movies and TV Shows they have watc
 * User can create new Watch Next profile.
 * User can use camera to set profile picture.
 * User can log in/out of their Watch Next profile.
+* User can sign up/log in with Facebook via the Facebook SDK.
 * User can search for movie/TV show Title and get correct results.
 * User can mark a movie/TV show as watched.
 * User can mark a movie/TV show as watch next.
@@ -118,7 +120,7 @@ Model: User
 | password      | String      |   User’s password they used to sign up and login |
 | profilePicture      | File      |   User's profile picture |
 | watched	| Relation <Ratings> | List of movies/tv shows a user has marked as watched
-| watchNeext | Relation <Ratings>  | List of movies/tv shows the user has marked as watchNext
+| watchNext | Relation <Ratings>  | List of movies/tv shows the user has marked as watchNext
 | ?suggestedShows? |	?? | List of shows that the app has deemed suggestible to the user
 
 
