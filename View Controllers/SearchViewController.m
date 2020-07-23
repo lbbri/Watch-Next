@@ -8,10 +8,17 @@
 
 #import "SearchViewController.h"
 #import "SearchResultsTableViewCell.h"
+#import "MediaViewController.h"
+#import <Foundation/Foundation.h>
+#import "UIImageView+AFNetworking.h"
 
 @interface SearchViewController () <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
+@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSDictionary *mediaDictionary;
 
 @end
 
@@ -24,54 +31,157 @@
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     
-    self.searchBar = [[UISearchBar alloc] init];
-    [self.searchBar sizeToFit];
-    
-    // the UIViewController comes with a navigationItem property
-    // this will automatically be initialized for you if when the
-    // view controller is added to a navigation controller's stack
-    // you just need to set the titleView to be the search bar
-    self.navigationItem.titleView = self.searchBar;
+    [self.searchBar becomeFirstResponder];
+}
 
-    // Do any additional setup after loading the view.
+#pragma mark - Search Bar Controls
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
+    [self searchAPI];
+    [searchBar resignFirstResponder];
 }
 
 
-
-//NOT WORKING
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = YES;
 }
-//NOT WORKING
+
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-
+    
 }
+
+
+#pragma mark - Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.searchResults.count;
 }
-//necessary for UITableViewSource implementation: asks data source for a cell to insert
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //use the Movie cell I set up on the storyboard
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultsCell"];
-    //load movie at indexPath from movies array into movie dictionary, so that we can access it's id's
+    
+    NSDictionary *cellSearchDictionary = self.searchResults[indexPath.row];
+    NSURL *tmdbURL = [self tmdbURLWithDictionary:cellSearchDictionary];
+    [self tmdbDictionaryFromURL:tmdbURL forCell:cell completion:^(BOOL completion){
+        
+        if(completion)
+        {
+            if(cell.mediaDictionary[@"title"])
+            {
+                cell.titleLabel.text = cell.mediaDictionary[@"title"];
+            }else {
+                cell.titleLabel.text = cell.mediaDictionary[@"name"];
+            }
+            cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
+            cell.posterView.image = nil;
+            [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+            
+        }
+        
+    }];
     
     return cell;
 }
 
 
-/*
+#pragma mark -- API Conversion
+
+- (NSURL *)tmdbURLWithDictionary: (NSDictionary *) dictionary {
+    
+    NSDictionary *mediaExID = dictionary[@"external_ids"];
+    NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
+    NSString *tmdbURL = tmdbDictionary[@"url"];
+    tmdbURL = [tmdbURL stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
+    
+    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=", tmdbURL];
+    
+    NSURL *finalURL = [NSURL URLWithString:finalURLString];
+    
+    return finalURL;
+    
+}
+
+
+- (void) tmdbDictionaryFromURL: (NSURL *) url forCell: (SearchResultsTableViewCell *) cell completion:(void (^)(BOOL completion))completionBlock{
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           if (error != nil) {
+               NSLog(@"%@", [error localizedDescription]);
+               completionBlock(false);
+           } else {
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               cell.mediaDictionary = dataDictionary;
+               completionBlock(true);
+
+           }
+    }];
+
+    [task resume];
+    
+    
+}
+
+#pragma mark - API Interactions
+    
+- (void) searchAPI {
+    NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
+        
+    requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
+    
+    NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
+                               @"x-rapidapi-key": @"" };
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString] cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                    timeoutInterval:20.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error) {
+            NSLog(@"%@", error);
+        } else {
+            
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            self.searchResults = dataDictionary[@"results"];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
+
+    [dataTask resume];
+}
+
+- (NSURL *)posterURLFromDictionary: (NSDictionary *)dictionary {
+    
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = dictionary[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    
+    return [NSURL URLWithString:fullPosterURLString];
+}
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    SearchResultsTableViewCell *tappedCell = sender;
+    MediaViewController *mediaViewController = [segue destinationViewController];
+    mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
+    
 }
-*/
+
 
 @end

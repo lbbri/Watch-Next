@@ -9,6 +9,8 @@
 #import "SettingsViewController.h"
 #import "SceneDelegate.h"
 #import "LogInViewController.h"
+#import <Parse/Parse.h>
+#import "WatchNextUser.h"
 
 @interface SettingsViewController ()
 
@@ -18,7 +20,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -29,19 +30,16 @@
     
     myDelegate.window.rootViewController = loginViewController;
     
-//    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-//        //current user is now nil
-//    }];
+    [WatchNextUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    }];
     
 }
 
 /*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
 }
 */
 
