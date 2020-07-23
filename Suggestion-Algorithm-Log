@@ -50,3 +50,8 @@ Return top n titles.
 	⁃	What to do for a brand new user who has no interaction. Suggestion: suggest trending titles and the titles that are most interacted with internally.
 
 
+
+23 July 2020
+
+- Can use query.skip if i want to pull more suggestions.
+- Look into query caching for time saving.
