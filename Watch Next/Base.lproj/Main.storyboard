@@ -497,7 +497,6 @@
         <!--View Controller-->
         <scene sceneID="xtO-9p-TDb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xPK-XU-de9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController modalPresentationStyle="fullScreen" id="xMk-KZ-YR5" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aT3-9d-eED">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -507,6 +506,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8jB-jw-nw9"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xPK-XU-de9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1996" y="1919"/>
         </scene>
@@ -728,6 +728,19 @@
                                     <action selector="didTapLogout:" destination="QVc-yU-7AF" eventType="touchUpInside" id="bo0-mk-HAq"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0Uj-Hr-CQR" customClass="PFImageView">
+                                <rect key="frame" x="20" y="81" width="160" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BrS-hy-E2W">
+                                <rect key="frame" x="7" y="247" width="187" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Change Profile Picture"/>
+                                <connections>
+                                    <action selector="changePPTap:" destination="QVc-yU-7AF" eventType="touchUpInside" id="0JH-dD-pLX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -738,6 +751,9 @@
                         <viewLayoutGuide key="safeArea" id="2Ce-9K-8hx"/>
                     </view>
                     <navigationItem key="navigationItem" id="Bc3-51-vYv"/>
+                    <connections>
+                        <outlet property="profilePictureView" destination="0Uj-Hr-CQR" id="ua9-3t-8mf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="khU-7a-IX8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -752,6 +768,7 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="person.badge.plus" catalog="system" width="128" height="116"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
     </resources>
