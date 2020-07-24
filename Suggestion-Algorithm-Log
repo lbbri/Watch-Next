@@ -19,6 +19,7 @@ Pull from User’s Watched List
 	  •	Use TMDB API to get the top 3* recommended titles for the title, and add them to the suggestionPool
 	  •	Use TMDB API to get top 3* related titles for the title, and add them to the suggestionPool
 	  •	Use TMDB API to get the top 3 keywords for each title, and add them to topKeyWords
+	        - There is a keyword endpoint for tv and movies. Search movies for now. Add both later. 
 
 
 Pull from User’s Watch Next List
