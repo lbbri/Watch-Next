@@ -201,11 +201,12 @@
 				7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */,
 				7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */,
 				7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */,
+				7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */,
+				7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */,
 				7FB2DA7124BE192800C8ECF8 /* SearchViewController.h */,
 				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 				7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */,
 				7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */,
-				7FB2DA7D24BE275800C8ECF8 /* Carousel Controllers */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -219,15 +220,6 @@
 				7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		7FB2DA7D24BE275800C8ECF8 /* Carousel Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */,
-				7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */,
-			);
-			path = "Carousel Controllers";
 			sourceTree = "<group>";
 		};
 		7FB2DA8424BF5D2500C8ECF8 /* Data Models */ = {

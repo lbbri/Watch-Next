@@ -38,7 +38,15 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 
-    [self searchAPI];
+    [self searchAPI:^(BOOL completion){
+
+         if(completion)
+         {
+              dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.tableView reloadData];
+             });
+         }
+     }];
     [searchBar resignFirstResponder];
 }
 
@@ -133,7 +141,7 @@
 
 #pragma mark - API Interactions
     
-- (void) searchAPI {
+- (void)searchAPI: (void (^)(BOOL completion))completionBlock {
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
         
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
@@ -148,15 +156,17 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
+            completionBlock(false);
             NSLog(@"%@", error);
         } else {
             
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.searchResults = dataDictionary[@"results"];
+            completionBlock(true);
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.tableView reloadData];
+//            });
         }
     }];
 

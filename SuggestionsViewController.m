@@ -11,10 +11,16 @@
 #import "WatchNextUser.h"
 #import <Parse/Parse.h>
 #import "Interaction.h"
+#import "MediaCollectionViewCell.h"
+#import "UIImageView+AFNetworking.h"
+
 
 #import "UserSuggestions.h"
 
-@interface SuggestionsViewController ()
+@interface SuggestionsViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 @end
@@ -26,10 +32,16 @@
     self.suggestionsPool = [[NSMutableArray alloc] init];
     self.topKeywords = [[NSMutableArray alloc] init];
     
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    
 
     // Do any additional setup after loading the view.
     
     [self watchedListforUser:[WatchNextUser currentUser]];
+    
+    [self.activityIndicator startAnimating];
+
 }
 
 
@@ -50,7 +62,6 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         self.orderedWatched = objects;
-        //[self printIt];
         
         [self recommendedTitles];
         
@@ -58,16 +69,11 @@
     
 }
 
-- (void) printIt {
-    
-    NSLog(@"%@", self.orderedWatched);
-}
-
 
 - (void) recommendedTitles {
     
     int i = 0;
-    for (i = 0; i <2; i++){
+    for (i = 0; i <5; i++){
         
         Interaction *currentInteraction = self.orderedWatched[i];
         
@@ -173,9 +179,7 @@
 }
 
 - (void) titlesFromKeyword: (NSString *)keywordID {
-    
-    //NSLog(@"keyword id %@", keywordID);
-    
+        
     NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", keywordID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -189,19 +193,69 @@
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *tempResults = dataDictionary[@"results"];
             
-            int i = 0;
-            for(i = 0; i <3; i++) {
-
-                [self.suggestionsPool addObject:tempResults[i]];
+            if(tempResults.count > 0){
+                int i = 0;
+                for(i = 0; i <3; i++) {
+                    [self.suggestionsPool addObject:tempResults[i]];
+                }
+                
             }
-            //NSLog(@"%lu", self.suggestionsPool.count);
-            //NSLog(@"%@", tempResults);
+            
+ 
 
         }
     }];
     [task resume];
     
     
+}
+
+- (IBAction)viewSuggestions:(id)sender {
+    
+    [self collectionViewLayout];
+    [self.collectionView reloadData];
+    
+}
+
+- (void) collectionViewLayout {
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    
+    //can also set in storyboard
+    layout.minimumInteritemSpacing = 1;
+    layout.minimumLineSpacing = 1;
+    
+    CGFloat postersPerLine = 3;
+    
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    
+}
+
+- (NSInteger) collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.suggestionsPool.count;
+}
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SuggestionCell" forIndexPath:indexPath];
+    NSDictionary *cellMedia = self.suggestionsPool[indexPath.row];
+        
+    cell.posterView.image = nil;
+    [cell.posterView setImageWithURL:[self posterURLFromDictionary:cellMedia]];
+    
+    return cell;
+}
+
+- (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {
+    
+    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
+    NSString *posterURLString = dictionary[@"poster_path"];
+    NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    
+    return [NSURL URLWithString:fullPosterURLString];
 }
 
 
