@@ -22,6 +22,9 @@
 @property (strong, nonatomic) NSArray *watched;
 @property (strong, nonatomic) NSArray *watchNext;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+
 
 
 @end
@@ -43,6 +46,7 @@
     
     [self.collectionView reloadData];
     
+    //[self.activityIndicator startAnimating];
     
 }
 
@@ -136,7 +140,8 @@
 }
 
 - (IBAction)viewChanged:(id)sender {
-   
+    
+    //[self.activityIndicator startAnimating];
     [self.collectionView reloadData];
 
 }

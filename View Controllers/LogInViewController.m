@@ -21,7 +21,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self addLoginButton];
     // Do any additional setup after loading the view.
+}
+
+- (void)addLoginButton {
+    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
+    loginButton.delegate = self;
+
+    //loginButton.permissions = @[@"user_birthday", @"user_friends"];
+    loginButton.permissions = @[@"email"];
+    loginButton.center = self.view.center;
+    [self.view addSubview:loginButton];
+}
+
+- (void)loginButton:(nonnull FBSDKLoginButton *)loginButton didCompleteWithResult:(nullable FBSDKLoginManagerLoginResult *)result error:(nullable NSError *)error {
+
+    NSAssert(error || result, @"Must have a result or an error");
+
+    if (error) {
+        return NSLog(@"An Error occurred: %@", error.localizedDescription);
+    }
+
+    if (result.isCancelled) {
+        return NSLog(@"Login was cancelled");
+    }
+
+    NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
+
+    [self performSegueWithIdentifier:@"FBLoginSegue" sender:nil];
+}
+
+- (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
+    NSLog(@"Logged out");
 }
 
 

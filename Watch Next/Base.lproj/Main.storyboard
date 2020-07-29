@@ -99,6 +99,7 @@
                         <outlet property="passwordField" destination="URh-U3-Z5d" id="y0E-UH-DaR"/>
                         <outlet property="usernameField" destination="aLj-DE-k6l" id="aui-fL-cSx"/>
                         <segue destination="eak-YB-MhZ" kind="show" identifier="loginSegue" id="sar-WW-e4X"/>
+                        <segue destination="eak-YB-MhZ" kind="show" identifier="FBLoginSegue" id="j1o-eH-Mpq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -497,7 +498,6 @@
         <!--View Controller-->
         <scene sceneID="xtO-9p-TDb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xPK-XU-de9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController modalPresentationStyle="fullScreen" id="xMk-KZ-YR5" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aT3-9d-eED">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -507,6 +507,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8jB-jw-nw9"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xPK-XU-de9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1996" y="1919"/>
         </scene>
@@ -746,7 +747,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="OG6-C7-Gsc"/>
-        <segue reference="Bgt-6p-HeZ"/>
+        <segue reference="j1o-eH-Mpq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
