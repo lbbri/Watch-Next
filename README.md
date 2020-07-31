@@ -105,6 +105,12 @@ Watch Next is a mobile app that allows users to keep track of movies and TV show
 <img src="IMG-9460.jpg" width=600> <img src="IMG-9461.jpg" width=600> <img src="IMG-9462.jpg" width=600> <img src="IMG-9463.jpg" width=600> 
 
 
+29 July 2020
+
+
+<img src="wirefram_3.jpg" width=600>
+
+
 ## Schema 
 
 ### Models
