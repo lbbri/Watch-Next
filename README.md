@@ -108,7 +108,7 @@ Watch Next is a mobile app that allows users to keep track of movies and TV show
 29 July 2020
 
 
-<img src="wirefram_3.jpg" width=600>
+<img src="wireframe_3.jpg" width=600>
 
 
 ## Schema 
