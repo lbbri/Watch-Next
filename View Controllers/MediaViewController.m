@@ -68,6 +68,7 @@
                 
     [self.watchedButton setSelected:[self checkIfWatched]];
     [self.watchNextButton setSelected:[self checkIfWatchNext]];
+    [self.ratingSlider setHidden:![self checkIfWatched]];
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
