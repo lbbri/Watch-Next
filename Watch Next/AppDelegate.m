@@ -24,10 +24,15 @@
         
         configuration.applicationId = @"watchNext";
         configuration.server = @"https://watch-nxt.herokuapp.com/parse";
+        
+        
+
     }];
     
-    [Parse initializeWithConfiguration:config];
     [FBSDKApplicationDelegate.sharedInstance application:application didFinishLaunchingWithOptions:launchOptions];
+    
+    [Parse initializeWithConfiguration:config];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions: launchOptions];
     
     return YES;
 }
