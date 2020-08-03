@@ -69,10 +69,13 @@
     [self.watchedButton setSelected:[self checkIfWatched]];
     [self.watchNextButton setSelected:[self checkIfWatchNext]];
     [self.ratingSlider setHidden:![self checkIfWatched]];
+    self.watchAgainButton.enabled = [self checkIfWatched];
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self fetchRelated];
+    
+    self.watchAgainButton.enabled = YES;
 
 }
 
@@ -280,6 +283,8 @@
 
 - (IBAction)watchAgainTap:(id)sender {
     
+    NSLog(@"hi");
+
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
     
     [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
@@ -287,7 +292,8 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         Interaction *changeInteraction = objects[0];
-        //TODO: Get would watch button to work.
+        [Interaction changeWouldWatchAgainFor:changeInteraction.objectId];
+        [self.watchAgainButton setSelected:![self.watchAgainButton isSelected]];
     }];
 }
 

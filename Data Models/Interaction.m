@@ -27,8 +27,6 @@
 }
 
 
-
-
 + (void) createWatchNext: (NSString *)title  withCompletion: (PFBooleanResultBlock _Nullable)completion {
     
     Interaction *watchNextInteraction = [Interaction new];
@@ -36,6 +34,7 @@
     watchNextInteraction.creator = [WatchNextUser currentUser];
     watchNextInteraction.apiID = title;
     watchNextInteraction.interactionType = watchNext;
+    watchNextInteraction.wouldWatchAgain = haveNotWatched;
     
     [watchNextInteraction saveInBackgroundWithBlock:completion];
     
@@ -49,6 +48,7 @@
     watchedInteraction.creator = [WatchNextUser currentUser];
     watchedInteraction.apiID = title;
     watchedInteraction.interactionType = watched;
+    watchedInteraction.wouldWatchAgain = no;
     
     [watchedInteraction saveInBackgroundWithBlock:completion];
     
@@ -132,6 +132,25 @@
         currentInteraction[@"interactionType"] = [NSNumber numberWithInt:(type)];
         [currentInteraction saveInBackground];
     }];
+    
+}
+
++ (void) changeWouldWatchAgainFor: (NSString *)objectID {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+
+       [query getObjectInBackgroundWithId:objectID block:^(PFObject *currentInteraction, NSError *error) {
+            
+           if([currentInteraction[@"wouldWatchAgain"]  isEqual: [NSNumber numberWithInt:(yes)]]){
+               currentInteraction[@"wouldWatchAgain"] = [NSNumber numberWithInt:(no)];
+           } else {
+               currentInteraction[@"wouldWatchAgain"] = [NSNumber numberWithInt:(yes)];
+           }
+           
+               
+           [currentInteraction saveInBackground];
+        }];
+        
     
 }
 
