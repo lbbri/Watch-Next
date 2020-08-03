@@ -14,9 +14,6 @@
 #import "MediaCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
 
-
-#import "UserSuggestions.h"
-
 @interface SuggestionsViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
