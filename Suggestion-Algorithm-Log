@@ -1,7 +1,7 @@
 # Suggestions Algorithm Approach 
 
-The algorithm will focus mostly use content-based methodology with some collaboration methodology. I am taking this approach because I do not want to run into any “cold start” issues, because my backend isn’t flowing with interactions. 
-
+The algorithm will focus mostly use content-based methodology with some collaboration methodology. 
+I am taking this approach because I do not want to run into any “cold start” issues, because my backend isn’t flowing with interactions. 
 
 **The approach**
 
@@ -19,6 +19,7 @@ Pull from User’s Watched List
 	  •	Use TMDB API to get the top 3* recommended titles for the title, and add them to the suggestionPool
 	  •	Use TMDB API to get top 3* related titles for the title, and add them to the suggestionPool
 	  •	Use TMDB API to get the top 3 keywords for each title, and add them to topKeyWords
+	        - There is a keyword endpoint for tv and movies. Search movies for now. Add both later. 
 
 
 Pull from User’s Watch Next List
@@ -33,7 +34,7 @@ Pull from topKeyWords
 	1.	Sort keyWords by most occurrences
 	2.	Use TMDB API to get top 3* titles for each of top 5* keywords, and add them to the suggestionPool
 
-
+Trivial - Extra Stretch Goal
 Pull from “Close” User’s Watch Next List
 	1.	Find the most similar user to current user by comparing the users’ Watched Lists. (Needs elaboration)
 	2.	Pull 5 movies that are on the “close” users watch next list that are not on the current users watch next list.
@@ -43,10 +44,15 @@ Return top n titles.
 
 ## Things to Consider 
 	⁃	Worried about how long this would take if I ran it each time the user loads the app.
-	⁃	Is it best to save the users suggestion list as a property of the user?
+	⁃	Is it best to save the users suggestion list as a property of the user? - Cache it and have it update only if there was a highly rated watched or if an certain amount of time has elapsed. 
 	⁃	What if the user wants more suggestions? Do I increment the amount of titles it pulls. 
-	⁃	Would this approach return the same set of titles each time until further user interaction occurs e.g. they highly rate another title on their watched list. 
+	⁃	Would this approach return the same set of titles each time until further user interaction occurs e.g. they highly rate another title on their watched list.  ^^
 	⁃	How to find the “closest” user to the current user. 
 	⁃	What to do for a brand new user who has no interaction. Suggestion: suggest trending titles and the titles that are most interacted with internally.
 
 
+
+23 July 2020
+
+- Can use query.skip if i want to pull more suggestions.
+- Look into query caching for time saving.

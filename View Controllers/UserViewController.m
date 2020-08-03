@@ -22,6 +22,9 @@
 @property (strong, nonatomic) NSArray *watched;
 @property (strong, nonatomic) NSArray *watchNext;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+
 
 
 @end
@@ -43,10 +46,15 @@
     
     [self.collectionView reloadData];
     
+    //[self.activityIndicator startAnimating];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    WatchNextUser *user = [WatchNextUser currentUser];
+    self.watched = user.watched;
+    self.watchNext = user.watchNext;
     
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
@@ -81,38 +89,29 @@
         //cell.titleLabel.text = self.watchNext[indexPath.row];
         [self mediaDictionaryWithID:self.watchNext[indexPath.row] forCell:cell completion:^(BOOL completion) {
             
-            if(completion)
-            {
+            if(completion) {
                 cell.posterView.image = nil;
                 [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
             }
-            
         }];
-        
         
     }
     else if(self.pageControl.selectedSegmentIndex == 1)
     {
-        //cell.titleLabel.text = self.watched[indexPath.row];
         [self mediaDictionaryWithID:self.watched[indexPath.row] forCell:cell completion:^(BOOL completion){
             
-            if(completion)
-            {
+            if(completion) {
                 cell.posterView.image = nil;
                 [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
             }
             
         }];
         
-    }
-    else
-    {
+    } else {
         //cell.mediaDictionary = @{};
         cell.titleLabel.text = @"Suggested";
     }
 
-    
-    
     return cell;
 }
 
@@ -136,7 +135,8 @@
 }
 
 - (IBAction)viewChanged:(id)sender {
-   
+    
+    //[self.activityIndicator startAnimating];
     [self.collectionView reloadData];
 
 }

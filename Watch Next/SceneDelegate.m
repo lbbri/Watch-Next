@@ -9,6 +9,8 @@
 #import "SceneDelegate.h"
 #import <Parse/Parse.h>
 #import "WatchNextUser.h"
+//@import FBSDKCoreKit;
+#import <PFFacebookUtils.h>
 
 @interface SceneDelegate ()
 
@@ -27,6 +29,15 @@
         UITabBarController * tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
         self.window.rootViewController = tabBarController;
     }
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    UIOpenURLContext *urlContext = (UIOpenURLContext *)[[URLContexts allObjects] firstObject];
+    if (!urlContext) {
+        return;
+    }
+    NSURL *url = urlContext.URL;
+    [FBSDKApplicationDelegate.sharedInstance application:UIApplication.sharedApplication openURL:url sourceApplication:nil annotation:@ [UIApplicationLaunchOptionsAnnotationKey]];
 }
 
 
