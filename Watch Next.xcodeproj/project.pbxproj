@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B7B91A06F434F65215A763A /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */; };
-		7F06008E24D482B500DE1F38 /* ParseFacebookUtils in Resources */ = {isa = PBXBuildFile; fileRef = 7F06008D24D482B500DE1F38 /* ParseFacebookUtils */; };
+		55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */; };
+		7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F06009724D8805100DE1F38 /* error_fixer.swift */; };
 		7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */; };
 		7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */; };
 		7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3224BE066300C8ECF8 /* ViewController.m */; };
@@ -29,9 +29,6 @@
 		7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */; };
 		7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8924BF64C200C8ECF8 /* Interaction.m */; };
 		7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */; };
-		7FE7CCE624D0A30D00300CEE /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 7FE7CCE524D0A30D00300CEE /* FacebookLogin */; };
-		7FE7CCE824D0A30D00300CEE /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7FE7CCE724D0A30D00300CEE /* FacebookCore */; };
-		7FE7CCEA24D0A30D00300CEE /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 7FE7CCE924D0A30D00300CEE /* FacebookShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.debug.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.debug.xcconfig"; sourceTree = "<group>"; };
-		535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.release.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.release.xcconfig"; sourceTree = "<group>"; };
-		7F06008D24D482B500DE1F38 /* ParseFacebookUtils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ParseFacebookUtils; path = ParseFacebookUtils/ParseFacebookUtils; sourceTree = "<group>"; };
+		2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.debug.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.debug.xcconfig"; sourceTree = "<group>"; };
+		5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.release.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.release.xcconfig"; sourceTree = "<group>"; };
+		7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Watch Next-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F06009724D8805100DE1F38 /* error_fixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = error_fixer.swift; sourceTree = "<group>"; };
 		7FB2DA2824BE066300C8ECF8 /* Watch Next.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch Next.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FB2DA2B24BE066300C8ECF8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -95,7 +93,7 @@
 		7FB2DA8924BF64C200C8ECF8 /* Interaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
 		7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaViewController.h; sourceTree = "<group>"; };
 		7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
-		F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,10 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FE7CCE624D0A30D00300CEE /* FacebookLogin in Frameworks */,
-				7FE7CCE824D0A30D00300CEE /* FacebookCore in Frameworks */,
-				7FE7CCEA24D0A30D00300CEE /* FacebookShare in Frameworks */,
-				4B7B91A06F434F65215A763A /* libPods-Watch Next.a in Frameworks */,
+				55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +132,7 @@
 		7FB2DA1F24BE066300C8ECF8 = {
 			isa = PBXGroup;
 			children = (
-				7F06008D24D482B500DE1F38 /* ParseFacebookUtils */,
+				7F06009724D8805100DE1F38 /* error_fixer.swift */,
 				7F39814024C224CE00178946 /* API */,
 				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
 				7FB2DA6024BE0BB200C8ECF8 /* View Controllers */,
@@ -147,7 +142,8 @@
 				7FB2DA5124BE066500C8ECF8 /* Watch NextUITests */,
 				7FB2DA2924BE066300C8ECF8 /* Products */,
 				9861F91C70D12E891A820563 /* Pods */,
-				B22E56597C412CB8CF984815 /* Frameworks */,
+				AC8D0F00C5464C9B915B8028 /* Frameworks */,
+				7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -243,16 +239,16 @@
 		9861F91C70D12E891A820563 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */,
-				535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */,
+				2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */,
+				5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B22E56597C412CB8CF984815 /* Frameworks */ = {
+		AC8D0F00C5464C9B915B8028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */,
+				EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -264,22 +260,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FB2DA5724BE066500C8ECF8 /* Build configuration list for PBXNativeTarget "Watch Next" */;
 			buildPhases = (
-				5D93E871BBB59D6C8C697899 /* [CP] Check Pods Manifest.lock */,
+				8B91C80E79AD5F9A6BCE6587 /* [CP] Check Pods Manifest.lock */,
 				7FB2DA2424BE066300C8ECF8 /* Sources */,
 				7FB2DA2524BE066300C8ECF8 /* Frameworks */,
 				7FB2DA2624BE066300C8ECF8 /* Resources */,
-				2376DC64D17346BB44E5B6E3 /* [CP] Copy Pods Resources */,
+				FD49A5A6259C4E6134D5544F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Watch Next";
-			packageProductDependencies = (
-				7FE7CCE524D0A30D00300CEE /* FacebookLogin */,
-				7FE7CCE724D0A30D00300CEE /* FacebookCore */,
-				7FE7CCE924D0A30D00300CEE /* FacebookShare */,
-			);
 			productName = "Watch Next";
 			productReference = 7FB2DA2824BE066300C8ECF8 /* Watch Next.app */;
 			productType = "com.apple.product-type.application";
@@ -331,6 +322,7 @@
 				TargetAttributes = {
 					7FB2DA2724BE066300C8ECF8 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1160;
 					};
 					7FB2DA4224BE066500C8ECF8 = {
 						CreatedOnToolsVersion = 11.5;
@@ -351,9 +343,6 @@
 				Base,
 			);
 			mainGroup = 7FB2DA1F24BE066300C8ECF8;
-			packageReferences = (
-				7FE7CCE424D0A30D00300CEE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
-			);
 			productRefGroup = 7FB2DA2924BE066300C8ECF8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -370,7 +359,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F06008E24D482B500DE1F38 /* ParseFacebookUtils in Resources */,
 				7FB2DA3B24BE066500C8ECF8 /* LaunchScreen.storyboard in Resources */,
 				7FB2DA3824BE066500C8ECF8 /* Assets.xcassets in Resources */,
 				7FB2DA3624BE066300C8ECF8 /* Main.storyboard in Resources */,
@@ -394,24 +382,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2376DC64D17346BB44E5B6E3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5D93E871BBB59D6C8C697899 /* [CP] Check Pods Manifest.lock */ = {
+		8B91C80E79AD5F9A6BCE6587 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -433,6 +404,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FD49A5A6259C4E6134D5544F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -443,6 +431,7 @@
 				7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */,
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
 				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
+				7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
 				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
@@ -621,9 +610,10 @@
 		};
 		7FB2DA5824BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */;
+			baseConfigurationReference = 2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BAQWB9QC5;
 				INFOPLIST_FILE = "Watch Next/Info.plist";
@@ -633,15 +623,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "MC.Watch-Next";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Watch Next-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		7FB2DA5924BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */;
+			baseConfigurationReference = 5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BAQWB9QC5;
 				INFOPLIST_FILE = "Watch Next/Info.plist";
@@ -651,6 +645,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "MC.Watch-Next";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Watch Next-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -658,6 +654,7 @@
 		7FB2DA5B24BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextTests/Info.plist";
@@ -677,6 +674,7 @@
 		7FB2DA5C24BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextTests/Info.plist";
@@ -696,6 +694,7 @@
 		7FB2DA5E24BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -713,6 +712,7 @@
 		7FB2DA5F24BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -767,35 +767,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7FE7CCE424D0A30D00300CEE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.1.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7FE7CCE524D0A30D00300CEE /* FacebookLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7FE7CCE424D0A30D00300CEE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookLogin;
-		};
-		7FE7CCE724D0A30D00300CEE /* FacebookCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7FE7CCE424D0A30D00300CEE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookCore;
-		};
-		7FE7CCE924D0A30D00300CEE /* FacebookShare */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7FE7CCE424D0A30D00300CEE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookShare;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7FB2DA2024BE066300C8ECF8 /* Project object */;
 }

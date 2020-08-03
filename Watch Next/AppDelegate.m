@@ -7,9 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "Parse/Parse.h"
-
 @import FBSDKCoreKit;
+#import "Parse/Parse.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +19,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [FBSDKApplicationDelegate.sharedInstance application:application didFinishLaunchingWithOptions:launchOptions];
-
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"watchNext";
@@ -29,6 +26,7 @@
     }];
     
     [Parse initializeWithConfiguration:config];
+    [FBSDKApplicationDelegate.sharedInstance application:application didFinishLaunchingWithOptions:launchOptions];
     
     return YES;
 }
