@@ -68,6 +68,17 @@
                                     <segue destination="vNN-fV-0oX" kind="presentation" id="1T0-Vh-9uv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYc-q3-k09">
+                                <rect key="frame" x="60" y="580" width="294" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Login With Facebook">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginWithFacebookTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sSq-yd-nCf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -109,7 +120,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1054" y="-1811"/>
+            <point key="canvasLocation" x="1053.6231884057972" y="-1811.3839285714284"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="uTs-sT-uKl">
@@ -577,20 +588,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CCT-uG-jT1">
-                                <rect key="frame" x="329" y="352.5" width="32" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="5Xw-f3-F7H"/>
-                                    <constraint firstAttribute="height" constant="31" id="UkR-aX-fIe"/>
-                                </constraints>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" backgroundImage="plus.circle" catalog="system">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <state key="disabled" backgroundImage="xmark.circle.fill" catalog="system"/>
-                                <state key="selected" backgroundImage="checkmark.circle.fill" catalog="system"/>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Rih-Yq-XQS">
                                 <rect key="frame" x="0.0" y="534" width="414" height="225"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -646,8 +643,8 @@
                                     <action selector="watchedTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="4eB-PU-XkQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch Again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3N-cn-mWc">
-                                <rect key="frame" x="298.5" y="393" width="93" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Watch Again" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3N-cn-mWc">
+                                <rect key="frame" x="296.5" y="393" width="93" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="93" id="2NF-u9-Ru9"/>
                                     <constraint firstAttribute="height" constant="21" id="kKB-5Q-3o1"/>
@@ -656,11 +653,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpA-HC-n2l">
-                                <rect key="frame" x="261" y="463" width="69" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpA-HC-n2l">
+                                <rect key="frame" x="327" y="352.5" width="32" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7JB-yU-rBy"/>
+                                    <constraint firstAttribute="width" constant="32" id="unr-RB-4h9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" backgroundImage="checkmark.circle" catalog="system">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <state key="disabled" backgroundImage="xmark.circle.fill" catalog="system"/>
+                                <state key="selected" backgroundImage="checkmark.circle.fill" catalog="system"/>
                                 <connections>
                                     <action selector="watchAgainTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="l6X-JC-m9E"/>
                                 </connections>
@@ -672,14 +678,12 @@
                             <constraint firstItem="x95-aZ-cWl" firstAttribute="bottom" secondItem="uI2-o2-XMj" secondAttribute="bottom" id="3hf-GP-ufM"/>
                             <constraint firstItem="x95-aZ-cWl" firstAttribute="leading" secondItem="uI2-o2-XMj" secondAttribute="trailing" constant="95" id="5Pi-Rb-d70"/>
                             <constraint firstItem="gEi-aI-BRZ" firstAttribute="bottom" secondItem="1hb-eq-eoM" secondAttribute="bottom" id="7N4-LR-Sea"/>
-                            <constraint firstItem="CCT-uG-jT1" firstAttribute="bottom" secondItem="uI2-o2-XMj" secondAttribute="bottom" id="7nS-C5-2iG"/>
-                            <constraint firstItem="y3N-cn-mWc" firstAttribute="top" secondItem="CCT-uG-jT1" secondAttribute="bottom" constant="10" id="AF2-yD-Sf3"/>
                             <constraint firstItem="uI2-o2-XMj" firstAttribute="top" secondItem="G1d-cz-2Uv" secondAttribute="bottom" constant="20" id="Hrj-mL-3aB"/>
                             <constraint firstItem="dKg-2V-z9J" firstAttribute="top" secondItem="uI2-o2-XMj" secondAttribute="bottom" constant="10" id="JeV-nA-UnE"/>
                             <constraint firstItem="G1d-cz-2Uv" firstAttribute="leading" secondItem="Qjq-h9-RnB" secondAttribute="leading" constant="10" id="KE7-M7-Bje"/>
+                            <constraint firstItem="cpA-HC-n2l" firstAttribute="centerX" secondItem="y3N-cn-mWc" secondAttribute="centerX" id="L4C-a1-RHB"/>
                             <constraint firstItem="dKg-2V-z9J" firstAttribute="centerX" secondItem="uI2-o2-XMj" secondAttribute="centerX" id="NJT-uj-PzP"/>
                             <constraint firstItem="x95-aZ-cWl" firstAttribute="top" secondItem="uI2-o2-XMj" secondAttribute="top" id="SIV-yR-AA6"/>
-                            <constraint firstItem="CCT-uG-jT1" firstAttribute="leading" secondItem="x95-aZ-cWl" secondAttribute="trailing" constant="105" id="XbO-le-cen"/>
                             <constraint firstItem="1hb-eq-eoM" firstAttribute="leading" secondItem="Qjq-h9-RnB" secondAttribute="leading" id="XyQ-bI-gs1"/>
                             <constraint firstItem="gEi-aI-BRZ" firstAttribute="leading" secondItem="Qjq-h9-RnB" secondAttribute="leading" constant="10" id="YQb-aP-x1n"/>
                             <constraint firstItem="Apd-HJ-9D1" firstAttribute="top" secondItem="e08-EQ-3Fl" secondAttribute="bottom" constant="3.5" id="Yps-CF-oxd"/>
@@ -687,10 +691,10 @@
                             <constraint firstItem="G1d-cz-2Uv" firstAttribute="top" secondItem="1hb-eq-eoM" secondAttribute="bottom" constant="10" id="dCz-eK-7fs"/>
                             <constraint firstItem="e08-EQ-3Fl" firstAttribute="centerX" secondItem="x95-aZ-cWl" secondAttribute="centerX" id="eJu-C5-NWN"/>
                             <constraint firstItem="e08-EQ-3Fl" firstAttribute="top" secondItem="x95-aZ-cWl" secondAttribute="bottom" constant="10" id="fbh-Fr-3or"/>
+                            <constraint firstItem="cpA-HC-n2l" firstAttribute="top" secondItem="x95-aZ-cWl" secondAttribute="top" id="hL7-vF-Hxx"/>
+                            <constraint firstItem="cpA-HC-n2l" firstAttribute="leading" secondItem="x95-aZ-cWl" secondAttribute="trailing" constant="103" id="m0q-0a-fHz"/>
                             <constraint firstItem="uI2-o2-XMj" firstAttribute="leading" secondItem="Qjq-h9-RnB" secondAttribute="leading" constant="65" id="mPx-rL-Gm0"/>
                             <constraint firstItem="1hb-eq-eoM" firstAttribute="top" secondItem="uk9-Zn-j5w" secondAttribute="top" id="nVf-8U-G2e"/>
-                            <constraint firstItem="y3N-cn-mWc" firstAttribute="centerX" secondItem="CCT-uG-jT1" secondAttribute="centerX" id="w5J-QR-y94"/>
-                            <constraint firstItem="CCT-uG-jT1" firstAttribute="top" secondItem="uI2-o2-XMj" secondAttribute="top" id="xrV-lp-xrB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qjq-h9-RnB"/>
                     </view>
@@ -750,10 +754,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OG6-C7-Gsc"/>
+        <segue reference="Bcy-Xf-vTn"/>
         <segue reference="j1o-eH-Mpq"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
