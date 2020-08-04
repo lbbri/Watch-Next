@@ -24,13 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *) getWatchedList;
 - (NSArray *) getWatchNextList;
 
-
-
-
-
-
-
-//function for keep them signed in
 @end
 
 NS_ASSUME_NONNULL_END

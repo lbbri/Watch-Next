@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */; };
+		55B98E6EAA902DA391ED2E0A /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F06009724D8805100DE1F38 /* error_fixer.swift */; };
 		7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */; };
 		7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */; };
-		7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3224BE066300C8ECF8 /* ViewController.m */; };
 		7FB2DA3624BE066300C8ECF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3424BE066300C8ECF8 /* Main.storyboard */; };
 		7FB2DA3824BE066500C8ECF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3724BE066500C8ECF8 /* Assets.xcassets */; };
 		7FB2DA3B24BE066500C8ECF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3924BE066500C8ECF8 /* LaunchScreen.storyboard */; };
@@ -59,8 +58,6 @@
 		7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7FB2DA2E24BE066300C8ECF8 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		7FB2DA3124BE066300C8ECF8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7FB2DA3224BE066300C8ECF8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7FB2DA3524BE066300C8ECF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7FB2DA3724BE066500C8ECF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7FB2DA3A24BE066500C8ECF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -96,8 +93,6 @@
 		7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
 		7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionsViewController.h; sourceTree = "<group>"; };
 		7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionsViewController.m; sourceTree = "<group>"; };
-		F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */,
+				55B98E6EAA902DA391ED2E0A /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,12 +121,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7FAAFDDA24D8DED400E3674B /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				7F06009724D8805100DE1F38 /* error_fixer.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		7FB2DA1F24BE066300C8ECF8 = {
 			isa = PBXGroup;
 			children = (
 				7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */,
 				7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */,
-
 				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
 				7FB2DA6024BE0BB200C8ECF8 /* View Controllers */,
 				7FB2DA7024BE11A800C8ECF8 /* Views */,
@@ -142,6 +144,7 @@
 				9861F91C70D12E891A820563 /* Pods */,
 				AC8D0F00C5464C9B915B8028 /* Frameworks */,
 				7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */,
+				7FAAFDDA24D8DED400E3674B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,8 +167,6 @@
 				7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */,
 				7FB2DA2E24BE066300C8ECF8 /* SceneDelegate.h */,
 				7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */,
-				7FB2DA3124BE066300C8ECF8 /* ViewController.h */,
-				7FB2DA3224BE066300C8ECF8 /* ViewController.m */,
 				7FB2DA3724BE066500C8ECF8 /* Assets.xcassets */,
 				7FB2DA3C24BE066500C8ECF8 /* Info.plist */,
 				7FB2DA3D24BE066500C8ECF8 /* main.m */,
@@ -208,7 +209,6 @@
 				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 				7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */,
 				7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */,
-
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -247,7 +247,6 @@
 		AC8D0F00C5464C9B915B8028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -427,7 +426,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */,
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
 				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
 				7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */,

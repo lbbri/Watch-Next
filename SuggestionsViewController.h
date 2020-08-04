@@ -13,12 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SuggestionsViewController : UIViewController
 
-@property (nonatomic) NSArray *orderedWatched;
-@property (strong, nonatomic) NSMutableArray *suggestionsPool;
 
-@property (strong, nonatomic) NSMutableArray *topKeywords;
 
-- (void) watchedListforUser: (WatchNextUser *) user;
 
 
 

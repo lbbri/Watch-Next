@@ -7,9 +7,8 @@
 //
 
 #import "SignUpViewController.h"
+#import "WatchNextUser.h"
 #import <Parse/Parse.h>
-#import "../Data Models/WatchNextUser.h"
-
 
 @interface SignUpViewController ()
 
@@ -34,43 +33,31 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Message" preferredStyle:(UIAlertControllerStyleAlert)];
     UIAlertAction *tryAgainAction = [UIAlertAction actionWithTitle:@"Try Again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //handle try agin here. Doing nothing will dismiss the view.
     }];
     [alert addAction:tryAgainAction];
     
-    
-    if([self.usernameField.text isEqual:@""])
-    {
+    if([self.usernameField.text isEqual:@""]) {
         alert.message = @"User Name cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
         
-    }
-    else if ([self.passwordField.text isEqual:@""])
-    {
+    } else if ([self.passwordField.text isEqual:@""]) {
         alert.message = @"Password cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
         
-    }
-    else
-    {
+    } else {
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (error != nil) {
-                
                 alert.message = error.localizedDescription;
                 [self presentViewController:alert animated:YES completion:^{
                 }];
             } else {
-                
                 [self performSegueWithIdentifier:@"signupSegue" sender:nil];
             }
         }];
-        
     }
-    
 }
-
 
 
 @end

@@ -16,7 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSDictionary *mediaDictionary;
 
@@ -30,23 +29,21 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
-    
     [self.searchBar becomeFirstResponder];
 }
 
 #pragma mark - Search Bar Controls
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-
+    
     [self searchAPI:^(BOOL completion){
-
-         if(completion)
-         {
-              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.tableView reloadData];
-             });
-         }
-     }];
+        
+        if(completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }];
     [searchBar resignFirstResponder];
 }
 
@@ -60,7 +57,6 @@
     self.searchBar.showsCancelButton = NO;
     self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    
 }
 
 
@@ -74,25 +70,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultsCell"];
-    
     NSDictionary *cellSearchDictionary = self.searchResults[indexPath.row];
     NSURL *tmdbURL = [self tmdbURLWithDictionary:cellSearchDictionary];
     [self tmdbDictionaryFromURL:tmdbURL forCell:cell completion:^(BOOL completion){
         
-        if(completion)
-        {
-            if(cell.mediaDictionary[@"title"])
-            {
+        if(completion) {
+            if(cell.mediaDictionary[@"title"]) {
                 cell.titleLabel.text = cell.mediaDictionary[@"title"];
-            }else {
+            } else {
                 cell.titleLabel.text = cell.mediaDictionary[@"name"];
             }
             cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
             cell.posterView.image = nil;
             [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
-            
         }
-        
     }];
     
     return cell;
@@ -107,13 +98,9 @@
     NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
     NSString *tmdbURL = tmdbDictionary[@"url"];
     tmdbURL = [tmdbURL stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
-    
-    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=", tmdbURL];
-    
+    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=insertAPIKey", tmdbURL];
     NSURL *finalURL = [NSURL URLWithString:finalURLString];
-    
     return finalURL;
-    
 }
 
 
@@ -121,64 +108,51 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-           if (error != nil) {
-               NSLog(@"%@", [error localizedDescription]);
-               completionBlock(false);
-           } else {
-               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               cell.mediaDictionary = dataDictionary;
-               completionBlock(true);
-
-           }
+        if (error != nil) {
+            completionBlock(false);
+        } else {
+            NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            cell.mediaDictionary = dataDictionary;
+            completionBlock(true);
+        }
     }];
-
+    
     [task resume];
-    
-    
 }
 
 #pragma mark - API Interactions
-    
+
 - (void)searchAPI: (void (^)(BOOL completion))completionBlock {
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
-        
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
-    
     NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-                               @"x-rapidapi-key": @"" };
+                               @"x-rapidapi-key": @"insertAPIKey" };
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString] cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                    timeoutInterval:20.0];
+                                                       timeoutInterval:20.0];
     [request setHTTPMethod:@"GET"];
     [request setAllHTTPHeaderFields:headers];
     NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             completionBlock(false);
-            NSLog(@"%@", error);
         } else {
-            
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.searchResults = dataDictionary[@"results"];
             completionBlock(true);
-            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.tableView reloadData];
-//            });
         }
     }];
-
+    
     [dataTask resume];
 }
+
+#pragma mark - Helper Method
 
 - (NSURL *)posterURLFromDictionary: (NSDictionary *)dictionary {
     
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = dictionary[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
-    
     return [NSURL URLWithString:fullPosterURLString];
 }
 

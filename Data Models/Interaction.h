@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Interaction : PFObject<PFSubclassing>
 
+
+//TODO: change to NS_ENUM
 typedef enum {
     watched,
     watchNext
@@ -34,17 +36,11 @@ typedef enum {
 
 @property (nonatomic, strong) NSString *interactionID;
 @property (nonatomic, strong) WatchNextUser *creator;
-
 @property (nonatomic, strong) NSString *apiID;
 @property (nonatomic) MediaType *mediaType;
-
 @property (nonatomic) InteractionType interactionType;
 @property (nonatomic, strong) NSNumber *stars;
 @property (nonatomic) WatchAgain wouldWatchAgain;
-
-
-
-
 
 + (void) createWatchNext: (NSString *)title  withCompletion: (PFBooleanResultBlock _Nullable)completion;
 

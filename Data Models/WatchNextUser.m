@@ -19,19 +19,13 @@
 @dynamic keepSignedIn;
 
 
-
-
-
-
 - (NSArray*) getWatchedList {
-    
     WatchNextUser *user = [WatchNextUser currentUser];
     return user.watched;
 }
 
 
 - (NSArray*) getWatchNextList {
-    
     WatchNextUser *user = [WatchNextUser currentUser];
     return user.watchNext;
 }
