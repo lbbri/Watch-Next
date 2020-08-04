@@ -14,6 +14,8 @@
 #import <MaterialTextFields.h>
 #import <MaterialButtons.h>
 #import "MaterialButtons+ButtonThemer.h"
+#import "MDCButton+MaterialTheming.h"
+
 
 @interface LogInViewController ()
 
@@ -127,7 +129,15 @@
     self.usernameController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.usernameField];
     self.passwordController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.passwordField];
     
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme.primaryColor = UIColor.lightGrayColor;
     
+    [self.loginButton applyContainedThemeWithScheme: containerScheme];
+    [self.loginButton setTitle:@"Log In" forState:UIControlStateNormal];
+    self.loginButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.loginButton.bounds) - 48) / 2);
+    self.loginButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+
     
     
 }

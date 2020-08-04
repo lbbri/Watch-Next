@@ -36,9 +36,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ge-86-Xcp">
-                                <rect key="frame" x="60" y="490" width="294" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ge-86-Xcp" customClass="MDCButton">
+                                <rect key="frame" x="65" y="381" width="284" height="30"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" title="Log In ">
                                     <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -91,7 +90,10 @@
                         <constraints>
                             <constraint firstItem="aLj-DE-k6l" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="71:224" id="4eA-Uf-O4o"/>
                             <constraint firstItem="aLj-DE-k6l" firstAttribute="top" secondItem="ypn-jt-RCz" secondAttribute="bottom" constant="20" id="6yh-2u-d5I"/>
+                            <constraint firstItem="0ge-86-Xcp" firstAttribute="trailing" secondItem="URh-U3-Z5d" secondAttribute="trailing" id="BC5-7L-G5j"/>
                             <constraint firstItem="aLj-DE-k6l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="DLK-3M-4iS"/>
+                            <constraint firstItem="0ge-86-Xcp" firstAttribute="top" secondItem="URh-U3-Z5d" secondAttribute="bottom" constant="10" id="NMg-XP-phA"/>
+                            <constraint firstItem="0ge-86-Xcp" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UQE-3C-Dyd"/>
                             <constraint firstItem="ypn-jt-RCz" firstAttribute="top" secondItem="CTK-6I-QaW" secondAttribute="bottom" constant="20" id="Uan-qj-SIT"/>
                             <constraint firstItem="CTK-6I-QaW" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZIl-8p-jkN"/>
                             <constraint firstItem="URh-U3-Z5d" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="h8A-WG-8ae"/>
@@ -99,6 +101,7 @@
                             <constraint firstItem="URh-U3-Z5d" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="71:224" id="rEu-1d-x1H"/>
                             <constraint firstItem="CTK-6I-QaW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="rWR-kb-gfS"/>
                             <constraint firstItem="ypn-jt-RCz" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="t3W-A3-h8T"/>
+                            <constraint firstItem="0ge-86-Xcp" firstAttribute="leading" secondItem="URh-U3-Z5d" secondAttribute="leading" id="wLY-aO-Ns3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
@@ -106,6 +109,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="0ge-86-Xcp" id="Koq-Jr-UZH"/>
                         <outlet property="passwordField" destination="URh-U3-Z5d" id="y0E-UH-DaR"/>
                         <outlet property="usernameField" destination="aLj-DE-k6l" id="aui-fL-cSx"/>
                         <segue destination="eak-YB-MhZ" kind="show" identifier="loginSegue" id="sar-WW-e4X"/>
