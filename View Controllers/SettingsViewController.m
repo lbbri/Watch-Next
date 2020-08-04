@@ -11,6 +11,8 @@
 #import "LogInViewController.h"
 #import <Parse/Parse.h>
 #import "WatchNextUser.h"
+#import <PFFacebookUtils.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface SettingsViewController ()
 
@@ -37,6 +39,7 @@
     
     myDelegate.window.rootViewController = loginViewController;
     
+    [[FBSDKLoginManager new] logOut];
     [WatchNextUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
     }];
     

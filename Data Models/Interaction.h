@@ -58,6 +58,7 @@ typedef enum {
 
 + (void) changeInteractionFor: (NSString *)objectID toType: (InteractionType)type withCommpletion: (PFBooleanResultBlock _Nullable) completion;
 
++ (void) changeWouldWatchAgainFor: (NSString *)objectID;
 
 @end
 

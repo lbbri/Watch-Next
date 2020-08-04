@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B7B91A06F434F65215A763A /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */; };
+		55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */; };
+		7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F06009724D8805100DE1F38 /* error_fixer.swift */; };
 		7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */; };
 		7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */; };
 		7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3224BE066300C8ECF8 /* ViewController.m */; };
@@ -49,8 +50,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.debug.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.debug.xcconfig"; sourceTree = "<group>"; };
-		535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.release.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.release.xcconfig"; sourceTree = "<group>"; };
+		2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.debug.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.debug.xcconfig"; sourceTree = "<group>"; };
+		5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.release.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.release.xcconfig"; sourceTree = "<group>"; };
+		7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Watch Next-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F06009724D8805100DE1F38 /* error_fixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = error_fixer.swift; sourceTree = "<group>"; };
 		7FB2DA2824BE066300C8ECF8 /* Watch Next.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch Next.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FB2DA2B24BE066300C8ECF8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionsViewController.h; sourceTree = "<group>"; };
 		7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionsViewController.m; sourceTree = "<group>"; };
 		F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B7B91A06F434F65215A763A /* libPods-Watch Next.a in Frameworks */,
+				55B98E6EAA902DA391ED2E0A /* libPods-Watch Next.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,7 @@
 			children = (
 				7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */,
 				7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */,
+
 				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
 				7FB2DA6024BE0BB200C8ECF8 /* View Controllers */,
 				7FB2DA7024BE11A800C8ECF8 /* Views */,
@@ -135,7 +140,8 @@
 				7FB2DA5124BE066500C8ECF8 /* Watch NextUITests */,
 				7FB2DA2924BE066300C8ECF8 /* Products */,
 				9861F91C70D12E891A820563 /* Pods */,
-				B22E56597C412CB8CF984815 /* Frameworks */,
+				AC8D0F00C5464C9B915B8028 /* Frameworks */,
+				7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,6 +208,7 @@
 				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 				7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */,
 				7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */,
+
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -231,16 +238,16 @@
 		9861F91C70D12E891A820563 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */,
-				535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */,
+				2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */,
+				5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B22E56597C412CB8CF984815 /* Frameworks */ = {
+		AC8D0F00C5464C9B915B8028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */,
+				EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -252,11 +259,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FB2DA5724BE066500C8ECF8 /* Build configuration list for PBXNativeTarget "Watch Next" */;
 			buildPhases = (
-				5D93E871BBB59D6C8C697899 /* [CP] Check Pods Manifest.lock */,
+				8B91C80E79AD5F9A6BCE6587 /* [CP] Check Pods Manifest.lock */,
 				7FB2DA2424BE066300C8ECF8 /* Sources */,
 				7FB2DA2524BE066300C8ECF8 /* Frameworks */,
 				7FB2DA2624BE066300C8ECF8 /* Resources */,
-				2376DC64D17346BB44E5B6E3 /* [CP] Copy Pods Resources */,
+				FD49A5A6259C4E6134D5544F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -314,6 +321,7 @@
 				TargetAttributes = {
 					7FB2DA2724BE066300C8ECF8 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1160;
 					};
 					7FB2DA4224BE066500C8ECF8 = {
 						CreatedOnToolsVersion = 11.5;
@@ -373,24 +381,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2376DC64D17346BB44E5B6E3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5D93E871BBB59D6C8C697899 /* [CP] Check Pods Manifest.lock */ = {
+		8B91C80E79AD5F9A6BCE6587 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -412,6 +403,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FD49A5A6259C4E6134D5544F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watch Next/Pods-Watch Next-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -422,6 +430,7 @@
 				7FB2DA3324BE066300C8ECF8 /* ViewController.m in Sources */,
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
 				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
+				7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
 				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
@@ -601,9 +610,10 @@
 		};
 		7FB2DA5824BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03E36761BF3F1897A3FA4D7A /* Pods-Watch Next.debug.xcconfig */;
+			baseConfigurationReference = 2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BAQWB9QC5;
 				INFOPLIST_FILE = "Watch Next/Info.plist";
@@ -613,15 +623,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "MC.Watch-Next";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Watch Next-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		7FB2DA5924BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 535B46F0362F792A481A1C60 /* Pods-Watch Next.release.xcconfig */;
+			baseConfigurationReference = 5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5BAQWB9QC5;
 				INFOPLIST_FILE = "Watch Next/Info.plist";
@@ -631,6 +645,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "MC.Watch-Next";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Watch Next-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -638,6 +654,7 @@
 		7FB2DA5B24BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextTests/Info.plist";
@@ -657,6 +674,7 @@
 		7FB2DA5C24BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextTests/Info.plist";
@@ -676,6 +694,7 @@
 		7FB2DA5E24BE066500C8ECF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -693,6 +712,7 @@
 		7FB2DA5F24BE066500C8ECF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Watch NextUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
