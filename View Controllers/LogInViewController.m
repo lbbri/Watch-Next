@@ -11,11 +11,22 @@
 #import "WatchNextUser.h"
 #import <Parse/Parse.h>
 #import <PFFacebookUtils.h>
+#import <MaterialTextFields.h>
+#import <MaterialButtons.h>
+#import "MaterialButtons+ButtonThemer.h"
+#import "MDCButton+MaterialTheming.h"
+
 
 @interface LogInViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet MDCTextField *usernameField;
+@property (weak, nonatomic) IBOutlet MDCTextField *passwordField;
+@property (weak, nonatomic) IBOutlet MDCButton *loginButton;
+@property (weak, nonatomic) IBOutlet MDCButton *FBButton;
+
+@property(nonatomic) MDCTextInputControllerOutlined *usernameController;
+@property(nonatomic) MDCTextInputControllerOutlined *passwordController;
+
 
 @end
 
@@ -24,6 +35,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setUpVisuals];
 }
 
 #pragma mark - FBSDK Login
@@ -106,5 +119,37 @@
     myDelegate.window.rootViewController = tabBarController;
 }
 
+
+#pragma mark - Visual Polish
+
+- (void) setUpVisuals {
+    
+    self.usernameField.placeholder = @"Username";
+    self.passwordField.placeholder = @"Password";
+    
+    self.usernameController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.usernameField];
+    self.passwordController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.passwordField];
+    
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme.primaryColor = UIColor.lightGrayColor;
+    
+    [self.loginButton applyContainedThemeWithScheme: containerScheme];
+    [self.loginButton setTitle:@"Log In" forState:UIControlStateNormal];
+    self.loginButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.loginButton.bounds) - 48) / 2);
+    self.loginButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+    
+    MDCContainerScheme *FBcontainerScheme = [[MDCContainerScheme alloc] init];
+    FBcontainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.20 green: 0.60 blue: 0.86 alpha: 1.00];
+    
+    [self.FBButton applyContainedThemeWithScheme: FBcontainerScheme];
+    [self.FBButton setTitle:@"Continue with Facebook" forState:UIControlStateNormal];
+    self.FBButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat FBverticalInset = MIN(0, (CGRectGetHeight(self.loginButton.bounds) - 48) / 2);
+    self.FBButton.hitAreaInsets = UIEdgeInsetsMake(FBverticalInset, 0, FBverticalInset, 0);
+    
+    
+
+}
 
 @end
