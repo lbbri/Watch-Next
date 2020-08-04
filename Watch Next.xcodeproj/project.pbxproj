@@ -29,6 +29,7 @@
 		7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8624BF60D200C8ECF8 /* WatchNextUser.m */; };
 		7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8924BF64C200C8ECF8 /* Interaction.m */; };
 		7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */; };
+		7FE7CCE324CA36A700300CEE /* SuggestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +94,10 @@
 		7FB2DA8924BF64C200C8ECF8 /* Interaction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
 		7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaViewController.h; sourceTree = "<group>"; };
 		7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaViewController.m; sourceTree = "<group>"; };
-		EBB30E4733436666AF5945C2 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuggestionsViewController.h; sourceTree = "<group>"; };
+		7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuggestionsViewController.m; sourceTree = "<group>"; };
+		F98434D6AD048A18C4A1BDC3 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 		7FB2DA1F24BE066300C8ECF8 = {
 			isa = PBXGroup;
 			children = (
+				7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */,
+				7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */,
 
 				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
 				7FB2DA6024BE0BB200C8ECF8 /* View Controllers */,
@@ -196,12 +202,13 @@
 				7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */,
 				7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */,
 				7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */,
+				7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */,
+				7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */,
 				7FB2DA7124BE192800C8ECF8 /* SearchViewController.h */,
 				7FB2DA7224BE192800C8ECF8 /* SearchViewController.m */,
 				7FB2DA7724BE21D500C8ECF8 /* SettingsViewController.h */,
 				7FB2DA7824BE21D500C8ECF8 /* SettingsViewController.m */,
-				7FB2DA8124BE28EC00C8ECF8 /* UserViewController.h */,
-				7FB2DA8224BE28EC00C8ECF8 /* UserViewController.m */,
+
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -432,6 +439,7 @@
 				7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */,
 				7FB2DA8724BF60D200C8ECF8 /* WatchNextUser.m in Sources */,
 				7FB2DA3E24BE066500C8ECF8 /* main.m in Sources */,
+				7FE7CCE324CA36A700300CEE /* SuggestionsViewController.m in Sources */,
 				7FB2DA6C24BE103000C8ECF8 /* HomeViewController.m in Sources */,
 				7FB2DA7924BE21D500C8ECF8 /* SettingsViewController.m in Sources */,
 				7FB2DA7624BE1EF200C8ECF8 /* SearchResultsTableViewCell.m in Sources */,

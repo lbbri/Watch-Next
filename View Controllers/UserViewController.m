@@ -22,8 +22,8 @@
 @property (strong, nonatomic) NSArray *watched;
 @property (strong, nonatomic) NSArray *watchNext;
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 
@@ -45,16 +45,20 @@
     [self collectionViewLayout];
     
     [self.collectionView reloadData];
-    
-    //[self.activityIndicator startAnimating];
+   
     
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+ 
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+
     
     WatchNextUser *user = [WatchNextUser currentUser];
     self.watched = user.watched;
     self.watchNext = user.watchNext;
+ 
     
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
@@ -67,7 +71,7 @@
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
-    //can also set in storyboard
+
     layout.minimumInteritemSpacing = 3;
     layout.minimumLineSpacing = 3;
     
@@ -83,21 +87,21 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UserMediaCell" forIndexPath:indexPath];
-    
-    if(self.pageControl.selectedSegmentIndex == 0)
-    {
-        //cell.titleLabel.text = self.watchNext[indexPath.row];
+   
+    if(self.pageControl.selectedSegmentIndex == 0) {
+
         [self mediaDictionaryWithID:self.watchNext[indexPath.row] forCell:cell completion:^(BOOL completion) {
             
             if(completion) {
                 cell.posterView.image = nil;
                 [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
             }
+            
         }];
         
-    }
-    else if(self.pageControl.selectedSegmentIndex == 1)
-    {
+        
+    } else if(self.pageControl.selectedSegmentIndex == 1) {
+
         [self mediaDictionaryWithID:self.watched[indexPath.row] forCell:cell completion:^(BOOL completion){
             
             if(completion) {
@@ -108,38 +112,35 @@
         }];
         
     } else {
-        //cell.mediaDictionary = @{};
+
         cell.titleLabel.text = @"Suggested";
     }
-
     return cell;
 }
 
 
-
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    if(self.pageControl.selectedSegmentIndex == 0)
-    {
+    if(self.pageControl.selectedSegmentIndex == 0) {
         return self.watchNext.count;
     }
-    else if(self.pageControl.selectedSegmentIndex == 1)
-    {
+    else if(self.pageControl.selectedSegmentIndex == 1) {
         return self.watched.count;
-    }
-    else
-    {
+    } else {
+
         return 10;
     }
     return 0;
 }
 
 - (IBAction)viewChanged:(id)sender {
-    
-    //[self.activityIndicator startAnimating];
+  
     [self.collectionView reloadData];
 
 }
+
+#pragma mark -- API Interactions
+
 
 - (void) mediaDictionaryWithID: (NSString *)apiID forCell: (MediaCollectionViewCell *)cell completion:(void (^)(BOOL completion))completionBlock {
     
@@ -155,7 +156,7 @@
                completionBlock(false);
                NSLog(@"%@", [error localizedDescription]);
            } else {
-               
+
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                cell.mediaDictionary = dataDictionary;
                completionBlock(true);
@@ -182,8 +183,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if([sender isKindOfClass:[MediaCollectionViewCell class]])
-    {
+    if([sender isKindOfClass:[MediaCollectionViewCell class]]) {
+
         MediaCollectionViewCell *tappedCell = sender;
         MediaViewController *mediaViewController = [segue destinationViewController];
         mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
