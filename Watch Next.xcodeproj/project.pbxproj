@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55B98E6EAA902DA391ED2E0A /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		55B98E6EAA902DA391ED2E0A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F06009724D8805100DE1F38 /* error_fixer.swift */; };
 		7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */; };
 		7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */; };
@@ -29,6 +29,7 @@
 		7FB2DA8A24BF64C200C8ECF8 /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8924BF64C200C8ECF8 /* Interaction.m */; };
 		7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA8C24BF7A3900C8ECF8 /* MediaViewController.m */; };
 		7FE7CCE324CA36A700300CEE /* SuggestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */; };
+		D5F46262001E24B59959E14C /* libPods-Watch Next.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39734629D05C054D907BF477 /* libPods-Watch Next.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		2D512EFCEA7FF5021F76AD0C /* Pods-Watch Next.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.debug.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.debug.xcconfig"; sourceTree = "<group>"; };
+		39734629D05C054D907BF477 /* libPods-Watch Next.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Watch Next.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CD11D3410ED5EFD680BB498 /* Pods-Watch Next.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watch Next.release.xcconfig"; path = "Target Support Files/Pods-Watch Next/Pods-Watch Next.release.xcconfig"; sourceTree = "<group>"; };
 		7F06009624D8805000DE1F38 /* Watch Next-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Watch Next-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F06009724D8805100DE1F38 /* error_fixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = error_fixer.swift; sourceTree = "<group>"; };
@@ -100,7 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55B98E6EAA902DA391ED2E0A /* (null) in Frameworks */,
+				55B98E6EAA902DA391ED2E0A /* BuildFile in Frameworks */,
+				D5F46262001E24B59959E14C /* libPods-Watch Next.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +250,7 @@
 		AC8D0F00C5464C9B915B8028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				39734629D05C054D907BF477 /* libPods-Watch Next.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
