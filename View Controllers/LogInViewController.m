@@ -11,11 +11,19 @@
 #import "WatchNextUser.h"
 #import <Parse/Parse.h>
 #import <PFFacebookUtils.h>
+#import <MaterialTextFields.h>
+#import <MaterialButtons.h>
+#import "MaterialButtons+ButtonThemer.h"
 
 @interface LogInViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet MDCTextField *usernameField;
+@property (weak, nonatomic) IBOutlet MDCTextField *passwordField;
+@property (weak, nonatomic) IBOutlet MDCButton *loginButton;
+
+@property(nonatomic) MDCTextInputControllerOutlined *usernameController;
+@property(nonatomic) MDCTextInputControllerOutlined *passwordController;
+
 
 @end
 
@@ -24,6 +32,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self setUpVisuals];
 }
 
 #pragma mark - FBSDK Login
@@ -106,5 +116,20 @@
     myDelegate.window.rootViewController = tabBarController;
 }
 
+
+#pragma mark - Visual Polish
+
+- (void) setUpVisuals {
+    
+    self.usernameField.placeholder = @"Username";
+    self.passwordField.placeholder = @"Password";
+    
+    self.usernameController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.usernameField];
+    self.passwordController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.passwordField];
+    
+    
+    
+    
+}
 
 @end
