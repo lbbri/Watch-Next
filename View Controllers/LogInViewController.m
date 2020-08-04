@@ -28,6 +28,11 @@
 
 #pragma mark - FBSDK Login
 
+/**
+ * @brief Allows user to log in  using a new or already existing Facebook account.
+ * @discussion loginWithFacebookTap takes the user to a Facebook login screen where they can either sign in with an already existing Facebook account or create a new Facebook account and continue. If there is no user matching the inputted credentials an error alert is presented. If the user creates a new account or uses and already existing account the user is logged in and segued to the home screen.
+ * @see changeViews
+ */
 - (IBAction)loginWithFacebookTap:(id)sender {
 
     NSArray *permissions = @[@"email"];
@@ -46,6 +51,10 @@
 
 #pragma mark - Regular Parse Login
 
+/**
+@brief Allows user to login with an already existing Watch Next account.
+@discussion logInTap insures the username and password fields are not empty before checking if the credintials match that of a valid user. If either field is empty an error alert is presented. If Parse finds a user with matching credentials it continues to log the user in and segues to the home page. If the credentials are invalid an error alert is presented.
+*/
 - (IBAction)logInTap:(id)sender {
 
     NSString *username = self.usernameField.text;
@@ -80,7 +89,7 @@
 }
 
 #pragma mark - Animations
-
+/** Drops the keyboard if anywhere else on the screen is tapped.*/
 - (IBAction)screenTap:(id)sender {
     
     [self.view endEditing:YES];
@@ -88,6 +97,7 @@
 
 #pragma mark - Helper Methods
 
+/** Takes the user to the home screen. */
 - (void) changeViews {
     
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
@@ -95,8 +105,6 @@
     UITabBarController * tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
     myDelegate.window.rootViewController = tabBarController;
 }
-
-
 
 
 @end

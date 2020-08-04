@@ -23,7 +23,10 @@
     
     [super viewDidLoad];
 }
-
+/**
+ @brief Allows the user to create a new Watch Next account with a username and password.
+ @discussion signUpTap insures the username and password fields are not empty before proceeding to creating an account. If either field is empty an error alert is presented. If both fields contain text then Parse creates a new WatchNext User (a subclass of PFUser) and segues the user to the home screen.
+ */
 - (IBAction)signUpTap:(id)sender {
     
     WatchNextUser *newUser = [WatchNextUser user];
