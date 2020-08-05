@@ -96,6 +96,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v3T-DK-boY">
+                                <rect key="frame" x="147" y="650" width="135" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="rAg-wc-0RG" kind="show" id="oCh-Mc-uqk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
@@ -492,6 +500,31 @@
             </objects>
             <point key="canvasLocation" x="1896" y="-188"/>
         </scene>
+        <!--Test Tabs View Controller-->
+        <scene sceneID="CFa-hr-CzZ">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="rAg-wc-0RG" customClass="TestTabsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tab-dg-Y7l">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IbB-k1-AjL">
+                                <rect key="frame" x="0.0" y="303" width="414" height="776"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="AMe-6H-6Yk" kind="embed" id="RaA-qc-a7X"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Jy3-FL-VjG"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Dg2-8C-Bsv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XEF-TO-9Iy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="275.36231884057975" y="-453.34821428571428"/>
+        </scene>
         <!--Home-->
         <scene sceneID="QEw-Jm-1PN">
             <objects>
@@ -776,6 +809,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="khU-7a-IX8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3695.652173913044" y="491.51785714285711"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="x1K-T9-Jjt">
+            <objects>
+                <viewController id="AMe-6H-6Yk" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5hD-wx-7u6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="776"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VdA-HC-zsO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="227"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
