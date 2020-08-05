@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.loopCount = 0;
     self.suggestionsPool = [[NSMutableArray alloc] init];
     self.topKeywords = [[NSMutableArray alloc] init];
     self.collectionView.dataSource = self;
@@ -74,7 +75,7 @@
 
 - (void) recommendedAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=2c075d6299d70eaf6f4a13fc180cb803", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=InsertAPIKey", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -94,6 +95,7 @@
                 }
                 
             }
+            NSLog(@"reccomendd");
         }
     }];
     [task resume];
@@ -103,7 +105,7 @@
 
 - (void) similarAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=InsertAPIKey&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -122,6 +124,7 @@
                     [self.suggestionsPool addObject:tempResults[i]];
                 }
             }
+
         }
     }];
     [task resume];
@@ -158,7 +161,7 @@
 
 - (void) titlesFromKeyword: (NSString *)keywordID {
         
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=insertAPIKey&language=en-US", keywordID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=InsertAPIKey&language=en-US", keywordID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
