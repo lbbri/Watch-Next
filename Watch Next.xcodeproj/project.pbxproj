@@ -205,6 +205,8 @@
 				7FB2DA6224BE0BDC00C8ECF8 /* LogInViewController.m */,
 				7FB2DA6724BE0E8D00C8ECF8 /* SignUpViewController.h */,
 				7FB2DA6824BE0E8D00C8ECF8 /* SignUpViewController.m */,
+				7FAAFDDB24DA259200E3674B /* TestTabsViewController.h */,
+				7FAAFDDC24DA259200E3674B /* TestTabsViewController.m */,
 				7FB2DA6A24BE103000C8ECF8 /* HomeViewController.h */,
 				7FB2DA6B24BE103000C8ECF8 /* HomeViewController.m */,
 				7FB2DA8B24BF7A3900C8ECF8 /* MediaViewController.h */,
@@ -226,8 +228,6 @@
 				7FB2DA6E24BE11A000C8ECF8 /* MediaCollectionViewCell.m */,
 				7FB2DA7424BE1EF200C8ECF8 /* SearchResultsTableViewCell.h */,
 				7FB2DA7524BE1EF200C8ECF8 /* SearchResultsTableViewCell.m */,
-				7FAAFDDB24DA259200E3674B /* TestTabsViewController.h */,
-				7FAAFDDC24DA259200E3674B /* TestTabsViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";

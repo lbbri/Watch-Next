@@ -13,6 +13,7 @@
 #import "Interaction.h"
 #import "MediaCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "MediaViewController.h"
 
 @interface SuggestionsViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -21,6 +22,8 @@
 @property (strong, nonatomic) NSMutableArray *topKeywords;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property(nonatomic) int loopCount;
 
 @end
 
@@ -71,7 +74,7 @@
 
 - (void) recommendedAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=insertAPIKey", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=2c075d6299d70eaf6f4a13fc180cb803", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -85,7 +88,11 @@
             NSArray *tempResults = dataDictionary[@"results"];
             int i = 0;
             for(i = 0; i <3; i++) {
-                [self.suggestionsPool addObject:tempResults[i]];
+                if(tempResults[i])
+                {
+                    [self.suggestionsPool addObject:tempResults[i]];
+                }
+                
             }
         }
     }];
@@ -96,7 +103,7 @@
 
 - (void) similarAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=insertAPIKey&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -110,7 +117,10 @@
             NSArray *tempResults = dataDictionary[@"results"];
             int i = 0;
             for(i = 0; i <3; i++) {
-                [self.suggestionsPool addObject:tempResults[i]];
+                if(tempResults[i])
+                {
+                    [self.suggestionsPool addObject:tempResults[i]];
+                }
             }
         }
     }];
@@ -120,7 +130,7 @@
 
 - (void) keywordAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=insertAPIKey&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -167,6 +177,12 @@
                 }
                 
             }
+            self.loopCount ++;
+            if(self.loopCount == 5)
+            {
+                [self viewSuggestions];
+            }
+
         }
     }];
     [task resume];
@@ -174,7 +190,7 @@
     
 }
 
-- (IBAction)viewSuggestions:(id)sender {
+- (void) viewSuggestions {
     [self collectionViewLayout];
     [self.collectionView reloadData];
 }
@@ -210,6 +226,23 @@
     NSString *posterURLString = dictionary[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
     return [NSURL URLWithString:fullPosterURLString];
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([sender isKindOfClass: [MediaCollectionViewCell class]])
+    {
+        UICollectionViewCell *tappedCell = sender;
+        NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
+        NSDictionary *media = self.suggestionsPool[indexPath.row];
+        MediaViewController *mediaViewController = [segue destinationViewController];
+        mediaViewController.mediaDictionary = media;
+
+    }
+    
+    
 }
 
 @end

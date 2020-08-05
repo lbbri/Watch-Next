@@ -115,7 +115,7 @@
     NSDictionary *tmdbDictionary = mediaExID[@"tmdb"];
     NSString *tmdbURL = tmdbDictionary[@"url"];
     tmdbURL = [tmdbURL stringByReplacingOccurrencesOfString:@"https://www.themoviedb.org" withString:@"https://api.themoviedb.org/3"];
-    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=insertAPIKey", tmdbURL];
+    NSString *finalURLString =[NSString stringWithFormat:@"%@?api_key=2c075d6299d70eaf6f4a13fc180cb803", tmdbURL];
     NSURL *finalURL = [NSURL URLWithString:finalURLString];
     return finalURL;
 }
@@ -148,7 +148,7 @@
     NSString *requestString = [NSString stringWithFormat:@"https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=%@&country=us", self.searchBar.text];
     requestString = [requestString stringByReplacingOccurrencesOfString: @" " withString:@"-"];
     NSDictionary *headers = @{ @"x-rapidapi-host": @"utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
-                               @"x-rapidapi-key": @"insertAPIKey" };
+                               @"x-rapidapi-key": @"65fd490d94msh0c0e7a08fe2fe52p1bb9cdjsnc6d7c863587a" };
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString] cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:20.0];
     [request setHTTPMethod:@"GET"];
