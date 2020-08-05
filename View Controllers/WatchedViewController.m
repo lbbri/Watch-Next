@@ -32,12 +32,15 @@
     [super viewWillAppear:animated];
 
     WatchNextUser *user = [WatchNextUser currentUser];
-    self.watched = user.watched;
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    [self collectionViewLayout];
-    [self.collectionView reloadData];
-    
+    if(![self.watched isEqualToArray:user.watched])
+    {
+        self.watched = user.watched;
+        self.collectionView.dataSource = self;
+        self.collectionView.delegate = self;
+        [self collectionViewLayout];
+        [self.collectionView reloadData];
+        
+    }
 }
 
 #pragma mark -- Collection View
@@ -81,7 +84,7 @@
 
 - (void) mediaDictionaryWithID: (NSString *)apiID forCell: (MediaCollectionViewCell *)cell completion:(void (^)(BOOL completion))completionBlock {
     
-    NSString *URLString =[NSString stringWithFormat:@"https://api.themoviedb.org/3/%@?api_key=2c075d6299d70eaf6f4a13fc180cb803", apiID];
+    NSString *URLString =[NSString stringWithFormat:@"https://api.themoviedb.org/3/%@?api_key=InsertAPIKey", apiID];
     
     NSURL *url = [NSURL URLWithString:URLString];
     
