@@ -36,9 +36,7 @@
         [[UITabBarItem alloc] initWithTitle:@"Trending" image:nil tag:1],
     ];
     
-   // [self.tabBar targetForAction:@selector(tabBar) withSender:<#(nullable id)#>]
-    
-    //[self.tabBar ]
+   
     
     self.tabBar.tintColor = [UIColor colorWithRed: 0.95 green: 0.77 blue: 0.06 alpha: 1.00];
     //self.tabBar.barTintColor = UIColor.blueColor;
@@ -47,8 +45,17 @@
     self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     [self.tabBar sizeToFit];
     [self.view addSubview:self.tabBar];
+        
+    self.navigationController.navigationBarHidden = YES;
+   // self.navigationController.navigationBar.items = @[item];
+
+    //self.navigationBar.items = @[ item ];
     
     // Do any additional setup after loading the view.
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
 }
 
 

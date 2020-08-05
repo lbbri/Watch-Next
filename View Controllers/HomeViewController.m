@@ -94,12 +94,17 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([sender isKindOfClass: [MediaCollectionViewCell class]])
+    {
+        UICollectionViewCell *tappedCell = sender;
+        NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
+        NSDictionary *media = self.mediaArray[indexPath.row];
+        MediaViewController *mediaViewController = [segue destinationViewController];
+        mediaViewController.mediaDictionary = media;
+        
+    }
     
-    UICollectionViewCell *tappedCell = sender;
-    NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
-    NSDictionary *media = self.mediaArray[indexPath.row];
-    MediaViewController *mediaViewController = [segue destinationViewController];
-    mediaViewController.mediaDictionary = media;
+    
 }
 
 @end

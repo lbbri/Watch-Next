@@ -56,6 +56,10 @@
     self.collectionView.delegate = self;
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void) removeFromWatchNext {
     
     NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
