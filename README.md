@@ -55,7 +55,7 @@ With a Watch Next or Facebook account, a user can login to the app and begin the
 - [Parse/UI](https://cocoapods.org/pods/Parse) - gives you access to the powerful Parse Server backend
 - [FBSDKCoreKit](https://developers.facebook.com/docs/ios/downloads/) - gives you access to the powerful Parse Server backend
 - [FBSDKLoginKit](https://developers.facebook.com/docs/ios/downloads/) - gives you access to the powerful Parse Server backend
-- [FBSDKShareKit](hhttps://developers.facebook.com/docs/ios/downloads/) - gives you access to the powerful Parse Server backend
+- [FBSDKShareKit](https://developers.facebook.com/docs/ios/downloads/) - gives you access to the powerful Parse Server backend
 - [Parse/FacebookUtils](https://cocoapods.org/pods/ParseFacebookUtils) - A utility library to authenticate Parse PFUsers with Facebook SDK
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
 - [MBProgressHUD](https://cocoapods.org/pods/MBProgressHUD) - displays a translucent HUD with an indicator and/or labels 
@@ -67,10 +67,8 @@ With a Watch Next or Facebook account, a user can login to the app and begin the
 
 Challenges Faced
 
-- Establishing data models that are structured to hold the correct information in order to create solid suggestions.
-- 
-
- 
+- Creating data models that are structured to hold the correct information in order to create solid suggestions.
+- Coming up with a suggestions algorithm that incorporates both user input and API endpoints to come up with a suggestions list that appeals to the user.
 
 ## License
 
