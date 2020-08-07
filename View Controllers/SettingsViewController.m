@@ -17,6 +17,10 @@
 @interface SettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePictureView;
+@property (weak, nonatomic) IBOutlet UILabel *watchedNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *watchNextNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -25,7 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     WatchNextUser *user = [WatchNextUser currentUser];
+    self.usernameLabel.text = [NSString stringWithFormat:@"Hey %@!", user.username];
     self.profilePictureView.file = user.profilePicture;
+    self.watchedNumLabel.text = [NSString stringWithFormat:@"%lu", user.watched.count];
+    self.watchNextNumLabel.text = [NSString stringWithFormat:@"%lu", user.watchNext.count];
     [self.profilePictureView loadInBackground];
     
 }
@@ -46,7 +53,7 @@
 #pragma mark - Profile Picture
 
 - (IBAction)changePPTap:(id)sender {
-    
+    [self.activityIndicator startAnimating];
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
@@ -65,6 +72,7 @@
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     editedImage = [self resizeImage:editedImage withSize:CGSizeMake(200.0 , 200.0)];
     self.profilePictureView.image = editedImage;
+    [self.activityIndicator stopAnimating];
     [self dismissViewControllerAnimated:YES completion:nil];
     [WatchNextUser changeProfilePicture:editedImage withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
