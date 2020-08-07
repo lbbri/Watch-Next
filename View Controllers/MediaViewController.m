@@ -21,9 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *watchNextButton;
 @property (weak, nonatomic) IBOutlet UIButton *watchedButton;
 @property (weak, nonatomic) IBOutlet UIButton *watchAgainButton;
-@property (weak, nonatomic) IBOutlet UISlider *ratingSlider;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *ratingButtons;
-@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *moreLikeLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) WatchNextUser *user;
@@ -50,7 +48,7 @@
     }
     [self.watchNextButton setSelected:[self checkIfWatchNext]];
     [self.watchedButton setSelected:[self checkIfWatched]];
-    [self.ratingSlider setHidden:![self checkIfWatched]];
+    //TODO: to do change rating buttons visibility setHiddent: ![self checkIFWatched]
     self.watchAgainButton.enabled = [self checkIfWatched];
     self.moreLikeLabel.text = [NSString stringWithFormat:@"More Like %@", self.titleLabel.text];
     [self fetchRelated];
@@ -93,7 +91,7 @@
         
         //update ui
         [self.watchedButton setSelected:NO];
-        [self.ratingSlider setHidden:YES];
+        //TODO: to do change rating buttons visibility setHidden: YES
         self.watchAgainButton.enabled = NO;
         [self.watchNextButton setSelected:YES];
         //remove from watched array
@@ -163,8 +161,7 @@
         [interactionToChange saveInBackground];
         //update ui
         [self.watchedButton setSelected:YES];
-        [self.ratingSlider setHidden:NO];
-       // [self.watchAgainButton setHidden:NO];
+        //TODO: to do change rating buttons visibility setHidden:NO
         self.watchAgainButton.enabled = YES;
         [self.watchNextButton setSelected:NO];
         //remove from watchNext array
@@ -187,8 +184,7 @@
             [self.user addUniqueObject:self.mediaAPIID forKey:@"watched"];
             [self.user saveInBackground];
             [self.watchedButton setSelected:YES];
-            [self.ratingSlider setHidden:NO];
-            //[self.watchAgainButton setHidden:NO];
+            //TODO: to do change rating buttons visibility setHidden: NO
             self.watchAgainButton.enabled = YES;
         }
     }];
@@ -200,7 +196,7 @@
         
         [self removeFromWatched];
         [self.watchedButton setSelected:NO];
-        [self.ratingSlider setHidden:YES];
+        //TODO: to do change rating buttons visibility setHidden:YES
         self.watchAgainButton.enabled = NO;
     } else {
         if([self checkIfWatchNext]) {
@@ -221,21 +217,6 @@
         Interaction *changeInteraction = objects[0];
         [Interaction changeWouldWatchAgainFor:changeInteraction.objectId];
         [self.watchAgainButton setSelected:![self.watchAgainButton isSelected]];
-    }];
-}
-
-//TODO: change from rating slider to buttons
-- (IBAction)changeRatingSlider:(id)sender {
-    
-    self.ratingLabel.text = [NSString stringWithFormat:@"%f", self.ratingSlider.value];
-    NSNumber *stars = @(self.ratingSlider.value);
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
-    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
-    [query whereKey:@"apiID" equalTo:self.mediaAPIID];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-        [Interaction changeRating:stars forInteraction:object.objectId withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        }];
     }];
 }
 
