@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *watchedButton;
 @property (weak, nonatomic) IBOutlet UIButton *watchAgainButton;
 @property (weak, nonatomic) IBOutlet UISlider *ratingSlider;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *ratingButtons;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *moreLikeLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) WatchNextUser *user;
@@ -225,6 +227,7 @@
 //TODO: change from rating slider to buttons
 - (IBAction)changeRatingSlider:(id)sender {
     
+    self.ratingLabel.text = [NSString stringWithFormat:@"%f", self.ratingSlider.value];
     NSNumber *stars = @(self.ratingSlider.value);
     
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
@@ -235,6 +238,33 @@
         }];
     }];
 }
+
+- (IBAction)changeRatingTap:(UIButton *)sender {
+    
+    NSNumber *stars = @(sender.tag);
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
+    [query whereKey:@"apiID" equalTo:self.mediaAPIID];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        [Interaction changeRating:stars forInteraction:object.objectId withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        }];
+    }];
+    for(UIButton* btn in self.ratingButtons)
+    {
+        [btn setSelected:NO];
+        NSNumber *currentTag = @(btn.tag);
+        if([currentTag doubleValue] <= [stars doubleValue])
+        {
+            [btn setSelected:YES];
+        }
+        
+    }
+    
+    
+    
+}
+
 
 - (BOOL) checkIfWatched {
     return [self.user.watched containsObject:self.mediaAPIID];

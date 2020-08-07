@@ -266,7 +266,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Incredibles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc3-qC-Wgo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jc3-qC-Wgo">
                                                     <rect key="frame" x="16.5" y="0.0" width="381" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Dwi-yu-lhm"/>
@@ -540,7 +540,7 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="EXW-6u-6nW" customClass="MediaViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uk9-Zn-j5w">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1d-cz-2Uv">
@@ -582,17 +582,17 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uI2-o2-XMj">
-                                <rect key="frame" x="65" y="352.5" width="32" height="30"/>
+                                <rect key="frame" x="65" y="354" width="32" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="hCe-Tr-i69"/>
                                     <constraint firstAttribute="height" constant="31" id="wlN-dq-Rpe"/>
                                 </constraints>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" backgroundImage="plus.circle" catalog="system">
+                                <state key="normal" backgroundImage="plus" catalog="system">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
-                                <state key="selected" backgroundImage="checkmark.circle.fill" catalog="system"/>
+                                <state key="selected" backgroundImage="checkmark" catalog="system"/>
                                 <connections>
                                     <action selector="watchNextTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="jHp-4V-12m"/>
                                 </connections>
@@ -667,7 +667,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
-                                <state key="selected" backgroundImage="checkmark.circle.fill" catalog="system"/>
+                                <state key="selected" backgroundImage="checkmark" catalog="system"/>
                                 <connections>
                                     <action selector="watchedTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="4eB-PU-XkQ"/>
                                 </connections>
@@ -683,19 +683,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpA-HC-n2l">
-                                <rect key="frame" x="327" y="352.5" width="32" height="29"/>
+                                <rect key="frame" x="327" y="360.5" width="32" height="13.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7JB-yU-rBy"/>
                                     <constraint firstAttribute="width" constant="32" id="unr-RB-4h9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" backgroundImage="checkmark.circle" catalog="system">
+                                <state key="normal" backgroundImage="minus" catalog="system">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
-                                <state key="disabled" backgroundImage="xmark.circle.fill" catalog="system"/>
-                                <state key="selected" backgroundImage="checkmark.circle.fill" catalog="system"/>
+                                <state key="disabled" backgroundImage="xmark" catalog="system"/>
+                                <state key="selected" backgroundImage="checkmark" catalog="system"/>
                                 <connections>
                                     <action selector="watchAgainTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="l6X-JC-m9E"/>
                                 </connections>
@@ -710,6 +710,61 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWE-3A-k4L">
+                                <rect key="frame" x="141" y="461" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="selected" backgroundImage="star.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="changeRatingTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="ToM-c6-XYp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-49-PJy">
+                                <rect key="frame" x="170" y="461" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="selected" backgroundImage="star.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="changeRatingTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="xWd-hS-uLr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUQ-6g-e5B">
+                                <rect key="frame" x="202" y="461" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="selected" backgroundImage="star.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="changeRatingTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="r6h-ms-bjN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYM-0E-0qC">
+                                <rect key="frame" x="235" y="461" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="selected" backgroundImage="star.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="changeRatingTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="DJJ-4v-56N"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLp-xF-1WR">
+                                <rect key="frame" x="266" y="461" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="star" catalog="system"/>
+                                <state key="selected" backgroundImage="star.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="changeRatingTap:" destination="EXW-6u-6nW" eventType="touchUpInside" id="4f5-MJ-gDi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -752,11 +807,16 @@
                         <outlet property="watchAgainButton" destination="cpA-HC-n2l" id="JVb-iF-Bhl"/>
                         <outlet property="watchNextButton" destination="uI2-o2-XMj" id="vYW-yP-Cfs"/>
                         <outlet property="watchedButton" destination="x95-aZ-cWl" id="2Z0-OS-OgP"/>
+                        <outletCollection property="ratingButtons" destination="WWE-3A-k4L" id="Brs-wc-4hO"/>
+                        <outletCollection property="ratingButtons" destination="lBU-49-PJy" id="zve-Ww-dPd"/>
+                        <outletCollection property="ratingButtons" destination="xUQ-6g-e5B" id="6B1-lH-IUS"/>
+                        <outletCollection property="ratingButtons" destination="KYM-0E-0qC" id="RGM-Gd-kU5"/>
+                        <outletCollection property="ratingButtons" destination="xLp-xF-1WR" id="wex-Rn-fq4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Geo-J5-RrN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2806" y="1219"/>
+            <point key="canvasLocation" x="2805.7971014492755" y="1218.4151785714284"/>
         </scene>
         <!--Profile-->
         <scene sceneID="nHA-gK-M3a">
@@ -848,6 +908,15 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </activityIndicatorView>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-rB-SsG">
+                                                        <rect key="frame" x="166" y="606" width="83" height="47"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="buttonTap:" destination="QVc-yU-7AF" eventType="touchUpInside" id="PA7-OH-URY"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -1283,18 +1352,19 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="jPO-n7-lLI"/>
-        <segue reference="jBK-xf-e9e"/>
+        <segue reference="hDc-5m-SE4"/>
         <segue reference="Bgt-6p-HeZ"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="minus" catalog="system" width="128" height="24"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>
