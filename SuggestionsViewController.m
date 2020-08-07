@@ -37,8 +37,11 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self watchedListforUser:[WatchNextUser currentUser]];
-    [self.activityIndicator startAnimating];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.activityIndicator startAnimating];
 }
 
 
@@ -90,7 +93,7 @@
 
 - (void) recommendedAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=InsertAPIKey", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=2c075d6299d70eaf6f4a13fc180cb803", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -120,7 +123,7 @@
 
 - (void) similarAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=InsertAPIKey&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -148,7 +151,7 @@
 
 - (void) keywordAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=InserAPIKey&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -176,7 +179,7 @@
 
 - (void) titlesFromKeyword: (NSString *)keywordID {
         
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=InsertAPIKey&language=en-US", keywordID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", keywordID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -198,6 +201,7 @@
             self.loopCount ++;
             if(self.loopCount == 5)
             {
+                [self.activityIndicator stopAnimating];
                 [self viewSuggestions];
             }
 
@@ -239,10 +243,11 @@
 }
 
 - (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {
-    
+    [self.activityIndicator startAnimating];
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = dictionary[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    [self.activityIndicator stopAnimating];
     return [NSURL URLWithString:fullPosterURLString];
 }
 
@@ -266,7 +271,7 @@
 
 - (void) fetchHomeMedia {
     
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=2c075d6299d70eaf6f4a13fc180cb803"];
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=INSERTAPIKEY"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

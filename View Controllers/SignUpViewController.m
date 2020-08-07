@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet MDCTextField *passwordField;
 @property (weak, nonatomic) IBOutlet MDCTextField *retypeField;
 @property (weak, nonatomic) IBOutlet MDCButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 
 
 @property(nonatomic) MDCTextInputControllerOutlined *nameController;
@@ -44,6 +46,7 @@
  @discussion signUpTap insures the username and password fields are not empty before proceeding to creating an account. If either field is empty an error alert is presented. If both fields contain text then Parse creates a new WatchNext User (a subclass of PFUser) and segues the user to the home screen.
  */
 - (IBAction)signUpTap:(id)sender {
+    [self.activityIndicator startAnimating];
     
     WatchNextUser *newUser = [WatchNextUser user];
     
@@ -76,6 +79,8 @@
             }
         }];
     }
+    
+    [self.activityIndicator stopAnimating];
 }
 
 #pragma mark - Visual Polish

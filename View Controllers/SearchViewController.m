@@ -20,6 +20,8 @@
 /** Contains dictionaries that hold information about the movies and tv shows  that were returned from a singular search*/
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSDictionary *mediaDictionary;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 
 @end
 
@@ -42,10 +44,12 @@
  */
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
+    [self.activityIndicator startAnimating];
     [self searchAPI:^(BOOL completion){
         
         if(completion) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.activityIndicator stopAnimating];
                 [self.tableView reloadData];
             });
         }
@@ -86,6 +90,7 @@
     [self tmdbDictionaryFromURL:tmdbURL forCell:cell completion:^(BOOL completion){
         
         if(completion) {
+            [self.activityIndicator startAnimating];
             if(cell.mediaDictionary[@"title"]) {
                 cell.titleLabel.text = cell.mediaDictionary[@"title"];
             } else {
@@ -174,6 +179,7 @@
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = dictionary[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
+    [self.activityIndicator stopAnimating];
     return [NSURL URLWithString:fullPosterURLString];
 }
 

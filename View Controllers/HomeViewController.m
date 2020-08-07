@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *mediaArray;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 
 @end
 
@@ -24,6 +26,7 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
+    [self.activityIndicator startAnimating];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self collectionViewLayout];
@@ -80,6 +83,8 @@
            }
     }];
     [task resume];
+    [self.activityIndicator startAnimating];
+
 }
 
 - (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {

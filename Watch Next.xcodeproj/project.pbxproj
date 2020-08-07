@@ -13,6 +13,7 @@
 		7FAAFDE024DB5C0F00E3674B /* ListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAAFDDF24DB5C0F00E3674B /* ListsViewController.m */; };
 		7FAAFDE324DB5D4900E3674B /* WatchedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAAFDE224DB5D4900E3674B /* WatchedViewController.m */; };
 		7FAAFDE624DB5E3C00E3674B /* WatchNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAAFDE524DB5E3C00E3674B /* WatchNextViewController.m */; };
+		7FAAFDE924DC9FDC00E3674B /* TestMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAAFDE824DC9FDC00E3674B /* TestMediaViewController.m */; };
 		7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */; };
 		7FB2DA3024BE066300C8ECF8 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB2DA2F24BE066300C8ECF8 /* SceneDelegate.m */; };
 		7FB2DA3624BE066300C8ECF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2DA3424BE066300C8ECF8 /* Main.storyboard */; };
@@ -67,6 +68,8 @@
 		7FAAFDE224DB5D4900E3674B /* WatchedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WatchedViewController.m; path = "View Controllers/WatchedViewController.m"; sourceTree = SOURCE_ROOT; };
 		7FAAFDE424DB5E3C00E3674B /* WatchNextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchNextViewController.h; sourceTree = "<group>"; };
 		7FAAFDE524DB5E3C00E3674B /* WatchNextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatchNextViewController.m; sourceTree = "<group>"; };
+		7FAAFDE724DC9FDC00E3674B /* TestMediaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMediaViewController.h; sourceTree = "<group>"; };
+		7FAAFDE824DC9FDC00E3674B /* TestMediaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMediaViewController.m; sourceTree = "<group>"; };
 		7FB2DA2824BE066300C8ECF8 /* Watch Next.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch Next.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FB2DA2B24BE066300C8ECF8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7FB2DA2C24BE066300C8ECF8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 		7FB2DA1F24BE066300C8ECF8 = {
 			isa = PBXGroup;
 			children = (
+				7FAAFDE724DC9FDC00E3674B /* TestMediaViewController.h */,
+				7FAAFDE824DC9FDC00E3674B /* TestMediaViewController.m */,
 				7FE7CCE124CA36A700300CEE /* SuggestionsViewController.h */,
 				7FE7CCE224CA36A700300CEE /* SuggestionsViewController.m */,
 				7FB2DA8424BF5D2500C8ECF8 /* Data Models */,
@@ -453,6 +458,7 @@
 				7FB2DA2D24BE066300C8ECF8 /* AppDelegate.m in Sources */,
 				7FB2DA8D24BF7A3900C8ECF8 /* MediaViewController.m in Sources */,
 				7F06009824D8805100DE1F38 /* error_fixer.swift in Sources */,
+				7FAAFDE924DC9FDC00E3674B /* TestMediaViewController.m in Sources */,
 				7FB2DA6924BE0E8D00C8ECF8 /* SignUpViewController.m in Sources */,
 				7FB2DA6F24BE11A000C8ECF8 /* MediaCollectionViewCell.m in Sources */,
 				7FB2DA7324BE192800C8ECF8 /* SearchViewController.m in Sources */,
