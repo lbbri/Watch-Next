@@ -61,11 +61,26 @@
 
 
 - (void) recommendedTitles {
+
+    int lCount = 0;
+    if(self.orderedWatched.count == 0)
+    {
+        [self collectionViewLayout];
+        [self fetchHomeMedia];
+    }
+    else if(self.orderedWatched.count < 5)
+    {
+        lCount = (int)self.orderedWatched.count;
+    }
+    else
+    {
+        lCount = 5;
+    }
     
-    
-    //TODO: change numbers based on how many interactions the user has
     int i = 0;
-    for (i = 0; i <5; i++){
+
+    //TODO: change numbers based on how many interactions the user has
+    for (i = 0; i < lCount; i++){
         Interaction *currentInteraction = self.orderedWatched[i];
         [self recommendedAPICallForID:currentInteraction[@"apiID"]];
         [self similarAPICallForID:currentInteraction[@"apiID"]];
@@ -246,6 +261,24 @@
     }
     
     
+}
+
+
+- (void) fetchHomeMedia {
+    
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=2c075d6299d70eaf6f4a13fc180cb803"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           if (error != nil) {
+               //TODO: add error alert
+           } else {
+               NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               self.suggestionsPool = dataDictionary[@"results"];
+               [self.collectionView reloadData];
+           }
+    }];
+    [task resume];
 }
 
 @end
