@@ -12,14 +12,19 @@
 #import "MediaCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import "UIImageView+AFNetworking.h"
+#import "NSDate+DateTools.h"
 
 @interface MediaViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *genreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
 @property (weak, nonatomic) IBOutlet UIButton *watchNextButton;
+@property (weak, nonatomic) IBOutlet UILabel *watchNextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *watchedButton;
+@property (weak, nonatomic) IBOutlet UILabel *watchedLabel;
 @property (weak, nonatomic) IBOutlet UIButton *watchAgainButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *ratingButtons;
 @property (weak, nonatomic) IBOutlet UILabel *moreLikeLabel;
@@ -41,13 +46,29 @@
     
     if(self.mediaDictionary[@"title"]) {
         self.titleLabel.text = self.mediaDictionary[@"title"];
+        self.genreLabel.text = @"Movie";
+        self.dateLabel.text = [self yearFromDate:self.mediaDictionary[@"release_date"]];
+
         self.mediaAPIID = [NSString stringWithFormat:@"movie/%@", self.mediaDictionary[@"id"]];
     } else {
         self.titleLabel.text = self.mediaDictionary[@"name"];
+        self.genreLabel.text = @"TV Show";
+        self.dateLabel.text = [self yearFromDate:self.mediaDictionary[@"first_air_date"]];
         self.mediaAPIID = [NSString stringWithFormat:@"tv/%@", self.mediaDictionary[@"id"]];
     }
     [self.watchNextButton setSelected:[self checkIfWatchNext]];
+    if([self checkIfWatchNext])
+    {
+        self.watchNextLabel.text = @"Remove from Watch Next";
+        self.watchedLabel.text = @"Change to Watched";
+    }
     [self.watchedButton setSelected:[self checkIfWatched]];
+    if([self checkIfWatched])
+    {
+        self.watchedLabel.text = @"Remove from Watched";
+        self.watchNextLabel.text = @"Change to Watch Next";
+    }
+    
     //TODO: to do change rating buttons visibility setHiddent: ![self checkIFWatched]
     self.watchAgainButton.enabled = [self checkIfWatched];
     self.moreLikeLabel.text = [NSString stringWithFormat:@"More Like %@", self.titleLabel.text];
@@ -61,6 +82,7 @@
 }
 
 - (void) removeFromWatchNext {
+    self.watchNextLabel.text = @"Add to Watch Next";
     
     NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
     [originalWatchNext removeObject:self.mediaAPIID];
@@ -122,9 +144,13 @@
 - (IBAction)watchNextTap:(id)sender {
     
     if([self checkIfWatchNext]) {
+        self.watchNextLabel.text = @"Add to Watch Next";
         [self removeFromWatchNext];
         [self.watchNextButton setSelected:NO];
     } else {
+        self.watchNextLabel.text = @"Remove from Watch Next";
+        self.watchedLabel.text = @"Change to Watched";
+
         if([self checkIfWatched]) {
             [self changeToWatchNext];
         } else {
@@ -193,12 +219,14 @@
 - (IBAction)watchedTap:(id)sender {
     
     if([self checkIfWatched]) {
-        
+        self.watchedLabel.text = @"Add to Watched";
         [self removeFromWatched];
         [self.watchedButton setSelected:NO];
         //TODO: to do change rating buttons visibility setHidden:YES
         self.watchAgainButton.enabled = NO;
     } else {
+        self.watchedLabel.text = @"Remove from Watched";
+        self.watchNextLabel.text = @"Change to Watch Next";
         if([self checkIfWatchNext]) {
             [self changeToWatched];
         } else {
@@ -269,6 +297,19 @@
 
 #pragma mark - Helper Methods
 
+- (NSString *) yearFromDate:(NSString *)dateString {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat =  @"yyyy-MM-dd";
+    //Configure the input format to parse the date string
+    NSDate *date = [formatter dateFromString:dateString];
+    NSLog(@"%@", date);
+    //Configure output format
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    return [NSString stringWithFormat:@"%ld", date.year];
+}
+
 - (void) setPosterImage {
     //move this method to the cell itself
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
@@ -304,7 +345,12 @@
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.relatedMediaArray = dataDictionary[@"results"];
             
-            [self.collectionView reloadData];
+            if(self.relatedMediaArray.count > 0) {
+                [self.collectionView setHidden:NO];
+                [self.moreLikeLabel setHidden:NO];
+                [self.collectionView reloadData];
+            } 
+            
         }
     }];
     [task resume];
