@@ -68,6 +68,11 @@
         [self presentViewController:alert animated:YES completion:^{
         }];
         
+    } else if(![self.retypeField.text isEqual:self.passwordField.text]) {
+        
+        alert.message = @"Passwords must match";
+        [self presentViewController:alert animated:YES completion:^{
+        }];
     } else {
         [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (error != nil) {
@@ -112,22 +117,13 @@
     
 
 }
+- (IBAction)verifyPassword:(UITextField *)sender {
 
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-  [textField resignFirstResponder];
-
-  // Text Field Validation
-  if (textField == (UITextField *)self.retypeField) {
-      if (![self.retypeField.text isEqualToString:self.passwordField.text]) {
-       [self.retypeController setErrorText:@"Passwords Must Match" errorAccessibilityValue:nil];
-    } else {
-       [self.retypeController setErrorText:nil errorAccessibilityValue:nil];
+    if(![sender.text isEqualToString:self.passwordField.text]) {
+        [self.retypeController setErrorText:@"Passwords Must Match" errorAccessibilityValue:nil];
+    } else{
+        [self.retypeController setErrorText:nil errorAccessibilityValue:nil];
     }
-  }
-
-  return NO;
 }
-
 
 @end
