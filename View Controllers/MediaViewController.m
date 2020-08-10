@@ -65,6 +65,7 @@
     [self.watchedButton setSelected:[self checkIfWatched]];
     if([self checkIfWatched])
     {
+        [self ratingStars];
         self.watchedLabel.text = @"Remove from Watched";
         self.watchNextLabel.text = @"Change to Watch Next";
     }
@@ -75,6 +76,35 @@
     [self fetchRelated];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+}
+
+- (void) ratingStars {
+    
+    //__block Interaction *interactionToChange;
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
+    [query whereKey:@"apiID" equalTo:self.mediaAPIID];
+    [query includeKey:@"stars"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
+        
+        NSNumber *currentStars = interactions[0].stars;
+        [self addStarRating:currentStars];
+        
+    }];
+}
+
+- (void) addStarRating: (NSNumber *) stars {
+    
+    for(UIButton* btn in self.ratingButtons)
+       {
+           //[btn setSelected:NO];
+           NSNumber *currentTag = @(btn.tag);
+           if([currentTag doubleValue] <= [stars doubleValue]) {
+               [btn setSelected:YES];
+           }
+           
+       }
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -263,15 +293,11 @@
     {
         [btn setSelected:NO];
         NSNumber *currentTag = @(btn.tag);
-        if([currentTag doubleValue] <= [stars doubleValue])
-        {
+        if([currentTag doubleValue] <= [stars doubleValue]) {
             [btn setSelected:YES];
         }
         
     }
-    
-    
-    
 }
 
 
@@ -332,7 +358,7 @@
 
 
 - (void) fetchRelated {
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=insertAPIKey&language=en-US", self.mediaAPIID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", self.mediaAPIID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
