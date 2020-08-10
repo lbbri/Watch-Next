@@ -22,6 +22,8 @@
 @property (strong, nonatomic) NSMutableArray *topKeywords;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
+@property (nonatomic) CGFloat postersPerLine;
 
 @property(nonatomic) int loopCount;
 
@@ -36,6 +38,7 @@
     self.topKeywords = [[NSMutableArray alloc] init];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.postersPerLine = 2.0f;
     [self watchedListforUser:[WatchNextUser currentUser]];
 
 }
@@ -93,7 +96,7 @@
 
 - (void) recommendedAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=2c075d6299d70eaf6f4a13fc180cb803", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/recommendations?api_key=INSERTAPIKEY", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -113,7 +116,6 @@
                 }
                 
             }
-            NSLog(@"reccomendd");
         }
     }];
     [task resume];
@@ -123,7 +125,7 @@
 
 - (void) similarAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=INSERTAPIKEY&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -142,7 +144,6 @@
                     [self.suggestionsPool addObject:tempResults[i]];
                 }
             }
-
         }
     }];
     [task resume];
@@ -151,7 +152,7 @@
 
 - (void) keywordAPICallForID: (NSString *)apiID {
     
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", apiID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/keywords?api_key=INSERTAPIKEY&language=en-US", apiID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -179,7 +180,7 @@
 
 - (void) titlesFromKeyword: (NSString *)keywordID {
         
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", keywordID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/keyword/%@/movies?api_key=INSERTAPIKEY&language=en-US", keywordID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -229,6 +230,19 @@
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
 }
 
+- (void) collectionViewLayout: (CGFloat)ppl {
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 1;
+    layout.minimumLineSpacing = 1;
+    
+    CGFloat postersPerLine = ppl;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+}
+
 - (NSInteger) collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.suggestionsPool.count;
 }
@@ -250,6 +264,15 @@
     [self.activityIndicator stopAnimating];
     return [NSURL URLWithString:fullPosterURLString];
 }
+
+
+- (IBAction)posterNumChanged:(id)sender {
+    
+    self.postersPerLine = (CGFloat)self.layoutStepper.value;
+    [self collectionViewLayout:self.postersPerLine];
+
+}
+
 
 
 #pragma mark - Navigation

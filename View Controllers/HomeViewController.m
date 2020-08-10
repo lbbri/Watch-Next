@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *mediaArray;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
+@property (nonatomic) CGFloat postersPerLine;
+
 
 
 @end
@@ -29,7 +32,8 @@
     [self.activityIndicator startAnimating];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    [self collectionViewLayout];
+    self.postersPerLine = 2.0f;
+    [self collectionViewLayout:self.postersPerLine];
     [self fetchHomeMedia];
     
 }
@@ -43,7 +47,20 @@
     layout.minimumInteritemSpacing = 1;
     layout.minimumLineSpacing = 1;
     
-    CGFloat postersPerLine = 3;
+    CGFloat postersPerLine = 2;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+}
+
+- (void) collectionViewLayout: (CGFloat)ppl {
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 1;
+    layout.minimumLineSpacing = 1;
+    
+    CGFloat postersPerLine = ppl;
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
     CGFloat itemHeight = itemWidth * 1.5;
     
@@ -111,5 +128,15 @@
     
     
 }
+
+#pragma mark - Visuals
+
+- (IBAction)posterNumChanged:(id)sender {
+    
+    self.postersPerLine = (CGFloat)self.layoutStepper.value;
+    [self collectionViewLayout:self.postersPerLine];
+    
+}
+
 
 @end

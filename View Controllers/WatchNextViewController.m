@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *watchNext;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
+@property (nonatomic) CGFloat postersPerLine;
 
 @end
 
@@ -25,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.postersPerLine = 2.0f;
     // Do any additional setup after loading the view.
 }
 
@@ -37,7 +40,7 @@
         self.watchNext = user.watchNext;
         self.collectionView.dataSource = self;
         self.collectionView.delegate = self;
-        [self collectionViewLayout];
+        [self collectionViewLayout:self.postersPerLine];
         [self.collectionView reloadData];
     }
 }
@@ -55,6 +58,19 @@
     layout.itemSize = CGSizeMake(itemWidth, itemHeight);
 }
 
+- (void) collectionViewLayout: (CGFloat)ppl {
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 1;
+    layout.minimumLineSpacing = 1;
+    
+    CGFloat postersPerLine = ppl;
+    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+}
+
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     MediaCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WatchNextCell" forIndexPath:indexPath];
@@ -68,16 +84,17 @@
    
     return cell;
 }
+- (IBAction)posterNumChanged:(id)sender {
+    
+    self.postersPerLine = (CGFloat)self.layoutStepper.value;
+    [self collectionViewLayout:self.postersPerLine];
+}
 
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.watchNext.count;
 }
 
-//TODO: delete upon change to page view controller
-- (IBAction)viewChanged:(id)sender {
-    [self.collectionView reloadData];
-}
 
 #pragma mark -- API Interactions
 

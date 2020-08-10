@@ -30,8 +30,8 @@
 
     
     self.tabBar.items = @[
-        [[UITabBarItem alloc] initWithTitle:@"Suggestions" image:nil tag:0],
-        [[UITabBarItem alloc] initWithTitle:@"Trending" image:nil tag:1],
+        [[UITabBarItem alloc] initWithTitle:@"Trending" image:nil tag:0],
+        [[UITabBarItem alloc] initWithTitle:@"Suggestions" image:nil tag:1],
     ];
     
    
@@ -56,11 +56,11 @@
 - (void) tabBar:(MDCTabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     
     if(item.tag == 0) {
-        self.containerVeiwA.alpha = 0;
-        self.containerViewB.alpha = 1;
-    } else {
         self.containerVeiwA.alpha = 1;
         self.containerViewB.alpha = 0;
+    } else {
+        self.containerVeiwA.alpha = 0;
+        self.containerViewB.alpha = 1;
     }
     
 }
