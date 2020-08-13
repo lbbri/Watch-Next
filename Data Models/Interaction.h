@@ -46,9 +46,7 @@ typedef enum {
 
 + (void) createWatched: (NSString *)title  withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
-+ (void) removeWatchNext: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion;
-
-+ (void) removeWatched: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion;
++ (void) removeInteraction: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion;
 
 + (void) changeRating: (NSNumber *) stars forInteraction: (NSString *)objectID withCompletion:(PFBooleanResultBlock _Nullable)completion;
 

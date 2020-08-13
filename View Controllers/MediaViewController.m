@@ -114,13 +114,13 @@
 - (void) removeFromWatchNext {
     self.watchNextLabel.text = @"Add to Watch Next";
     
-    NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
+    NSMutableArray *originalWatchNext = [NSMutableArray arrayWithArray:[self.user getWatchNextList]];
     [originalWatchNext removeObject:self.mediaAPIID];
     [self.user removeObjectForKey:@"watchNext"];
     [self.user addUniqueObjectsFromArray:originalWatchNext forKey:@"watchNext"];
     [self.user saveInBackground];
     //remove from interaction table
-    [Interaction removeWatchNext:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Interaction removeInteraction:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
     
 }
@@ -147,7 +147,7 @@
         self.watchAgainButton.enabled = NO;
         [self.watchNextButton setSelected:YES];
         //remove from watched array
-        NSMutableArray *originalWatched = (NSMutableArray *)[self.user getWatchedList];
+        NSMutableArray *originalWatched = [NSMutableArray arrayWithArray:[self.user getWatchedList]];
         [originalWatched removeObject:self.mediaAPIID];
         [self.user removeObjectForKey:@"watched"];
         [self.user addUniqueObjectsFromArray:originalWatched forKey:@"watched"];
@@ -191,14 +191,15 @@
 
 - (void) removeFromWatched {
     
-    NSMutableArray *originalWatched = (NSMutableArray *)[self.user getWatchedList];
+    NSMutableArray *originalWatched = [NSMutableArray arrayWithArray:[self.user getWatchedList]];
+    //(NSMutableArray *)[self.user getWatchedList];
     [originalWatched removeObject:self.mediaAPIID];
     [self.user removeObjectForKey:@"watched"];
     [self.user saveInBackground];
     [self.user addUniqueObjectsFromArray:originalWatched forKey:@"watched"];
     [self.user saveInBackground];
     //remove from user array
-    [Interaction removeWatched:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Interaction removeInteraction:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
 }
 
@@ -221,7 +222,7 @@
         self.watchAgainButton.enabled = YES;
         [self.watchNextButton setSelected:NO];
         //remove from watchNext array
-        NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
+        NSMutableArray *originalWatchNext = [NSMutableArray arrayWithArray:[self.user getWatchNextList]];
         [originalWatchNext removeObject:self.mediaAPIID];
         [self.user removeObjectForKey:@"watchNext"];
         [self.user saveInBackground];
@@ -329,7 +330,6 @@
     formatter.dateFormat =  @"yyyy-MM-dd";
     //Configure the input format to parse the date string
     NSDate *date = [formatter dateFromString:dateString];
-    NSLog(@"%@", date);
     //Configure output format
     formatter.dateStyle = NSDateFormatterShortStyle;
     formatter.timeStyle = NSDateFormatterNoStyle;
@@ -358,7 +358,7 @@
 
 
 - (void) fetchRelated {
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=2c075d6299d70eaf6f4a13fc180cb803&language=en-US", self.mediaAPIID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=INSERTAPIKEY&language=en-US", self.mediaAPIID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];

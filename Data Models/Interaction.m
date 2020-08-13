@@ -50,15 +50,13 @@
 
 #pragma mark - Interaction Deletion
 
-//TODO: combine the following two into one method for effieciency purposes. The interactionType specification is unnecessary
-+ (void) removeWatchNext: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion {
++ (void) removeInteraction:(NSString *)title withCompletion:(PFBooleanResultBlock)completion {
     
     __block Interaction *interactionToDelete;
     
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
     [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
     [query whereKey:@"apiID" equalTo:title];
-    [query whereKey:@"interactionType" equalTo:@(1)];
     [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
         if(interactions) {
             
@@ -71,26 +69,6 @@
         }
     }];
 }
-
-+ (void) removeWatched: (NSString *)title withCompletion: (PFBooleanResultBlock _Nullable)completion {
-    
-    __block Interaction *interactionToDelete;
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
-    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
-    [query whereKey:@"apiID" equalTo:title];
-    [query whereKey:@"interactionType" equalTo:@(0)];
-    [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
-        interactionToDelete = interactions[0];
-        [interactionToDelete deleteInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-            if(error) {
-                //TODO: add error alert.
-            }
-        }];
-        [interactionToDelete saveInBackground];
-    }];
-}
-
 
 #pragma mark - Interaction Changes
 
