@@ -12,11 +12,18 @@
 #import <Parse/Parse.h>
 #import "WatchNextUser.h"
 #import <PFFacebookUtils.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <MaterialButtons.h>
+#import "MaterialButtons+ButtonThemer.h"
+#import "MDCButton+MaterialTheming.h"
 
 @interface SettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet PFImageView *profilePictureView;
+@property (weak, nonatomic) IBOutlet UILabel *watchedNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *watchNextNumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet MDCButton *logOutButton;
 
 @end
 
@@ -24,10 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    WatchNextUser *user = [WatchNextUser currentUser];
-    self.profilePictureView.file = user.profilePicture;
-    [self.profilePictureView loadInBackground];
-    
+    [self setUpVisuals];
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -46,18 +50,19 @@
 #pragma mark - Profile Picture
 
 - (IBAction)changePPTap:(id)sender {
-    
+    [self.activityIndicator startAnimating];
     UIImagePickerController *imagePickerVC = [UIImagePickerController new];
     imagePickerVC.delegate = self;
     imagePickerVC.allowsEditing = YES;
     
     if([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypeCamera)]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
+    } else {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     [self presentViewController:imagePickerVC animated:YES completion:nil];
+    [self.activityIndicator stopAnimating];
+
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo: (NSDictionary<NSString *, id>*)info {
@@ -65,6 +70,7 @@
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     editedImage = [self resizeImage:editedImage withSize:CGSizeMake(200.0 , 200.0)];
     self.profilePictureView.image = editedImage;
+    [self.activityIndicator stopAnimating];
     [self dismissViewControllerAnimated:YES completion:nil];
     [WatchNextUser changeProfilePicture:editedImage withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
@@ -81,6 +87,23 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
+
+#pragma mark - Visual Polish
+
+- (void) setUpVisuals {
+    
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme.primaryColor = UIColor.lightGrayColor;
+    
+    [self.logOutButton applyContainedThemeWithScheme: containerScheme];
+    [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
+    self.logOutButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.logOutButton.bounds) - 48) / 2);
+    self.logOutButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+
+}
+
 
 
 @end

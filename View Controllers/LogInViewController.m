@@ -17,7 +17,7 @@
 #import "MDCButton+MaterialTheming.h"
 
 
-@interface LogInViewController ()
+@interface LogInViewController () 
 
 @property (weak, nonatomic) IBOutlet MDCTextField *usernameField;
 @property (weak, nonatomic) IBOutlet MDCTextField *passwordField;
@@ -27,6 +27,7 @@
 @property(nonatomic) MDCTextInputControllerOutlined *usernameController;
 @property(nonatomic) MDCTextInputControllerOutlined *passwordController;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -35,7 +36,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     [self setUpVisuals];
 }
 
@@ -69,6 +69,7 @@
 @discussion logInTap insures the username and password fields are not empty before checking if the credintials match that of a valid user. If either field is empty an error alert is presented. If Parse finds a user with matching credentials it continues to log the user in and segues to the home page. If the credentials are invalid an error alert is presented.
 */
 - (IBAction)logInTap:(id)sender {
+    [self.activityIndicator startAnimating];
 
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
@@ -79,11 +80,13 @@
     [alert addAction:tryAgainAction];
 
     if([self.usernameField.text isEqual:@""]) {
+        [self.activityIndicator stopAnimating];
         alert.message = @"User Name cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
         
     } else if ([self.passwordField.text isEqual:@""]) {
+        [self.activityIndicator stopAnimating];
         alert.message = @"Password cannot be empty";
         [self presentViewController:alert animated:YES completion:^{
         }];
@@ -91,11 +94,14 @@
     } else {
        [WatchNextUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
             if (error != nil) {
+                [self.activityIndicator stopAnimating];
                 alert.message = error.localizedDescription;
                 [self presentViewController:alert animated:YES completion:^{
                 }];
             } else {
                 [self performSegueWithIdentifier:@"loginSegue" sender:nil];
+                [self.activityIndicator stopAnimating];
+
             }
         }];
     }
@@ -104,7 +110,6 @@
 #pragma mark - Animations
 /** Drops the keyboard if anywhere else on the screen is tapped.*/
 - (IBAction)screenTap:(id)sender {
-    
     [self.view endEditing:YES];
 }
 
@@ -140,8 +145,8 @@
     self.loginButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
     
     MDCContainerScheme *FBcontainerScheme = [[MDCContainerScheme alloc] init];
-    FBcontainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.20 green: 0.60 blue: 0.86 alpha: 1.00];
-    
+    FBcontainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.23 green: 0.35 blue: 0.60 alpha: 1.00];
+
     [self.FBButton applyContainedThemeWithScheme: FBcontainerScheme];
     [self.FBButton setTitle:@"Continue with Facebook" forState:UIControlStateNormal];
     self.FBButton.minimumSize = CGSizeMake(64, 36);

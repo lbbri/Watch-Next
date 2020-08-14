@@ -12,16 +12,24 @@
 #import "MediaCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import "UIImageView+AFNetworking.h"
+#import "NSDate+DateTools.h"
+#import <MaterialButtons.h>
+#import "MaterialButtons+ButtonThemer.h"
+#import "MDCButton+MaterialTheming.h"
 
 @interface MediaViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *posterView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *genreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *synopsisLabel;
-@property (weak, nonatomic) IBOutlet UIButton *watchNextButton;
-@property (weak, nonatomic) IBOutlet UIButton *watchedButton;
+@property (weak, nonatomic) IBOutlet MDCButton *watchNextButton;
+@property (strong, nonatomic) IBOutlet MDCContainerScheme *containerScheme;
+@property (weak, nonatomic) IBOutlet MDCButton *watchedButton;
+@property (strong, nonatomic) IBOutlet MDCContainerScheme *watchedContainerScheme;
 @property (weak, nonatomic) IBOutlet UIButton *watchAgainButton;
-@property (weak, nonatomic) IBOutlet UISlider *ratingSlider;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *ratingButtons;
 @property (weak, nonatomic) IBOutlet UILabel *moreLikeLabel;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic) WatchNextUser *user;
@@ -35,20 +43,41 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self setUpVisuals];
     self.user = [WatchNextUser currentUser];
     [self setPosterImage];
     self.synopsisLabel.text = self.mediaDictionary[@"overview"];
     
     if(self.mediaDictionary[@"title"]) {
         self.titleLabel.text = self.mediaDictionary[@"title"];
+        self.genreLabel.text = @"Movie";
+        self.dateLabel.text = [self yearFromDate:self.mediaDictionary[@"release_date"]];
         self.mediaAPIID = [NSString stringWithFormat:@"movie/%@", self.mediaDictionary[@"id"]];
+        
     } else {
         self.titleLabel.text = self.mediaDictionary[@"name"];
+        self.genreLabel.text = @"Series";
+        self.dateLabel.text = [self yearFromDate:self.mediaDictionary[@"first_air_date"]];
         self.mediaAPIID = [NSString stringWithFormat:@"tv/%@", self.mediaDictionary[@"id"]];
     }
-    [self.watchNextButton setSelected:[self checkIfWatchNext]];
-    [self.watchedButton setSelected:[self checkIfWatched]];
-    [self.ratingSlider setHidden:![self checkIfWatched]];
+    if([self checkIfWatchNext]) {
+        self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.75 green: 0.22 blue: 0.17 alpha: 1.00];
+        [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
+        
+        [self.watchNextButton setTitle:@"Remove From Watch Next" forState:UIControlStateNormal];
+        [self.watchedButton setTitle:@"Change to Watched" forState:UIControlStateNormal];
+        self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+        [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
+    }
+    if([self checkIfWatched]) {
+        [self ratingStars];
+        [self.watchedButton setTitle:@"Remove from Watched" forState:UIControlStateNormal];
+        self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.75 green: 0.22 blue: 0.17 alpha: 1.00];
+        [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
+        [self.watchNextButton setTitle:@"Change to Watch Next" forState:UIControlStateNormal];
+    }
+    
+    //TODO: to do change rating buttons visibility setHiddent: ![self checkIFWatched]
     self.watchAgainButton.enabled = [self checkIfWatched];
     self.moreLikeLabel.text = [NSString stringWithFormat:@"More Like %@", self.titleLabel.text];
     [self fetchRelated];
@@ -56,15 +85,46 @@
     self.collectionView.delegate = self;
 }
 
+- (void) ratingStars {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
+    [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
+    [query whereKey:@"apiID" equalTo:self.mediaAPIID];
+    [query includeKey:@"stars"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray <Interaction *>* _Nullable interactions, NSError * _Nullable error) {
+        NSNumber *currentStars = interactions[0].stars;
+        [self addStarRating:currentStars];
+    }];
+}
+
+- (void) addStarRating: (NSNumber *) stars {
+    
+    for(UIButton* btn in self.ratingButtons)
+    {
+        [btn setSelected:NO];
+        NSNumber *currentTag = @(btn.tag);
+        if([currentTag doubleValue] <= [stars doubleValue]) {
+            [btn setSelected:YES];
+        }
+        
+    }
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void) removeFromWatchNext {
     
-    NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
+    [self.watchNextButton setTitle:@"Add to Watch Next" forState:UIControlStateNormal];
+    
+    NSMutableArray *originalWatchNext = [NSMutableArray arrayWithArray:[self.user getWatchNextList]];
     [originalWatchNext removeObject:self.mediaAPIID];
     [self.user removeObjectForKey:@"watchNext"];
     [self.user addUniqueObjectsFromArray:originalWatchNext forKey:@"watchNext"];
     [self.user saveInBackground];
     //remove from interaction table
-    [Interaction removeWatchNext:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Interaction removeInteraction:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
     
 }
@@ -84,14 +144,16 @@
         [interactionToChange setStars:@(0)];
         [interactionToChange setWouldWatchAgain:haveNotWatched];
         [interactionToChange saveInBackground];
-        
         //update ui
-        [self.watchedButton setSelected:NO];
-        [self.ratingSlider setHidden:YES];
+        //TODO: to do change rating buttons visibility setHidden: YES
         self.watchAgainButton.enabled = NO;
-        [self.watchNextButton setSelected:YES];
+        self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.75 green: 0.22 blue: 0.17 alpha: 1.00];
+        [self.watchNextButton setTitle:@"Remove from Watch Next" forState:UIControlStateNormal];
+        [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
+        
+        
         //remove from watched array
-        NSMutableArray *originalWatched = (NSMutableArray *)[self.user getWatchedList];
+        NSMutableArray *originalWatched = [NSMutableArray arrayWithArray:[self.user getWatchedList]];
         [originalWatched removeObject:self.mediaAPIID];
         [self.user removeObjectForKey:@"watched"];
         [self.user addUniqueObjectsFromArray:originalWatched forKey:@"watched"];
@@ -109,7 +171,9 @@
         if(succeeded) {
             [self.user addUniqueObject:self.mediaAPIID forKey:@"watchNext"];
             [self.user saveInBackground];
-            [self.watchNextButton setSelected:YES];
+            self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.75 green: 0.22 blue: 0.17 alpha: 1.00];
+            [self.watchNextButton setTitle:@"Remove from Watch Next" forState:UIControlStateNormal];
+            [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
         }
     }];
 }
@@ -119,10 +183,19 @@
     
     if([self checkIfWatchNext]) {
         [self removeFromWatchNext];
-        [self.watchNextButton setSelected:NO];
+        self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+        [self.watchNextButton setTitle:@"Add to Watch Next" forState:UIControlStateNormal];
+        [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
+        
     } else {
+        [self.watchNextButton setTitle:@"Remove From Watch Next" forState:UIControlStateNormal];
+        [self.watchedButton setTitle:@"Change to Watched" forState:UIControlStateNormal];
+        self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+        [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
+        
         if([self checkIfWatched]) {
             [self changeToWatchNext];
+            [self addStarRating:@(0)];
         } else {
             [self addToWatchNext];
         }
@@ -131,14 +204,14 @@
 
 - (void) removeFromWatched {
     
-    NSMutableArray *originalWatched = (NSMutableArray *)[self.user getWatchedList];
+    NSMutableArray *originalWatched = [NSMutableArray arrayWithArray:[self.user getWatchedList]];
     [originalWatched removeObject:self.mediaAPIID];
     [self.user removeObjectForKey:@"watched"];
     [self.user saveInBackground];
     [self.user addUniqueObjectsFromArray:originalWatched forKey:@"watched"];
     [self.user saveInBackground];
     //remove from user array
-    [Interaction removeWatched:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [Interaction removeInteraction:self.mediaAPIID withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
 }
 
@@ -156,13 +229,13 @@
         [interactionToChange setInteractionType:watched];
         [interactionToChange saveInBackground];
         //update ui
-        [self.watchedButton setSelected:YES];
-        [self.ratingSlider setHidden:NO];
-       // [self.watchAgainButton setHidden:NO];
+        //TODO: to do change rating buttons visibility setHidden:NO
         self.watchAgainButton.enabled = YES;
-        [self.watchNextButton setSelected:NO];
+        self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+        [self.watchNextButton setTitle:@"Change to Watch Next" forState:UIControlStateNormal];
+        [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
         //remove from watchNext array
-        NSMutableArray *originalWatchNext = (NSMutableArray *)[self.user getWatchNextList];
+        NSMutableArray *originalWatchNext = [NSMutableArray arrayWithArray:[self.user getWatchNextList]];
         [originalWatchNext removeObject:self.mediaAPIID];
         [self.user removeObjectForKey:@"watchNext"];
         [self.user saveInBackground];
@@ -180,9 +253,7 @@
         if(succeeded) {
             [self.user addUniqueObject:self.mediaAPIID forKey:@"watched"];
             [self.user saveInBackground];
-            [self.watchedButton setSelected:YES];
-            [self.ratingSlider setHidden:NO];
-            //[self.watchAgainButton setHidden:NO];
+            //TODO: to do change rating buttons visibility setHidden: NO
             self.watchAgainButton.enabled = YES;
         }
     }];
@@ -191,12 +262,18 @@
 - (IBAction)watchedTap:(id)sender {
     
     if([self checkIfWatched]) {
-        
+        [self.watchedButton setTitle:@"Add to Watched" forState:UIControlStateNormal];
+        self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+        [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
         [self removeFromWatched];
-        [self.watchedButton setSelected:NO];
-        [self.ratingSlider setHidden:YES];
+        [self addStarRating:@(0)];
+        //TODO: to do change rating buttons visibility setHidden:YES
         self.watchAgainButton.enabled = NO;
     } else {
+        [self.watchedButton setTitle:@"Remove from Watched" forState:UIControlStateNormal];
+        self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.75 green: 0.22 blue: 0.17 alpha: 1.00];
+        [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
+        [self.watchNextButton setTitle:@"Change to Watch Next" forState:UIControlStateNormal];
         if([self checkIfWatchNext]) {
             [self changeToWatched];
         } else {
@@ -218,10 +295,9 @@
     }];
 }
 
-//TODO: change from rating slider to buttons
-- (IBAction)changeRatingSlider:(id)sender {
+- (IBAction)changeRatingTap:(UIButton *)sender {
     
-    NSNumber *stars = @(self.ratingSlider.value);
+    NSNumber *stars = @(sender.tag);
     
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
     [query whereKey:@"creator" equalTo:[WatchNextUser currentUser]];
@@ -230,7 +306,16 @@
         [Interaction changeRating:stars forInteraction:object.objectId withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         }];
     }];
+    for(UIButton* btn in self.ratingButtons)
+    {
+        [btn setSelected:NO];
+        NSNumber *currentTag = @(btn.tag);
+        if([currentTag doubleValue] <= [stars doubleValue]) {
+            [btn setSelected:YES];
+        }
+    }
 }
+
 
 - (BOOL) checkIfWatched {
     return [self.user.watched containsObject:self.mediaAPIID];
@@ -254,10 +339,22 @@
 
 #pragma mark - Helper Methods
 
+- (NSString *) yearFromDate:(NSString *)dateString {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat =  @"yyyy-MM-dd";
+    //Configure the input format to parse the date string
+    NSDate *date = [formatter dateFromString:dateString];
+    //Configure output format
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    return [NSString stringWithFormat:@"%ld", date.year];
+}
+
 - (void) setPosterImage {
     //move this method to the cell itself
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    NSString *posterURLString = self.mediaDictionary[@"poster_path"];
+    NSString *posterURLString = self.mediaDictionary[@"backdrop_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingFormat:@"%@", posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     self.posterView.image = nil;
@@ -276,7 +373,7 @@
 
 
 - (void) fetchRelated {
-    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=insertAPIKey&language=en-US", self.mediaAPIID];
+    NSString *urlString = [NSString stringWithFormat:@"https://api.themoviedb.org/3/%@/similar?api_key=INSERTAPIKEY&language=en-US", self.mediaAPIID];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -289,7 +386,11 @@
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             self.relatedMediaArray = dataDictionary[@"results"];
             
-            [self.collectionView reloadData];
+            if(self.relatedMediaArray.count > 0) {
+                [self.collectionView setHidden:NO];
+                [self.moreLikeLabel setHidden:NO];
+                [self.collectionView reloadData];
+            }
         }
     }];
     [task resume];
@@ -309,6 +410,29 @@
     [cell.posterView setImageWithURL:[self posterURLFromDictionary:cellMedia]];
     return cell;
 }
+
+#pragma mark - Visual Polish
+
+- (void) setUpVisuals {
+    
+    self.containerScheme = [[MDCContainerScheme alloc] init];
+    self.containerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+    [self.watchNextButton setTitle:@"Add to Watch Next" forState:UIControlStateNormal];
+    [self.watchNextButton applyContainedThemeWithScheme: self.containerScheme];
+    self.watchNextButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.watchNextButton.bounds) - 48) / 2);
+    self.watchNextButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+    
+    
+    self.watchedContainerScheme = [[MDCContainerScheme alloc] init];
+    self.watchedContainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.09 green: 0.63 blue: 0.52 alpha: 1.00];
+    [self.watchedButton setTitle:@"Add to Watched" forState:UIControlStateNormal];
+    [self.watchedButton applyContainedThemeWithScheme: self.watchedContainerScheme];
+    self.watchedButton.minimumSize = CGSizeMake(64, 36);
+    self.watchedButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+    
+}
+
 
 
 @end

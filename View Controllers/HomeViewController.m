@@ -16,6 +16,9 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *mediaArray;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
+@property (nonatomic) CGFloat postersPerLine;
 
 @end
 
@@ -24,9 +27,12 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
+    [self.activityIndicator startAnimating];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    [self collectionViewLayout];
+    self.postersPerLine = 2.0f;
+    self.layoutStepper.value = 2.0;
+    [self collectionViewLayout:self.postersPerLine];
     [self fetchHomeMedia];
     
 }
@@ -34,13 +40,13 @@
 
 #pragma mark - Collection View
 
-- (void) collectionViewLayout {
+- (void) collectionViewLayout: (CGFloat)ppl {
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.minimumInteritemSpacing = 1;
     layout.minimumLineSpacing = 1;
     
-    CGFloat postersPerLine = 3;
+    CGFloat postersPerLine = ppl;
     CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
     CGFloat itemHeight = itemWidth * 1.5;
     
@@ -67,7 +73,7 @@
 
 - (void) fetchHomeMedia {
     
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=insertAPIKey"];
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=InsertAPIKey"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -80,6 +86,8 @@
            }
     }];
     [task resume];
+    [self.activityIndicator startAnimating];
+
 }
 
 - (NSURL *) posterURLFromDictionary: (NSDictionary *)dictionary {
@@ -95,11 +103,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UICollectionViewCell *tappedCell = sender;
-    NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
-    NSDictionary *media = self.mediaArray[indexPath.row];
-    MediaViewController *mediaViewController = [segue destinationViewController];
-    mediaViewController.mediaDictionary = media;
+    if([sender isKindOfClass: [MediaCollectionViewCell class]]) {
+        UICollectionViewCell *tappedCell = sender;
+        NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
+        NSDictionary *media = self.mediaArray[indexPath.row];
+        MediaViewController *mediaViewController = [segue destinationViewController];
+        mediaViewController.mediaDictionary = media;
+    }
 }
+
+#pragma mark - Visuals
+
+- (IBAction)posterNumChanged:(id)sender {
+    
+    self.postersPerLine = (CGFloat)self.layoutStepper.value;
+    [self collectionViewLayout:self.postersPerLine];
+}
+
 
 @end
