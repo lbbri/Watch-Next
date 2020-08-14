@@ -128,7 +128,6 @@
                 if(tempResults[i]) {
                     [self.suggestionsPool addObject:tempResults[i]];
                 }
-                
             }
         }
     }];
