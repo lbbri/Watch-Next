@@ -29,11 +29,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.searchBar.delegate = self;
     [self.searchBar becomeFirstResponder];
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark - Search Bar Controls
@@ -98,7 +101,16 @@
             }
             cell.synopsisLabel.text = cell.mediaDictionary[@"overview"];
             cell.posterView.image = nil;
-            [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+            if([cell.mediaDictionary[@"poster_path"] isEqual:[NSNull null]]) {
+                [cell.posterView setContentMode: UIViewContentModeCenter];
+                [cell.posterView setImage:[UIImage imageNamed:@"poster_placeholder"]];
+                [self.activityIndicator stopAnimating];
+                [cell.posterView setContentMode: UIViewContentModeScaleAspectFill];
+                
+            } else {
+                [cell.posterView setImageWithURL:[self posterURLFromDictionary:cell.mediaDictionary]];
+                
+            }
         }
     }];
     
@@ -109,11 +121,11 @@
 #pragma mark -- API Conversion
 
 /**
-@brief Takes a UTelly dictionary, finds 'The Movie Database' ID for the title, and returns  'The Movie Database' dictionary for that same title.
+ @brief Takes a UTelly dictionary, finds 'The Movie Database' ID for the title, and returns  'The Movie Database' dictionary for that same title.
  @discussion tmdbURLWithDictionary uses a UTelly dictionary to find the 'The Movie Database' ID by digging through multiple dictionary levels. Once the ID is acquired it is concatenated with other strings to produce a link that could make a 'The Movie Database' API call. Once that string is created it is converted into a URL.
-@property dictionary The UTelly Dictionary that was returned after a search was completed
-@return NSURL a URL that can be used to make a 'The Movie Database' API call.
-*/
+ @property dictionary The UTelly Dictionary that was returned after a search was completed
+ @return NSURL a URL that can be used to make a 'The Movie Database' API call.
+ */
 - (NSURL *)tmdbURLWithDictionary: (NSDictionary *) dictionary {
     
     NSDictionary *mediaExID = dictionary[@"external_ids"];
@@ -126,10 +138,10 @@
 }
 
 /**
-@brief Fills a cell's 'mediaDictionary' with a dictionary from 'The Movie Database' containing information regarding a specific title.
-@property url The url that is necessary to fufill a request and make the call to 'The Movie Database' API
-@property cell The cell who's mediaDictionary is being initialized.
-*/
+ @brief Fills a cell's 'mediaDictionary' with a dictionary from 'The Movie Database' containing information regarding a specific title.
+ @property url The url that is necessary to fufill a request and make the call to 'The Movie Database' API
+ @property cell The cell who's mediaDictionary is being initialized.
+ */
 - (void) tmdbDictionaryFromURL: (NSURL *) url forCell: (SearchResultsTableViewCell *) cell completion:(void (^)(BOOL completion))completionBlock{
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
@@ -187,11 +199,9 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     SearchResultsTableViewCell *tappedCell = sender;
     MediaViewController *mediaViewController = [segue destinationViewController];
     mediaViewController.mediaDictionary = tappedCell.mediaDictionary;
-    
 }
 
 

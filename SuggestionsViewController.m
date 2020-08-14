@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *topKeywords;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
 @property (nonatomic) CGFloat postersPerLine;
 
@@ -33,23 +34,41 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[self.activityIndicator startAnimating];
     self.loopCount = 0;
     self.suggestionsPool = [[NSMutableArray alloc] init];
     self.topKeywords = [[NSMutableArray alloc] init];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.postersPerLine = 2.0f;
+    self.layoutStepper.value = 2.0;
     [self watchedListforUser:[WatchNextUser currentUser]];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.collectionView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refreshSuggestions) forControlEvents:UIControlEventValueChanged];
+
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.activityIndicator startAnimating];
+    
+    self.loopCount = 0;
+    [self.suggestionsPool removeAllObjects];
+    [self.topKeywords removeAllObjects];
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    [self watchedListforUser:[WatchNextUser currentUser]];
+    
+
+}
+
+-(void)refreshSuggestions {
+    [self watchedListforUser:[WatchNextUser currentUser]];
 }
 
 
 - (void) watchedListforUser: (WatchNextUser *)user {
-    
     
     PFQuery *query = [PFQuery queryWithClassName:@"Interaction"];
     [query whereKey:@"creator" equalTo:user];
@@ -60,7 +79,6 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         self.orderedWatched = objects;
         [self recommendedTitles];
-        
     }];
     
 }
@@ -71,7 +89,7 @@
     int lCount = 0;
     if(self.orderedWatched.count == 0)
     {
-        [self collectionViewLayout];
+        [self collectionViewLayout:self.postersPerLine];
         [self fetchHomeMedia];
     }
     else if(self.orderedWatched.count < 5)
@@ -84,8 +102,6 @@
     }
     
     int i = 0;
-
-    //TODO: change numbers based on how many interactions the user has
     for (i = 0; i < lCount; i++){
         Interaction *currentInteraction = self.orderedWatched[i];
         [self recommendedAPICallForID:currentInteraction[@"apiID"]];
@@ -104,14 +120,12 @@
         if (error != nil) {
             //TODO: add error alert
         } else {
-            
             //all the recommended for a watched movie
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *tempResults = dataDictionary[@"results"];
             int i = 0;
-            for(i = 0; i <3; i++) {
-                if(tempResults[i])
-                {
+            for(i = 0; i < tempResults.count; i++){
+                if(tempResults[i]) {
                     [self.suggestionsPool addObject:tempResults[i]];
                 }
                 
@@ -137,11 +151,12 @@
             //all the recommended for a watched movie
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *tempResults = dataDictionary[@"results"];
-            int i = 0;
-            for(i = 0; i <3; i++) {
-                if(tempResults[i])
-                {
-                    [self.suggestionsPool addObject:tempResults[i]];
+            if(tempResults.count > 0) {
+                int i = 0;
+                for(i = 0; i <3; i++) {
+                    if(tempResults[i]) {
+                        [self.suggestionsPool addObject:tempResults[i]];
+                    }
                 }
             }
         }
@@ -165,11 +180,13 @@
             NSArray *tempResults = dataDictionary[@"results"];
             [self.topKeywords addObjectsFromArray:tempResults];
             
+            if(tempResults.count == 0) {
+                [self viewSuggestions];
+            }
+            
             int i = 0;
-            for(i = 0; i < tempResults.count; i++)
-            {
+            for(i = 0; i < tempResults.count; i++) {
                 NSDictionary *currentKeywordDictionary = tempResults[i];
-                
                 [self titlesFromKeyword:currentKeywordDictionary[@"id"]];
             }
         }
@@ -194,14 +211,12 @@
             
             if(tempResults.count > 0){
                 int i = 0;
-                for(i = 0; i <3; i++) {
+                for(i = 0; i < tempResults.count; i++) {
                     [self.suggestionsPool addObject:tempResults[i]];
                 }
-                
             }
             self.loopCount ++;
-            if(self.loopCount == 5)
-            {
+            if(self.loopCount == 5) {
                 [self.activityIndicator stopAnimating];
                 [self viewSuggestions];
             }
@@ -214,20 +229,9 @@
 }
 
 - (void) viewSuggestions {
-    [self collectionViewLayout];
+    [self collectionViewLayout: self.postersPerLine];
     [self.collectionView reloadData];
-}
-
-- (void) collectionViewLayout {
-    
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 1;
-    layout.minimumLineSpacing = 1;
-    
-    CGFloat postersPerLine = 3;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
-    CGFloat itemHeight = itemWidth * 1.5;
-    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    [self.refreshControl endRefreshing];
 }
 
 - (void) collectionViewLayout: (CGFloat)ppl {
@@ -267,7 +271,6 @@
 
 
 - (IBAction)posterNumChanged:(id)sender {
-    
     self.postersPerLine = (CGFloat)self.layoutStepper.value;
     [self collectionViewLayout:self.postersPerLine];
 
@@ -278,23 +281,20 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([sender isKindOfClass: [MediaCollectionViewCell class]])
-    {
+    
+    if([sender isKindOfClass: [MediaCollectionViewCell class]]) {
         UICollectionViewCell *tappedCell = sender;
         NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
         NSDictionary *media = self.suggestionsPool[indexPath.row];
         MediaViewController *mediaViewController = [segue destinationViewController];
         mediaViewController.mediaDictionary = media;
-
     }
-    
-    
 }
 
 
 - (void) fetchHomeMedia {
     
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/day?api_key=INSERTAPIKEY"];
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/trending/all/week?api_key=INSERTAPIKEY"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

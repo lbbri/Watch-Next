@@ -38,7 +38,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     [self setUpVisuals];
 }
 /**
@@ -97,7 +96,6 @@
     self.passwordField.placeholder = @"Password";
     self.retypeField.placeholder = @"Retype Password";
     
-    
     self.nameController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.nameField];
     self.usernameController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.usernameField];
     self.passwordController = [[MDCTextInputControllerOutlined alloc] initWithTextInput:self.passwordField];
@@ -115,13 +113,12 @@
     CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.signUpButton.bounds) - 48) / 2);
     self.signUpButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
     
-
 }
 - (IBAction)verifyPassword:(UITextField *)sender {
 
     if(![sender.text isEqualToString:self.passwordField.text]) {
         [self.retypeController setErrorText:@"Passwords Must Match" errorAccessibilityValue:nil];
-    } else{
+    } else {
         [self.retypeController setErrorText:nil errorAccessibilityValue:nil];
     }
 }

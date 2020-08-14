@@ -12,7 +12,9 @@
 #import <Parse/Parse.h>
 #import "WatchNextUser.h"
 #import <PFFacebookUtils.h>
-//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <MaterialButtons.h>
+#import "MaterialButtons+ButtonThemer.h"
+#import "MDCButton+MaterialTheming.h"
 
 @interface SettingsViewController ()
 
@@ -21,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *watchNextNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet MDCButton *logOutButton;
 
 @end
 
@@ -28,13 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    WatchNextUser *user = [WatchNextUser currentUser];
-    self.usernameLabel.text = [NSString stringWithFormat:@"Hey %@!", user.username];
-    self.profilePictureView.file = user.profilePicture;
-    self.watchedNumLabel.text = [NSString stringWithFormat:@"%lu", user.watched.count];
-    self.watchNextNumLabel.text = [NSString stringWithFormat:@"%lu", user.watchNext.count];
-    [self.profilePictureView loadInBackground];
-    
+    [self setUpVisuals];
 }
 
 - (IBAction)didTapLogout:(id)sender {
@@ -60,11 +57,12 @@
     
     if([UIImagePickerController isSourceTypeAvailable:(UIImagePickerControllerSourceTypeCamera)]) {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-    }
-    else {
+    } else {
         imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     [self presentViewController:imagePickerVC animated:YES completion:nil];
+    [self.activityIndicator stopAnimating];
+
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo: (NSDictionary<NSString *, id>*)info {
@@ -89,6 +87,23 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
+
+#pragma mark - Visual Polish
+
+- (void) setUpVisuals {
+    
+    MDCContainerScheme *containerScheme = [[MDCContainerScheme alloc] init];
+    containerScheme.colorScheme.primaryColor = UIColor.lightGrayColor;
+    
+    [self.logOutButton applyContainedThemeWithScheme: containerScheme];
+    [self.logOutButton setTitle:@"Log Out" forState:UIControlStateNormal];
+    self.logOutButton.minimumSize = CGSizeMake(64, 36);
+    CGFloat verticalInset = MIN(0, (CGRectGetHeight(self.logOutButton.bounds) - 48) / 2);
+    self.logOutButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
+
+}
+
 
 
 @end

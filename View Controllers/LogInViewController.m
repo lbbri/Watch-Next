@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     [self setUpVisuals];
 }
 
@@ -111,7 +110,6 @@
 #pragma mark - Animations
 /** Drops the keyboard if anywhere else on the screen is tapped.*/
 - (IBAction)screenTap:(id)sender {
-    
     [self.view endEditing:YES];
 }
 
@@ -147,8 +145,8 @@
     self.loginButton.hitAreaInsets = UIEdgeInsetsMake(verticalInset, 0, verticalInset, 0);
     
     MDCContainerScheme *FBcontainerScheme = [[MDCContainerScheme alloc] init];
-    FBcontainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.20 green: 0.60 blue: 0.86 alpha: 1.00];
-    
+    FBcontainerScheme.colorScheme.primaryColor = [UIColor colorWithRed: 0.23 green: 0.35 blue: 0.60 alpha: 1.00];
+
     [self.FBButton applyContainedThemeWithScheme: FBcontainerScheme];
     [self.FBButton setTitle:@"Continue with Facebook" forState:UIControlStateNormal];
     self.FBButton.minimumSize = CGSizeMake(64, 36);

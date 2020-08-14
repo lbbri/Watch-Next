@@ -15,7 +15,6 @@
 @dynamic profilePicture;
 @dynamic watched;
 @dynamic watchNext;
-//@dynamic suggested;
 @dynamic keepSignedIn;
 
 
@@ -31,14 +30,12 @@
 }
 
 + (void) changeProfilePicture: ( UIImage * _Nullable)image withCompletion: (PFBooleanResultBlock _Nullable)completion {
-    
     WatchNextUser *user = [WatchNextUser currentUser];
     user.profilePicture = [self getPFFileFromImage:image];
     [user saveInBackgroundWithBlock:completion];
 }
 
 + (PFFileObject *)getPFFileFromImage: (UIImage * _Nullable)image {
-    
     if(!image) {
         return nil;
     }

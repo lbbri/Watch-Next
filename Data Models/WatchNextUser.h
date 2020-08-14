@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFFileObject *profilePicture;
 @property (nonatomic, strong) NSArray *watched;
 @property (nonatomic, strong) NSArray *watchNext;
-//@property (nonatomic, strong) NSMutableArray *suggested;
 @property (nonatomic) BOOL *keepSignedIn;
 
 + (void) changeProfilePicture: ( UIImage * _Nullable)image withCompletion: (PFBooleanResultBlock _Nullable)completion;

@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIStepper *layoutStepper;
 @property (nonatomic) CGFloat postersPerLine;
 
-
-
 @end
 
 @implementation HomeViewController
@@ -33,6 +31,7 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.postersPerLine = 2.0f;
+    self.layoutStepper.value = 2.0;
     [self collectionViewLayout:self.postersPerLine];
     [self fetchHomeMedia];
     
@@ -40,19 +39,6 @@
 
 
 #pragma mark - Collection View
-
-- (void) collectionViewLayout {
-    
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.minimumInteritemSpacing = 1;
-    layout.minimumLineSpacing = 1;
-    
-    CGFloat postersPerLine = 2;
-    CGFloat itemWidth = (self.collectionView.frame.size.width - layout.minimumInteritemSpacing * (postersPerLine-1)) / postersPerLine;
-    CGFloat itemHeight = itemWidth * 1.5;
-    
-    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
-}
 
 - (void) collectionViewLayout: (CGFloat)ppl {
     
@@ -116,17 +102,14 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([sender isKindOfClass: [MediaCollectionViewCell class]])
-    {
+    
+    if([sender isKindOfClass: [MediaCollectionViewCell class]]) {
         UICollectionViewCell *tappedCell = sender;
         NSIndexPath *indexPath= [self.collectionView indexPathForCell:tappedCell];
         NSDictionary *media = self.mediaArray[indexPath.row];
         MediaViewController *mediaViewController = [segue destinationViewController];
         mediaViewController.mediaDictionary = media;
-        
     }
-    
-    
 }
 
 #pragma mark - Visuals
@@ -135,7 +118,6 @@
     
     self.postersPerLine = (CGFloat)self.layoutStepper.value;
     [self collectionViewLayout:self.postersPerLine];
-    
 }
 
 
